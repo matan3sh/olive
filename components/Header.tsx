@@ -2,6 +2,22 @@
 
 import { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
+import {
+  StyledHeader,
+  DesktopWrapper,
+  MobileWrapper,
+  Row1,
+  NavRow,
+  HeaderDivider,
+  NavLink,
+  ActionBtn,
+  ActionLabel,
+  SearchOverlay,
+  SearchInput,
+  MobileBar,
+  MobileNav,
+  MobileNavLink,
+} from './Header.styles'
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
@@ -75,25 +91,6 @@ function CloseIcon() {
   )
 }
 
-const actionLabelStyle: React.CSSProperties = {
-  fontSize: '14px',
-  fontWeight: 300,
-  letterSpacing: '0.5px',
-  color: '#050c03',
-  fontFamily: 'var(--font-inter)',
-}
-
-const actionBtnStyle: React.CSSProperties = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '5px',
-  background: 'none',
-  border: 'none',
-  cursor: 'pointer',
-  color: '#050c03',
-  padding: 0,
-}
-
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
@@ -116,69 +113,39 @@ export default function Header() {
   }, [])
 
   return (
-    <header style={{ position: 'sticky', top: 0, left: 0, right: 0, zIndex: 50, backgroundColor: '#ffffff', width: '100%' }}>
+    <StyledHeader>
 
       {/* ── SEARCH OVERLAY (full nav width) ─────────────────────── */}
       {searchOpen && (
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundColor: '#ffffff',
-          zIndex: 60,
-          display: 'flex',
-          alignItems: 'center',
-          padding: '0 40px',
-          gap: '12px',
-          borderBottom: '1px solid rgba(151,151,151,0.20)',
-        }}>
+        <SearchOverlay>
           <SearchIcon />
-          <input
+          <SearchInput
             ref={searchInputRef}
             type="search"
             placeholder="Search products..."
-            style={{
-              flex: 1,
-              border: 'none',
-              outline: 'none',
-              fontFamily: 'var(--font-inter)',
-              fontSize: '16px',
-              fontWeight: 300,
-              color: '#050c03',
-              backgroundColor: 'transparent',
-              letterSpacing: '0.3px',
-            }}
           />
-          <button
+          <ActionBtn
             onClick={() => setSearchOpen(false)}
             aria-label="Close search"
-            style={{ ...actionBtnStyle, color: '#050c03' }}
           >
             <CloseSmIcon />
-          </button>
-        </div>
+          </ActionBtn>
+        </SearchOverlay>
       )}
 
       {/* ── DESKTOP ─────────────────────────────────────────────── */}
-      <div className="hidden md:block">
+      <DesktopWrapper>
         {/* Row 1 — search left | logo center | cart+account right */}
-        <div style={{
-          position: 'relative',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '72px',
-          padding: '0 40px',
-        }}>
+        <Row1>
           {/* Left: Search button */}
           <div style={{ position: 'absolute', left: '40px' }}>
-            <button
-              style={actionBtnStyle}
+            <ActionBtn
               aria-label="Open search"
               onClick={() => setSearchOpen(true)}
             >
               <SearchIcon />
-              <span style={actionLabelStyle}>Search</span>
-            </button>
+              <ActionLabel>Search</ActionLabel>
+            </ActionBtn>
           </div>
 
           {/* Center: Logo */}
@@ -189,96 +156,66 @@ export default function Header() {
 
           {/* Right: Cart + Account */}
           <div style={{ position: 'absolute', right: '40px', display: 'flex', alignItems: 'center', gap: '24px' }}>
-            <button style={actionBtnStyle} aria-label="Cart">
+            <ActionBtn aria-label="Cart">
               <CartIcon />
-              <span style={actionLabelStyle}>Cart</span>
-            </button>
-            <button style={actionBtnStyle} aria-label="Account">
+              <ActionLabel>Cart</ActionLabel>
+            </ActionBtn>
+            <ActionBtn aria-label="Account">
               <AccountIcon />
-              <span style={actionLabelStyle}>Account</span>
-            </button>
+              <ActionLabel>Account</ActionLabel>
+            </ActionBtn>
           </div>
-        </div>
+        </Row1>
 
         {/* Divider */}
-        <hr style={{ border: 'none', borderTop: '1px solid rgba(151,151,151,0.20)', margin: 0 }} />
+        <HeaderDivider />
 
         {/* Row 2 — nav links centered */}
-        <nav aria-label="Primary navigation" style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '32px',
-          height: '68px',
-          padding: '0 40px',
-        }}>
+        <NavRow aria-label="Primary navigation">
           {NAV_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} style={{
-              fontSize: '15px',
-              fontWeight: 300,
-              lineHeight: '20px',
-              color: '#050c03',
-              fontFamily: 'var(--font-inter)',
-              whiteSpace: 'nowrap',
-              textDecoration: 'none',
-            }}>
+            <NavLink key={link.href} href={link.href}>
               {link.label}
-            </Link>
+            </NavLink>
           ))}
-        </nav>
-      </div>
+        </NavRow>
+      </DesktopWrapper>
 
       {/* ── MOBILE ──────────────────────────────────────────────── */}
-      <div className="md:hidden">
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '0 20px',
-          height: '64px',
-        }}>
+      <MobileWrapper>
+        <MobileBar>
           <Link href="/" style={{ display: 'block', lineHeight: 0 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/figma/logo.png" alt="Cobram Estate" width={110} height={33} style={{ display: 'block' }} />
           </Link>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <button style={actionBtnStyle} aria-label="Search" onClick={() => setSearchOpen(true)}>
+            <ActionBtn aria-label="Search" onClick={() => setSearchOpen(true)}>
               <SearchIcon />
-            </button>
-            <button
+            </ActionBtn>
+            <ActionBtn
               aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
               onClick={() => setMobileOpen((o) => !o)}
-              style={{ ...actionBtnStyle }}
             >
               {mobileOpen ? <CloseIcon /> : <MenuIcon />}
-            </button>
+            </ActionBtn>
           </div>
-        </div>
+        </MobileBar>
 
         {mobileOpen && (
-          <nav aria-label="Mobile navigation" style={{
-            borderTop: '1px solid rgba(151,151,151,0.20)',
-            backgroundColor: '#ffffff',
-            padding: '24px 20px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '20px',
-          }}>
+          <MobileNav aria-label="Mobile navigation">
             {NAV_LINKS.map((link) => (
-              <Link key={link.href} href={link.href}
-                onClick={() => setMobileOpen(false)}
-                style={{ fontSize: '15px', fontWeight: 300, color: '#050c03', fontFamily: 'var(--font-inter)', textDecoration: 'none' }}>
+              <MobileNavLink key={link.href} href={link.href}
+                onClick={() => setMobileOpen(false)}>
                 {link.label}
-              </Link>
+              </MobileNavLink>
             ))}
-            <hr style={{ border: 'none', borderTop: '1px solid rgba(151,151,151,0.20)' }} />
+            <HeaderDivider />
             <div style={{ display: 'flex', gap: '24px' }}>
-              <button style={actionBtnStyle} aria-label="Cart"><CartIcon /><span style={actionLabelStyle}>Cart</span></button>
-              <button style={actionBtnStyle} aria-label="Account"><AccountIcon /><span style={actionLabelStyle}>Account</span></button>
+              <ActionBtn aria-label="Cart"><CartIcon /><ActionLabel>Cart</ActionLabel></ActionBtn>
+              <ActionBtn aria-label="Account"><AccountIcon /><ActionLabel>Account</ActionLabel></ActionBtn>
             </div>
-          </nav>
+          </MobileNav>
         )}
-      </div>
-    </header>
+      </MobileWrapper>
+    </StyledHeader>
   )
 }
