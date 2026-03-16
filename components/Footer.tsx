@@ -1,4 +1,11 @@
-import Link from 'next/link'
+import {
+  StyledFooter,
+  FooterInner,
+  FooterBrand,
+  FooterNavList,
+  FooterNavLink,
+  FooterCopyright,
+} from './Footer.styles'
 
 const FOOTER_LINKS = [
   { label: 'Shop', href: '/shop' },
@@ -10,74 +17,22 @@ const FOOTER_LINKS = [
 
 export default function Footer() {
   return (
-    <footer
-      style={{
-        backgroundColor: '#ffffff',
-        borderTop: '1px solid #D7D7D7',
-        padding: '3rem 2rem',
-      }}
-    >
-      <div
-        style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '2rem',
-          textAlign: 'center',
-        }}
-      >
-        {/* Brand */}
-        <Link
-          href="/"
-          style={{
-            fontFamily: 'var(--font-inter)',
-            fontSize: '1.1rem',
-            fontWeight: 600,
-            letterSpacing: '0.18em',
-            color: '#11260C',
-            textTransform: 'uppercase' as const,
-          }}
-        >
-          The Valley
-        </Link>
-
-        {/* Nav links */}
+    <StyledFooter>
+      <FooterInner>
+        <FooterBrand href="/">The Valley</FooterBrand>
         <nav aria-label="Footer navigation">
-          <ul
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap' as const,
-              justifyContent: 'center',
-              gap: '1.5rem 2rem',
-              listStyle: 'none',
-              padding: 0,
-              margin: 0,
-            }}
-          >
+          <FooterNavList>
             {FOOTER_LINKS.map((link) => (
               <li key={link.href}>
-                <Link href={link.href} className="footer-link">
-                  {link.label}
-                </Link>
+                <FooterNavLink href={link.href}>{link.label}</FooterNavLink>
               </li>
             ))}
-          </ul>
+          </FooterNavList>
         </nav>
-
-        {/* Copyright */}
-        <p
-          style={{
-            fontFamily: 'var(--font-inter)',
-            fontSize: '13px',
-            fontWeight: 300,
-            color: '#6b7280',
-          }}
-        >
+        <FooterCopyright>
           &copy; {new Date().getFullYear()} The Valley Olive Oil. All rights reserved.
-        </p>
-      </div>
-    </footer>
+        </FooterCopyright>
+      </FooterInner>
+    </StyledFooter>
   )
 }
