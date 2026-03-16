@@ -11,6 +11,8 @@ export const theme = {
     navBorder: 'rgba(151,151,151,0.20)',
     sectionBorder: '#d7d7d7',
     muted: '#6b7280',
+    imageBg: '#f8f9f5',
+    borderMuted: 'rgba(17, 38, 12, 0.25)',
   },
   fonts: { inter: 'var(--font-inter), system-ui, sans-serif' },
   breakpoints: { xl: '1280px', lg: '900px', md: '767px', sm: '480px' },

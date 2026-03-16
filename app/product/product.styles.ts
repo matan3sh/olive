@@ -24,8 +24,7 @@ export const BreadcrumbBar = styled.div`
 export const BreadcrumbNav = styled.nav`
   font-size: 13px;
   font-weight: 300;
-  color: ${({ theme }) => theme.colors.textDark};
-  opacity: 0.6;
+  color: rgba(17, 38, 12, 0.6);
   display: flex;
   gap: 8px;
   align-items: center;
@@ -37,7 +36,6 @@ export const BreadcrumbLink = styled(Link)`
 `
 
 export const BreadcrumbCurrent = styled.span`
-  opacity: 1;
   color: ${({ theme }) => theme.colors.textDark};
   font-weight: 400;
 `
@@ -68,7 +66,7 @@ export const ProductSplit = styled.div`
 `
 
 export const ProductImageBox = styled.div`
-  background-color: #f8f9f5;
+  background-color: ${({ theme }) => theme.colors.imageBg};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -132,7 +130,7 @@ export const SizeButton = styled.button<SizeButtonProps>`
   border-width: ${({ $selected }) => ($selected ? '1.5px' : '1px')};
   border-style: solid;
   border-color: ${({ $selected, theme }) =>
-    $selected ? theme.colors.textDark : 'rgba(17,38,12,0.25)'};
+    $selected ? theme.colors.textDark : theme.colors.borderMuted};
   background-color: transparent;
   padding: 8px 20px;
   cursor: pointer;
