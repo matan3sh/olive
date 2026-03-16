@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 import { media } from '@/styles/media'
+import { hoverUnderline } from '@/styles/mixins'
 
 export const StyledHeader = styled.header`
   position: sticky;
@@ -55,8 +56,8 @@ export const NavLink = styled(Link)`
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.textNav};
   white-space: nowrap;
-  text-decoration: none;
   font-family: ${({ theme }) => theme.fonts.inter};
+  ${hoverUnderline}
 `
 
 export const ActionBtn = styled.button`
@@ -122,8 +123,8 @@ export const MobileNavLink = styled(Link)`
   font-size: 15px;
   font-weight: 300;
   color: ${({ theme }) => theme.colors.textNav};
-  text-decoration: none;
   font-family: ${({ theme }) => theme.fonts.inter};
+  ${hoverUnderline}
 `
 
 export const Row1Left = styled.div`

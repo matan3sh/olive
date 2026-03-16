@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 import { media } from '@/styles/media'
+import { hoverUnderline } from '@/styles/mixins'
 
 export const ProductsSectionEl = styled.section`
   background-color: ${({ theme }) => theme.colors.sectionGreen};
@@ -68,6 +69,7 @@ export const SeeAllLink = styled(Link)`
   display: flex;
   align-items: center;
   gap: 8px;
+  ${hoverUnderline}
 `
 
 export const ProductsGrid = styled.div`

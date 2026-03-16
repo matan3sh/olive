@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import Link from 'next/link'
 import { theme as themeTokens } from '@/styles/theme'
 import { media } from '@/styles/media'
+import { darkButtonBase } from '@/styles/mixins'
 
 export const HeroSectionEl = styled.section`
   position: relative;
@@ -137,13 +138,16 @@ export const HeroRight = styled.div`
   padding: 36px 48px;
 
   ${media.belowLg`
-    padding: 36px 32px;
-    justify-content: flex-end;
-    gap: 24px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 28px;
+    gap: 20px;
   `}
 
   ${media.belowSm`
-    padding: 28px 20px;
+    padding: 32px 20px;
+    gap: 16px;
   `}
 `
 
@@ -181,16 +185,18 @@ export const HeroTitle = styled.h1`
   `}
 `
 
+
 export const HeroSubRow = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 16px;
 
-  ${media.belowSm`
+  ${media.belowLg`
     flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
   `}
 `
 
@@ -215,50 +221,12 @@ export const HeroThinText = styled.p`
 `
 
 export const HeroCtaButton = styled(Link)`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  ${darkButtonBase}
   min-width: 160px;
   height: 52px;
-  background-color: ${({ theme }) => theme.colors.btnDark};
-  color: ${({ theme }) => theme.colors.white};
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  border-radius: 0;
-  white-space: nowrap;
-
-  ${media.belowSm`
-    width: 100%;
-  `}
-`
-
-/* Mobile-only badge shown when left column is hidden */
-export const HeroMobileBadge = styled.div`
-  display: none;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
 
   ${media.belowLg`
-    display: flex;
+    width: 100%;
   `}
-`
-
-export const HeroMobileNum = styled.span`
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: 0.1em;
-  color: ${({ theme }) => theme.colors.textDark};
-  background: ${({ theme }) => theme.colors.sectionGreen};
-  padding: 3px 10px;
-`
-
-export const HeroMobileTag = styled.span`
-  font-size: 8px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.textDark};
-  opacity: 0.5;
 `

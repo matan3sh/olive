@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Link from 'next/link'
+import { hoverUnderline } from '@/styles/mixins'
 
 export const StyledFooter = styled.footer`
   background-color: ${({ theme }) => theme.colors.white};
@@ -41,6 +42,7 @@ export const FooterNavLink = styled(Link)`
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.textDark};
+  ${hoverUnderline}
 `
 
 export const FooterCopyright = styled.p`

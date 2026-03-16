@@ -8,10 +8,7 @@ import {
   HeroEyebrow,
   HeroGrid,
   HeroLeft,
-  HeroMobileBadge,
-  HeroMobileNum,
-  HeroMobileTag,
-  HeroOverlay,
+HeroOverlay,
   HeroRight,
   HeroSectionEl,
   HeroSideLabel,
@@ -89,9 +86,10 @@ export default function HeroSection() {
 
       mm.add('(max-width: 900px)', () => {
         const tl = gsap.timeline({ defaults: { ease: 'power2.out' } })
-        tl.from('.hero-mobile-badge', { opacity: 0, duration: 0.5 }, 0.1)
+        tl.from('.hero-eyebrow', { opacity: 0, y: -8, duration: 0.5 }, 0.1)
         tl.from('.hero-title', { opacity: 0, y: 16, duration: 0.7 }, 0.2)
-        tl.from('.hero-cta', { opacity: 0, y: 8, duration: 0.4 }, 0.6)
+        tl.from('.hero-thin-text', { opacity: 0, duration: 0.4 }, 0.5)
+        tl.from('.hero-cta', { opacity: 0, y: 8, duration: 0.4 }, 0.7)
       })
     },
     { scope: containerRef },
@@ -138,12 +136,6 @@ export default function HeroSection() {
           <HeroEyebrow className="hero-eyebrow">
             Extra Virgin Olive Oil
           </HeroEyebrow>
-
-          {/* Mobile only: compact number badge */}
-          <HeroMobileBadge className="hero-mobile-badge">
-            <HeroMobileNum>01</HeroMobileNum>
-            <HeroMobileTag>Premium Reserve</HeroMobileTag>
-          </HeroMobileBadge>
 
           <HeroTitle className="hero-title">
             Jezreel Valley Select
