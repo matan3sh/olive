@@ -9,7 +9,6 @@ import {
   ProductsOuter,
   ProductsHeadingRow,
   ProductsHeadingGroup,
-  ProductsSectionNum,
   ProductsHeading,
   SeeAllLink,
   ProductsGrid,
@@ -60,7 +59,6 @@ export default function ProductsSection() {
       <ProductsOuter>
         <ProductsHeadingRow>
           <ProductsHeadingGroup>
-            <ProductsSectionNum className="products-num">03</ProductsSectionNum>
             <ProductsHeading className="products-heading">Our Olive Oil</ProductsHeading>
           </ProductsHeadingGroup>
           <SeeAllLink href="/shop" className="see-all">

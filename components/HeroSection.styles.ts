@@ -41,16 +41,58 @@ export const HeroGrid = styled.div`
 `
 
 export const HeroLeft = styled.div`
+  position: relative;
   background-color: ${({ theme }) => theme.colors.textDark};
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding: 28px 22px;
   border-right: 2px solid rgba(233, 238, 226, 0.12);
+  overflow: hidden;
 
   ${media.belowLg`
     display: none;
   `}
+`
+
+export const HeroVideoEl = styled.video`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+`
+
+export const HeroVideoOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 18, 8, 0.45);
+  z-index: 1;
+`
+
+export const HeroSoundToggle = styled.button`
+  position: absolute;
+  top: 18px;
+  right: 14px;
+  z-index: 3;
+  width: 26px;
+  height: 26px;
+  background: transparent;
+  border: 1px solid rgba(233, 238, 226, 0.25);
+  color: rgba(233, 238, 226, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 0.2s, color 0.2s;
+
+  &:hover {
+    border-color: rgba(233, 238, 226, 0.6);
+    color: rgba(233, 238, 226, 0.9);
+  }
 `
 
 export const HeroIssueTag = styled.span`
@@ -60,6 +102,8 @@ export const HeroIssueTag = styled.span`
   color: rgba(233, 238, 226, 0.45);
   display: block;
   margin-bottom: 8px;
+  position: relative;
+  z-index: 2;
 `
 
 export const HeroNumber = styled.span`
@@ -70,6 +114,8 @@ export const HeroNumber = styled.span`
   line-height: 0.9;
   letter-spacing: -0.05em;
   margin-bottom: 16px;
+  position: relative;
+  z-index: 2;
 `
 
 export const HeroSideLabel = styled.span`
@@ -80,6 +126,8 @@ export const HeroSideLabel = styled.span`
   color: rgba(233, 238, 226, 0.45);
   padding-top: 12px;
   border-top: 1px solid rgba(233, 238, 226, 0.12);
+  position: relative;
+  z-index: 2;
 `
 
 export const HeroRight = styled.div`

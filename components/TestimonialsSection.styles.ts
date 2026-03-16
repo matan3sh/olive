@@ -63,14 +63,7 @@ export const TestimonialsSectionTag = styled.div`
   gap: 10px;
 
   &::before {
-    content: '04';
-    font-weight: 900;
-    font-size: 11px;
-    color: ${({ theme }) => theme.colors.textDark};
-    opacity: 1;
-    letter-spacing: 0;
-    background: ${({ theme }) => theme.colors.sectionGreen};
-    padding: 2px 7px;
+    content: none;
   }
 
   ${media.belowLg`

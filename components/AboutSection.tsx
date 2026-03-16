@@ -12,7 +12,6 @@ import {
   MobileTextBlock,
   MobileImageWrapper,
   AboutSectionTag,
-  AboutTagNum,
   AboutTagLabel,
   AboutHeading,
   AboutRule,
@@ -72,7 +71,6 @@ export default function AboutSection() {
 
   const tagEl = (
     <AboutSectionTag className="about-tag">
-      <AboutTagNum>02</AboutTagNum>
       <AboutTagLabel>Who We Are</AboutTagLabel>
     </AboutSectionTag>
   )
