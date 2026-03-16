@@ -45,7 +45,6 @@ export const SeeAllLink = styled(Link)`
   font-weight: 600;
   letter-spacing: 1px;
   color: ${({ theme }) => theme.colors.textDark};
-  text-decoration: none;
   white-space: nowrap;
   display: flex;
   align-items: center;

@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import Link from 'next/link'
 import {
   StyledHeader,
   DesktopWrapper,
@@ -17,6 +16,11 @@ import {
   MobileBar,
   MobileNav,
   MobileNavLink,
+  Row1Left,
+  Row1Right,
+  LogoLink,
+  MobileIconGroup,
+  MobileActionsRow,
 } from './Header.styles'
 
 const NAV_LINKS = [
@@ -138,7 +142,7 @@ export default function Header() {
         {/* Row 1 — search left | logo center | cart+account right */}
         <Row1>
           {/* Left: Search button */}
-          <div style={{ position: 'absolute', left: '40px' }}>
+          <Row1Left>
             <ActionBtn
               aria-label="Open search"
               onClick={() => setSearchOpen(true)}
@@ -146,16 +150,16 @@ export default function Header() {
               <SearchIcon />
               <ActionLabel>Search</ActionLabel>
             </ActionBtn>
-          </div>
+          </Row1Left>
 
           {/* Center: Logo */}
-          <Link href="/" style={{ display: 'block', lineHeight: 0 }}>
+          <LogoLink href="/">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/figma/logo.png" alt="Cobram Estate" width={140} height={42} style={{ display: 'block' }} />
-          </Link>
+            <img src="/figma/logo.png" alt="Cobram Estate" width={140} height={42} />
+          </LogoLink>
 
           {/* Right: Cart + Account */}
-          <div style={{ position: 'absolute', right: '40px', display: 'flex', alignItems: 'center', gap: '24px' }}>
+          <Row1Right>
             <ActionBtn aria-label="Cart">
               <CartIcon />
               <ActionLabel>Cart</ActionLabel>
@@ -164,7 +168,7 @@ export default function Header() {
               <AccountIcon />
               <ActionLabel>Account</ActionLabel>
             </ActionBtn>
-          </div>
+          </Row1Right>
         </Row1>
 
         {/* Divider */}
@@ -183,11 +187,11 @@ export default function Header() {
       {/* ── MOBILE ──────────────────────────────────────────────── */}
       <MobileWrapper>
         <MobileBar>
-          <Link href="/" style={{ display: 'block', lineHeight: 0 }}>
+          <LogoLink href="/">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/figma/logo.png" alt="Cobram Estate" width={110} height={33} style={{ display: 'block' }} />
-          </Link>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <img src="/figma/logo.png" alt="Cobram Estate" width={110} height={33} />
+          </LogoLink>
+          <MobileIconGroup>
             <ActionBtn aria-label="Search" onClick={() => setSearchOpen(true)}>
               <SearchIcon />
             </ActionBtn>
@@ -197,7 +201,7 @@ export default function Header() {
             >
               {mobileOpen ? <CloseIcon /> : <MenuIcon />}
             </ActionBtn>
-          </div>
+          </MobileIconGroup>
         </MobileBar>
 
         {mobileOpen && (
@@ -209,10 +213,10 @@ export default function Header() {
               </MobileNavLink>
             ))}
             <HeaderDivider />
-            <div style={{ display: 'flex', gap: '24px' }}>
+            <MobileActionsRow>
               <ActionBtn aria-label="Cart"><CartIcon /><ActionLabel>Cart</ActionLabel></ActionBtn>
               <ActionBtn aria-label="Account"><AccountIcon /><ActionLabel>Account</ActionLabel></ActionBtn>
-            </div>
+            </MobileActionsRow>
           </MobileNav>
         )}
       </MobileWrapper>

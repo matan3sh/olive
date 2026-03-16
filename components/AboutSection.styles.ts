@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { media } from '@/styles/media'
+import { theme } from '@/styles/theme'
 
 export const AboutSectionEl = styled.section`
   background-color: ${({ theme }) => theme.colors.white};
@@ -18,8 +19,8 @@ export const DesktopLayout = styled.div`
     display: none;
   `}
 
-  /* Slightly responsive between 901px and 1200px */
-  @media (min-width: 901px) and (max-width: 1200px) {
+  /* Slightly responsive between lg breakpoint (900px) and 1200px */
+  @media (min-width: calc(${theme.breakpoints.lg} + 1px)) and (max-width: 1200px) {
     height: auto;
     min-height: 440px;
   }

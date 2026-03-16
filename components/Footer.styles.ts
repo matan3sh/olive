@@ -39,7 +39,6 @@ export const FooterNavLink = styled(Link)`
   font-size: 14px;
   font-weight: 300;
   color: ${({ theme }) => theme.colors.textDark};
-  text-decoration: none;
 `
 
 export const FooterCopyright = styled.p`

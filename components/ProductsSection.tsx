@@ -23,7 +23,7 @@ export default function ProductsSection() {
           <SeeAllLink href="/shop">
             SEE ALL PRODUCTS
             <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
-              <path d="M0 4h10M7 1l3 3-3 3" stroke="#11260c" strokeWidth="1.6"
+              <path d="M0 4h10M7 1l3 3-3 3" stroke="currentColor" strokeWidth="1.6"
                 strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </SeeAllLink>

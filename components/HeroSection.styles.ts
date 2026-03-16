@@ -6,7 +6,7 @@ export const HeroSectionEl = styled.section`
   position: relative;
   width: 100%;
   /* Desktop: row1Height (72px) + divider (1px) + row2Height (68px) = 141px */
-  height: calc(100vh - calc(${({ theme }) => theme.header.row1Height} + ${({ theme }) => theme.header.divider} + ${({ theme }) => theme.header.row2Height}));
+  height: calc(100vh - ${({ theme }) => theme.header.row1Height} - ${({ theme }) => theme.header.divider} - ${({ theme }) => theme.header.row2Height});
   background-color: ${({ theme }) => theme.colors.white};
   display: flex;
   align-items: center;
@@ -71,7 +71,6 @@ export const HeroCtaButton = styled(Link)`
   font-size: 16px;
   font-weight: 600;
   letter-spacing: 1px;
-  text-decoration: none;
   text-transform: uppercase;
   border-radius: 0;
 `

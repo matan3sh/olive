@@ -53,6 +53,7 @@ export const NavLink = styled(Link)`
   color: ${({ theme }) => theme.colors.textNav};
   white-space: nowrap;
   text-decoration: none;
+  font-family: ${({ theme }) => theme.fonts.inter};
 `
 
 export const ActionBtn = styled.button`
@@ -119,4 +120,34 @@ export const MobileNavLink = styled(Link)`
   font-weight: 300;
   color: ${({ theme }) => theme.colors.textNav};
   text-decoration: none;
+  font-family: ${({ theme }) => theme.fonts.inter};
+`
+
+export const Row1Left = styled.div`
+  position: absolute;
+  left: 40px;
+`
+
+export const Row1Right = styled.div`
+  position: absolute;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+`
+
+export const LogoLink = styled(Link)`
+  display: block;
+  line-height: 0;
+`
+
+export const MobileIconGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`
+
+export const MobileActionsRow = styled.div`
+  display: flex;
+  gap: 24px;
 `
