@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Link from 'next/link'
 import { media } from '@/styles/media'
+import { darkButtonBase } from '@/styles/mixins'
 
 export const ProductMain = styled.main`
   background-color: ${({ theme }) => theme.colors.white};
@@ -146,19 +147,10 @@ export const ProductDescription = styled.p`
 `
 
 export const AddToCartButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${darkButtonBase}
   width: 100%;
   height: 56px;
-  background-color: ${({ theme }) => theme.colors.btnDark};
-  color: ${({ theme }) => theme.colors.white};
   font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
 `
 
 export const ProductDetailsRow = styled.div`
