@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image'
 import { HeroSectionEl, HeroOverlay, HeroContent, HeroTitle, HeroSubtitle, HeroCtaButton } from './HeroSection.styles'
 

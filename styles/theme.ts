@@ -18,7 +18,3 @@ export const theme = {
   breakpoints: { xl: '1280px', lg: '900px', md: '767px', sm: '480px' },
   header: { row1Height: '72px', divider: '1px', row2Height: '68px', mobileHeight: '64px' },
 } as const
-
-declare module 'styled-components' {
-  export interface DefaultTheme extends typeof theme {}
-}

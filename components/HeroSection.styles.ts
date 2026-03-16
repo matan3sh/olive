@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import Link from 'next/link'
-import { media } from '@/styles/media'
+import { theme as themeTokens } from '@/styles/theme'
 
 export const HeroSectionEl = styled.section`
   position: relative;
@@ -13,9 +13,9 @@ export const HeroSectionEl = styled.section`
   justify-content: center;
   overflow: hidden;
 
-  ${media.belowMd`
+  @media (max-width: ${themeTokens.breakpoints.md}) {
     height: calc(100vh - ${({ theme }) => theme.header.mobileHeight});
-  `}
+  }
 `
 
 export const HeroOverlay = styled.div`

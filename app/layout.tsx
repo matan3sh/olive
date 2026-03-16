@@ -1,11 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import StyledComponentsRegistry from '@/lib/styled-registry'
-import { ThemeProvider } from 'styled-components'
-import { theme } from '@/styles/theme'
-import { GlobalStyles } from '@/styles/GlobalStyles'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
-import { ConfigProvider } from 'antd'
+import Providers from './providers'
 import './globals.css'
 
 const inter = Inter({
@@ -34,29 +31,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.variable}>
         <StyledComponentsRegistry>
-          <ThemeProvider theme={theme}>
-            <AntdRegistry>
-              <ConfigProvider
-                theme={{
-                  token: {
-                    colorPrimary: '#11260c',
-                    colorText: '#11260c',
-                    fontFamily: 'var(--font-inter)',
-                    borderRadius: 0,
-                  },
-                  components: {
-                    Button: {
-                      primaryColor: '#ffffff',
-                      colorPrimaryHover: '#1f231a',
-                    },
-                  },
-                }}
-              >
-                <GlobalStyles />
-                {children}
-              </ConfigProvider>
-            </AntdRegistry>
-          </ThemeProvider>
+          <AntdRegistry>
+            <Providers>
+              {children}
+            </Providers>
+          </AntdRegistry>
         </StyledComponentsRegistry>
       </body>
     </html>
