@@ -11,6 +11,16 @@
 */
 
 import { useState } from 'react'
+import {
+  TestimonialsSectionEl,
+  TestimonialsInner,
+  TestimonialsHeading,
+  QuoteMark,
+  QuoteText,
+  QuoteAuthor,
+  DotsRow,
+  Dot,
+} from './TestimonialsSection.styles'
 
 const TESTIMONIALS = [
   {
@@ -32,95 +42,24 @@ export default function TestimonialsSection() {
   const t = TESTIMONIALS[active]
 
   return (
-    <section
-      aria-label="Customer testimonials"
-      style={{
-        backgroundColor: '#ffffff',
-        width: '100%',
-        minHeight: '363px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '60px 20px',
-      }}
-    >
-      <div style={{ maxWidth: '753px', width: '100%', textAlign: 'center' }}>
-
-        {/* Heading */}
-        <h2 style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: 'clamp(1.75rem, 3.2vw, 45px)',
-          fontWeight: 400,
-          lineHeight: '60px',
-          color: '#11260c',
-          marginBottom: '20px',
-        }}>
-          Customer Feedbacks
-        </h2>
-
-        {/* Decorative quote mark — matches Figma 24×20px shape */}
-        <div aria-hidden="true" style={{
-          color: '#d1dcc3',
-          fontSize: '60px',
-          lineHeight: 1,
-          height: '24px',
-          overflow: 'visible',
-          marginBottom: '24px',
-          fontFamily: 'Georgia, serif',
-          userSelect: 'none',
-        }}>
-          &#8220;
-        </div>
-
-        {/* Quote */}
-        <blockquote key={active} style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: '18px',
-          fontWeight: 300,
-          lineHeight: '32px',
-          color: '#11260c',
-          opacity: 0.80,
-          marginBottom: '16px',
-          fontStyle: 'normal',
-        }}>
-          {t.quote}
-        </blockquote>
-
-        {/* Author */}
-        <p style={{
-          fontFamily: 'var(--font-inter)',
-          fontSize: '18px',
-          fontWeight: 400,
-          lineHeight: '24px',
-          color: '#11260c',
-          marginBottom: '28px',
-        }}>
-          {t.author}
-        </p>
-
-        {/* Dot slider */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '8px' }}>
+    <TestimonialsSectionEl aria-label="Customer testimonials">
+      <TestimonialsInner>
+        <TestimonialsHeading>Customer Feedbacks</TestimonialsHeading>
+        <QuoteMark aria-hidden="true">&#8220;</QuoteMark>
+        <QuoteText key={active}>{t.quote}</QuoteText>
+        <QuoteAuthor>{t.author}</QuoteAuthor>
+        <DotsRow>
           {TESTIMONIALS.map((_, i) => (
-            <button
+            <Dot
               key={i}
+              $active={i === active}
               aria-label={`View testimonial ${i + 1}`}
               aria-pressed={i === active}
               onClick={() => setActive(i)}
-              style={{
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                backgroundColor: i === active ? '#1f231a' : 'transparent',
-                border: '1px solid #1f231a',
-                opacity: i === active ? 1 : 0.36,
-                padding: 0,
-                cursor: 'pointer',
-                transition: 'opacity 0.2s, background-color 0.2s',
-              }}
             />
           ))}
-        </div>
-      </div>
-    </section>
+        </DotsRow>
+      </TestimonialsInner>
+    </TestimonialsSectionEl>
   )
 }
