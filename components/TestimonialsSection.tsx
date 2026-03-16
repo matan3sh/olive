@@ -1,21 +1,16 @@
 'use client'
 
-/*
-  Figma layout:
-  - Section: white bg, height 363px, content max-width 753px centered
-  - "Customer Feedbacks": 45px w400, lh=60px, color=#11260c, centered
-  - Quote mark: 24×20px, color=#d1dcc3
-  - Quote text: 18px w300 lh=32px color=#11260c opacity=0.80, centered
-  - Author: 18px w400 lh=24px color=#11260c, centered
-  - Dots: 8px circles, active=filled #1f231a, inactive=outlined #1f231a opacity=0.36, gap=8px
-*/
-
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+import { gsap, ScrollTrigger } from '@/lib/gsap'
 import {
   TestimonialsSectionEl,
   TestimonialsInner,
+  TestimonialsAccentCol,
+  TestimonialsLargeNum,
+  TestimonialsContentCol,
+  TestimonialsSectionTag,
   TestimonialsHeading,
-  QuoteMark,
   QuoteText,
   QuoteAuthor,
   DotsRow,
@@ -25,40 +20,92 @@ import {
 const TESTIMONIALS = [
   {
     quote: '"I was looking for pure extra virgin olive oil and I found it. I must say that it is by far the best quality extra virgin olive oil I have found at this price point."',
-    author: '- Emma Anderson, Housewife',
+    author: '— Emma Anderson, Housewife',
   },
   {
     quote: '"The richness and depth of flavor in every bottle is unmatched. You can truly taste the difference of fresh-pressed, single-origin oil."',
-    author: '- James Carter, Chef',
+    author: '— James Carter, Chef',
   },
   {
     quote: '"Finally an olive oil that lives up to its promises. Cold pressed, single origin, and absolutely delicious on everything."',
-    author: '- Sofia Mendez, Food Blogger',
+    author: '— Sofia Mendez, Food Blogger',
   },
 ]
 
 export default function TestimonialsSection() {
   const [active, setActive] = useState(0)
   const t = TESTIMONIALS[active]
+  const containerRef = useRef<HTMLElement>(null)
+
+  useGSAP(() => {
+    const mm = gsap.matchMedia()
+
+    mm.add('(min-width: 901px)', () => {
+      const tl = gsap.timeline({
+        defaults: { ease: 'power2.out' },
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 70%',
+          once: true,
+        },
+      })
+      tl.from('.testimonials-num', { opacity: 0, scale: 0.92, duration: 0.8 }, 0)
+      tl.from('.testimonials-tag', { opacity: 0, x: -8, duration: 0.5 }, 0.15)
+      tl.from('.testimonials-heading', { opacity: 0, y: 16, duration: 0.6 }, 0.2)
+      tl.from('.quote-border', { scaleY: 0, transformOrigin: 'top center', duration: 0.5 }, 0.35)
+      tl.from('.quote-text', { opacity: 0, y: 10, duration: 0.6 }, 0.45)
+      tl.from('.quote-author', { opacity: 0, duration: 0.4 }, 0.6)
+      tl.from('.dots-row', { opacity: 0, duration: 0.4 }, 0.7)
+    })
+
+    mm.add('(max-width: 900px)', () => {
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        start: 'top 80%',
+        once: true,
+        onEnter: () => {
+          gsap.from('.testimonials-tag', { opacity: 0, duration: 0.4, ease: 'power2.out' })
+          gsap.from('.testimonials-heading', { opacity: 0, y: 10, duration: 0.5, delay: 0.1, ease: 'power2.out' })
+          gsap.from('.quote-text', { opacity: 0, duration: 0.4, delay: 0.2, ease: 'power2.out' })
+        },
+      })
+    })
+  }, { scope: containerRef })
 
   return (
-    <TestimonialsSectionEl aria-label="Customer testimonials">
+    <TestimonialsSectionEl ref={containerRef} aria-label="Customer testimonials">
       <TestimonialsInner>
-        <TestimonialsHeading>Customer Feedbacks</TestimonialsHeading>
-        <QuoteMark aria-hidden="true">&#8220;</QuoteMark>
-        <QuoteText key={active}>{t.quote}</QuoteText>
-        <QuoteAuthor>{t.author}</QuoteAuthor>
-        <DotsRow>
-          {TESTIMONIALS.map((_, i) => (
-            <Dot
-              key={i}
-              $active={i === active}
-              aria-label={`View testimonial ${i + 1}`}
-              aria-pressed={i === active}
-              onClick={() => setActive(i)}
-            />
-          ))}
-        </DotsRow>
+
+        {/* Large accent number — desktop only */}
+        <TestimonialsAccentCol>
+          <TestimonialsLargeNum className="testimonials-num">"</TestimonialsLargeNum>
+        </TestimonialsAccentCol>
+
+        <TestimonialsContentCol>
+          <TestimonialsSectionTag className="testimonials-tag">
+            Customer Stories
+          </TestimonialsSectionTag>
+
+          <TestimonialsHeading className="testimonials-heading">
+            Customer<br />Feedbacks
+          </TestimonialsHeading>
+
+          <QuoteText key={active} className="quote-text quote-border">{t.quote}</QuoteText>
+          <QuoteAuthor className="quote-author">{t.author}</QuoteAuthor>
+
+          <DotsRow className="dots-row">
+            {TESTIMONIALS.map((_, i) => (
+              <Dot
+                key={i}
+                $active={i === active}
+                aria-label={`View testimonial ${i + 1}`}
+                aria-pressed={i === active}
+                onClick={() => setActive(i)}
+              />
+            ))}
+          </DotsRow>
+        </TestimonialsContentCol>
+
       </TestimonialsInner>
     </TestimonialsSectionEl>
   )

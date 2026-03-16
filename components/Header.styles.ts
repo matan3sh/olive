@@ -10,6 +10,7 @@ export const StyledHeader = styled.header`
   z-index: 50;
   background-color: ${({ theme }) => theme.colors.white};
   width: 100%;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.textDark};
 `
 
 export const DesktopWrapper = styled.div`
@@ -47,9 +48,11 @@ export const HeaderDivider = styled.hr`
 `
 
 export const NavLink = styled(Link)`
-  font-size: 15px;
-  font-weight: 300;
+  font-size: 13px;
+  font-weight: 400;
   line-height: 20px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: ${({ theme }) => theme.colors.textNav};
   white-space: nowrap;
   text-decoration: none;

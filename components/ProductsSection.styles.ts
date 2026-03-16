@@ -27,17 +27,36 @@ export const ProductsOuter = styled.div`
 
 export const ProductsHeadingRow = styled.div`
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 79px;
+  margin-bottom: 48px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(17, 38, 12, 0.2);
+`
+
+export const ProductsHeadingGroup = styled.div`
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+`
+
+export const ProductsSectionNum = styled.span`
+  font-size: clamp(2rem, 3.5vw, 42px);
+  font-weight: 900;
+  color: ${({ theme }) => theme.colors.textDark};
+  letter-spacing: -0.04em;
+  line-height: 1;
 `
 
 export const ProductsHeading = styled.h2`
-  font-size: clamp(1.75rem, 3.2vw, 45px);
+  font-size: clamp(0.85rem, 1.1vw, 14px);
   font-weight: 400;
-  line-height: 60px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
   color: ${({ theme }) => theme.colors.textDark};
+  opacity: 0.55;
   margin: 0;
+  line-height: 1;
 `
 
 export const SeeAllLink = styled(Link)`
@@ -54,7 +73,9 @@ export const SeeAllLink = styled(Link)`
 export const ProductsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 268px));
-  gap: 21px;
+  gap: 1px;
+  background: rgba(17, 38, 12, 0.15);
+  border: 1px solid rgba(17, 38, 12, 0.15);
 
   ${media.belowXl`
     grid-template-columns: repeat(4, 1fr);
@@ -62,52 +83,56 @@ export const ProductsGrid = styled.div`
 
   ${media.belowLg`
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  `}
-
-  ${media.belowSm`
-    gap: 12px;
   `}
 `
 
 export const ProductCard = styled.article`
   display: flex;
   flex-direction: column;
+  background: ${({ theme }) => theme.colors.sectionGreen};
+  padding: 16px;
+`
+
+export const ProductIndex = styled.span`
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: ${({ theme }) => theme.colors.textDark};
+  opacity: 0.25;
+  margin-bottom: 10px;
+  display: block;
 `
 
 export const ProductImageLink = styled(Link)`
   display: block;
   line-height: 0;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 `
 
 export const ProductImageWrapper = styled.div`
-  width: 268px;
-  height: 379px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 268/379;
   background-color: ${({ theme }) => theme.colors.white};
   position: relative;
   overflow: hidden;
-
-  ${media.belowXl`
-    width: 100%;
-    height: auto;
-    aspect-ratio: 268/379;
-  `}
 `
 
 export const ProductTitle = styled.p`
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
   color: ${({ theme }) => theme.colors.textDark};
   text-transform: uppercase;
-  margin-bottom: 0;
+  margin-bottom: 4px;
 `
 
 export const ProductPrice = styled.p`
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 300;
-  line-height: 26px;
-  letter-spacing: 1px;
+  line-height: 1.6;
+  letter-spacing: 0.06em;
   color: ${({ theme }) => theme.colors.textDark};
+  opacity: 0.6;
 `

@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export const StyledFooter = styled.footer`
   background-color: ${({ theme }) => theme.colors.white};
-  border-top: 1px solid ${({ theme }) => theme.colors.sectionBorder};
+  border-top: 2px solid ${({ theme }) => theme.colors.textDark};
   padding: 3rem 2rem;
 `
 
@@ -19,8 +19,8 @@ export const FooterInner = styled.div`
 
 export const FooterBrand = styled(Link)`
   font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-weight: 900;
+  letter-spacing: 0.3em;
   color: ${({ theme }) => theme.colors.textDark};
   text-transform: uppercase;
 `
@@ -36,8 +36,10 @@ export const FooterNavList = styled.ul`
 `
 
 export const FooterNavLink = styled(Link)`
-  font-size: 14px;
-  font-weight: 300;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: ${({ theme }) => theme.colors.textDark};
 `
 
