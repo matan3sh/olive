@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { media } from '@/styles/media'
+import { theme } from '@/styles/theme'
 
 export const AboutSectionEl = styled.section`
   background-color: ${({ theme }) => theme.colors.white};
@@ -7,39 +8,45 @@ export const AboutSectionEl = styled.section`
   overflow: hidden;
 `
 
-/* ── DESKTOP: 2-col grid ─────────────────────────────── */
+/* ── DESKTOP: diagonal floating layout ───────────────── */
 export const DesktopLayout = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 640px;
+  position: relative;
+  width: 100%;
+  height: 800px;
+  display: block;
 
   ${media.belowLg`
     display: none;
   `}
-`
 
-export const AboutTextCol = styled.div`
-  padding: 64px 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-right: 1px solid ${({ theme }) => theme.colors.sectionBorder};
-`
-
-export const AboutTextTop = styled.div``
-
-export const AboutImagesCol = styled.div`
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-`
-
-export const AboutImgWrapper = styled.div`
-  position: relative;
-  overflow: hidden;
-
-  &:first-child {
-    border-bottom: 1px solid ${({ theme }) => theme.colors.sectionBorder};
+  @media (min-width: calc(${theme.breakpoints.lg} + 1px)) and (max-width: 1200px) {
+    height: auto;
+    min-height: 600px;
   }
+`
+
+interface AboutImageWrapperProps {
+  $left?: string
+  $top?: string | number
+  $width?: string
+  $height?: string
+}
+
+export const AboutImageWrapper = styled.div<AboutImageWrapperProps>`
+  position: absolute;
+  left: ${({ $left }) => $left ?? 'auto'};
+  top: ${({ $top }) => (typeof $top === 'number' ? `${$top}px` : ($top ?? 'auto'))};
+  width: ${({ $width }) => $width ?? 'auto'};
+  height: ${({ $height }) => $height ?? 'auto'};
+  overflow: visible;
+`
+
+export const AboutTextBlock = styled.div`
+  position: absolute;
+  left: 33.2%;
+  top: 100px;
+  width: 33.6%;
+  text-align: center;
 `
 
 /* ── MOBILE: stacked ─────────────────────────────────── */
@@ -67,6 +74,7 @@ export const MobileImageWrapper = styled.div<{ $ratio: string }>`
 export const AboutSectionTag = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   margin-bottom: 20px;
 `
@@ -102,7 +110,7 @@ export const AboutRule = styled.div`
   width: 32px;
   height: 3px;
   background: ${({ theme }) => theme.colors.textDark};
-  margin-bottom: 20px;
+  margin: 0 auto 20px auto;
   transform-origin: left center;
 `
 
@@ -122,7 +130,8 @@ export const AboutDataGrid = styled.div`
   gap: 1px;
   background: ${({ theme }) => theme.colors.textDark};
   border: 1px solid ${({ theme }) => theme.colors.textDark};
-  margin-top: 32px;
+  margin-top: 28px;
+  text-align: left;
 `
 
 interface DataCellProps {

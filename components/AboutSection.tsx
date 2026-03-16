@@ -7,10 +7,8 @@ import {
   AboutSectionEl,
   DesktopLayout,
   MobileLayout,
-  AboutTextCol,
-  AboutTextTop,
-  AboutImagesCol,
-  AboutImgWrapper,
+  AboutImageWrapper,
+  AboutTextBlock,
   MobileTextBlock,
   MobileImageWrapper,
   AboutSectionTag,
@@ -27,7 +25,7 @@ import {
 
 const DATA = [
   { num: '100%', label: 'Cold Pressed', dark: true },
-  { num: '0.2%', label: 'Acidity', dark: false },
+  { num: '0.2%', label: 'Acidity',      dark: false },
   { num: '12',   label: 'Years of Craft', dark: false },
   { num: '4',    label: 'Olive Varieties', dark: false },
 ]
@@ -47,12 +45,13 @@ export default function AboutSection() {
           once: true,
         },
       })
-      tl.from('.about-tag', { opacity: 0, x: -10, duration: 0.5 }, 0)
-      tl.from('.about-heading', { opacity: 0, y: 24, duration: 0.7 }, 0.1)
-      tl.from('.about-rule', { scaleX: 0, duration: 0.5 }, 0.3)
-      tl.from('.about-body', { opacity: 0, y: 10, duration: 0.6 }, 0.4)
-      tl.from('.about-data-cell', { opacity: 0, y: 8, stagger: 0.07, duration: 0.5 }, 0.55)
-      tl.from('.about-img', { opacity: 0, scale: 1.04, duration: 0.9, stagger: 0.15 }, 0.3)
+      tl.from('.about-img-1', { opacity: 0, x: -20, duration: 0.9 }, 0)
+      tl.from('.about-img-2', { opacity: 0, x: 20,  duration: 0.9 }, 0.15)
+      tl.from('.about-tag',     { opacity: 0, y: -8,  duration: 0.5 }, 0.2)
+      tl.from('.about-heading', { opacity: 0, y: 24,  duration: 0.7 }, 0.3)
+      tl.from('.about-rule',    { scaleX: 0,          duration: 0.5 }, 0.5)
+      tl.from('.about-body',    { opacity: 0, y: 10,  duration: 0.6 }, 0.55)
+      tl.from('.about-data-cell', { opacity: 0, y: 8, stagger: 0.07, duration: 0.5 }, 0.65)
     })
 
     mm.add('(max-width: 900px)', () => {
@@ -61,10 +60,10 @@ export default function AboutSection() {
         start: 'top 80%',
         once: true,
         onEnter: () => {
-          gsap.from('.about-tag', { opacity: 0, duration: 0.4, ease: 'power2.out' })
+          gsap.from('.about-tag',     { opacity: 0, duration: 0.4, ease: 'power2.out' })
           gsap.from('.about-heading', { opacity: 0, y: 12, duration: 0.5, delay: 0.1, ease: 'power2.out' })
-          gsap.from('.about-rule', { scaleX: 0, duration: 0.4, delay: 0.2, ease: 'power2.out' })
-          gsap.from('.about-body', { opacity: 0, duration: 0.4, delay: 0.3, ease: 'power2.out' })
+          gsap.from('.about-rule',    { scaleX: 0,         duration: 0.4, delay: 0.2, ease: 'power2.out' })
+          gsap.from('.about-body',    { opacity: 0, duration: 0.4, delay: 0.3, ease: 'power2.out' })
           gsap.from('.about-data-cell', { opacity: 0, stagger: 0.05, duration: 0.4, delay: 0.4, ease: 'power2.out' })
         },
       })
@@ -80,7 +79,7 @@ export default function AboutSection() {
 
   const headingEl = (
     <AboutHeading className="about-heading">
-      IT&apos;S ALL ABOUT<br />THOSE OLIVES
+      IT&apos;S ALL ABOUT THOSE OLIVES
     </AboutHeading>
   )
 
@@ -108,41 +107,41 @@ export default function AboutSection() {
   return (
     <AboutSectionEl ref={containerRef} aria-label="About our olives">
 
-      {/* ── DESKTOP: 2-column grid ─────────────────────────────── */}
+      {/* ── DESKTOP: diagonal floating layout ──────────────── */}
       <DesktopLayout>
-        <AboutTextCol>
-          <AboutTextTop>
-            {tagEl}
-            {headingEl}
-            {ruleEl}
-            {bodyEl}
-          </AboutTextTop>
-          {dataGridEl}
-        </AboutTextCol>
+        {/* Image 1 — top left, floats freely */}
+        <AboutImageWrapper className="about-img-1" $left="3.26%" $top={0} $width="32.15%" $height="400px">
+          <Image
+            src="/figma/about-1.jpg"
+            alt="Fresh olives in a bowl"
+            fill
+            sizes="32vw"
+            style={{ objectFit: 'contain', objectPosition: 'top left' }}
+          />
+        </AboutImageWrapper>
 
-        <AboutImagesCol>
-          <AboutImgWrapper className="about-img">
-            <Image
-              src="/figma/about-1.jpg"
-              alt="Fresh olives in a bowl"
-              fill
-              sizes="50vw"
-              style={{ objectFit: 'cover' }}
-            />
-          </AboutImgWrapper>
-          <AboutImgWrapper className="about-img">
-            <Image
-              src="/figma/about-2.jpg"
-              alt="Olive oil being poured"
-              fill
-              sizes="50vw"
-              style={{ objectFit: 'cover' }}
-            />
-          </AboutImgWrapper>
-        </AboutImagesCol>
+        {/* Image 2 — bottom right, floats freely */}
+        <AboutImageWrapper className="about-img-2" $left="63%" $top="430px" $width="34%" $height="340px">
+          <Image
+            src="/figma/about-2.jpg"
+            alt="Olive oil being poured"
+            fill
+            sizes="34vw"
+            style={{ objectFit: 'contain', objectPosition: 'bottom right' }}
+          />
+        </AboutImageWrapper>
+
+        {/* Centered text block */}
+        <AboutTextBlock>
+          {tagEl}
+          {headingEl}
+          {ruleEl}
+          {bodyEl}
+          {dataGridEl}
+        </AboutTextBlock>
       </DesktopLayout>
 
-      {/* ── MOBILE: stacked ────────────────────────────────────── */}
+      {/* ── MOBILE: stacked ────────────────────────────────── */}
       <MobileLayout>
         <MobileImageWrapper $ratio="463/334">
           <Image
