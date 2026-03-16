@@ -1,0 +1,22 @@
+export const theme = {
+  colors: {
+    white: '#ffffff',
+    textDark: '#11260c',
+    textNav: '#050c03',
+    textSubtitle: '#060e05',
+    btnDark: '#1f231a',
+    sectionGreen: '#e9eee2',
+    quoteGreen: '#d1dcc3',
+    dotDark: '#1f231a',
+    navBorder: 'rgba(151,151,151,0.20)',
+    sectionBorder: '#d7d7d7',
+    muted: '#6b7280',
+  },
+  fonts: { inter: 'var(--font-inter), system-ui, sans-serif' },
+  breakpoints: { xl: '1280px', lg: '900px', md: '767px', sm: '480px' },
+  header: { row1Height: '72px', divider: '1px', row2Height: '68px', mobileHeight: '64px' },
+} as const
+
+declare module 'styled-components' {
+  export interface DefaultTheme extends typeof theme {}
+}
