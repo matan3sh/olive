@@ -13,9 +13,12 @@ import {
   NavLink,
   ActionBtn,
   ActionLabel,
-  SearchOverlay,
-  SearchInput,
+  InlineSearchWrapper,
+  InlineSearchInput,
+  InlineSearchClose,
   MobileBar,
+  MobileSearchBar,
+  MobileSearchInput,
   MobileNav,
   MobileNavLink,
   Row1Left,
@@ -122,37 +125,35 @@ export default function Header() {
   return (
     <StyledHeader>
 
-      {/* ── SEARCH OVERLAY (full nav width) ─────────────────────── */}
-      {searchOpen && (
-        <SearchOverlay>
-          <SearchIcon />
-          <SearchInput
-            ref={searchInputRef}
-            type="search"
-            placeholder={t('searchPlaceholder')}
-          />
-          <ActionBtn
-            onClick={() => setSearchOpen(false)}
-            aria-label="Close search"
-          >
-            <CloseSmIcon />
-          </ActionBtn>
-        </SearchOverlay>
-      )}
-
       {/* ── DESKTOP ─────────────────────────────────────────────── */}
       <DesktopWrapper>
         {/* Row 1 — search left | logo center | cart+account right */}
         <Row1>
-          {/* Left: Search button */}
+          {/* Left: Inline expanding search */}
           <Row1Left>
-            <ActionBtn
-              aria-label={t('ariaSearch')}
-              onClick={() => setSearchOpen(true)}
-            >
-              <SearchIcon />
-              <ActionLabel>{t('ariaSearch')}</ActionLabel>
-            </ActionBtn>
+            <InlineSearchWrapper>
+              <ActionBtn
+                aria-label={t('ariaSearch')}
+                onClick={() => setSearchOpen(true)}
+              >
+                <SearchIcon />
+                {!searchOpen && <ActionLabel>{t('ariaSearch')}</ActionLabel>}
+              </ActionBtn>
+              <InlineSearchInput
+                ref={searchInputRef}
+                $open={searchOpen}
+                type="search"
+                placeholder={t('searchPlaceholder')}
+              />
+              <InlineSearchClose
+                $open={searchOpen}
+                onClick={() => setSearchOpen(false)}
+                aria-label="Close search"
+                tabIndex={searchOpen ? 0 : -1}
+              >
+                <CloseSmIcon />
+              </InlineSearchClose>
+            </InlineSearchWrapper>
           </Row1Left>
 
           {/* Center: Logo */}
@@ -197,17 +198,32 @@ export default function Header() {
           </LogoLink>
           <MobileIconGroup>
             <LanguageSwitcher />
-            <ActionBtn aria-label={t('ariaSearch')} onClick={() => setSearchOpen(true)}>
+            <ActionBtn
+              aria-label={t('ariaSearch')}
+              onClick={() => { setSearchOpen((o) => !o); setMobileOpen(false) }}
+            >
               <SearchIcon />
             </ActionBtn>
             <ActionBtn
               aria-label={mobileOpen ? t('ariaCloseMenu') : t('ariaOpenMenu')}
-              onClick={() => setMobileOpen((o) => !o)}
+              onClick={() => { setMobileOpen((o) => !o); setSearchOpen(false) }}
             >
               {mobileOpen ? <CloseIcon /> : <MenuIcon />}
             </ActionBtn>
           </MobileIconGroup>
         </MobileBar>
+
+        <MobileSearchBar $open={searchOpen}>
+          <SearchIcon />
+          <MobileSearchInput
+            ref={searchOpen ? searchInputRef : undefined}
+            type="search"
+            placeholder={t('searchPlaceholder')}
+          />
+          <ActionBtn onClick={() => setSearchOpen(false)} aria-label="Close search">
+            <CloseSmIcon />
+          </ActionBtn>
+        </MobileSearchBar>
 
         {mobileOpen && (
           <MobileNav aria-label="Mobile navigation">
