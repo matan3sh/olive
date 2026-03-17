@@ -78,28 +78,44 @@ export const ActionLabel = styled.span`
   color: ${({ theme }) => theme.colors.textNav};
 `
 
-export const SearchOverlay = styled.div`
-  position: absolute;
-  inset: 0;
-  background-color: ${({ theme }) => theme.colors.white};
-  z-index: 60;
+export const InlineSearchWrapper = styled.div`
   display: flex;
   align-items: center;
-  padding: 0 40px;
-  gap: 12px;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.navBorder};
+  gap: 8px;
 `
 
-export const SearchInput = styled.input`
-  flex: 1;
+export const InlineSearchInput = styled.input<{ $open: boolean }>`
+  max-width: ${({ $open }) => ($open ? '260px' : '0')};
+  width: 260px;
+  opacity: ${({ $open }) => ($open ? 1 : 0)};
+  pointer-events: ${({ $open }) => ($open ? 'auto' : 'none')};
+  transition: max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+  overflow: hidden;
   border: none;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.textDark};
   outline: none;
   font-family: ${({ theme }) => theme.fonts.inter};
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 300;
-  color: ${({ theme }) => theme.colors.textNav};
-  background-color: transparent;
   letter-spacing: 0.3px;
+  color: ${({ theme }) => theme.colors.textNav};
+  background: transparent;
+  padding: 3px 0;
+`
+
+export const InlineSearchClose = styled.button<{ $open: boolean }>`
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: ${({ theme }) => theme.colors.textNav};
+  opacity: ${({ $open }) => ($open ? 1 : 0)};
+  max-width: ${({ $open }) => ($open ? '20px' : '0')};
+  overflow: hidden;
+  pointer-events: ${({ $open }) => ($open ? 'auto' : 'none')};
+  transition: opacity 0.2s ease, max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 `
 
 export const MobileBar = styled.div`
@@ -154,4 +170,29 @@ export const MobileIconGroup = styled.div`
 export const MobileActionsRow = styled.div`
   display: flex;
   gap: 24px;
+`
+
+export const MobileSearchBar = styled.div<{ $open: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px;
+  max-height: ${({ $open }) => ($open ? '52px' : '0')};
+  overflow: hidden;
+  border-top: ${({ $open, theme }) => ($open ? `1px solid ${theme.colors.navBorder}` : 'none')};
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+`
+
+export const MobileSearchInput = styled.input`
+  flex: 1;
+  border: none;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.textDark};
+  outline: none;
+  font-family: ${({ theme }) => theme.fonts.inter};
+  font-size: 14px;
+  font-weight: 300;
+  color: ${({ theme }) => theme.colors.textNav};
+  background: transparent;
+  padding: 14px 0;
+  letter-spacing: 0.3px;
 `

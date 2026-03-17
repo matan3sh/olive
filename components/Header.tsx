@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
+import LanguageSwitcher from './LanguageSwitcher'
 import {
   StyledHeader,
   DesktopWrapper,
@@ -11,9 +13,12 @@ import {
   NavLink,
   ActionBtn,
   ActionLabel,
-  SearchOverlay,
-  SearchInput,
+  InlineSearchWrapper,
+  InlineSearchInput,
+  InlineSearchClose,
   MobileBar,
+  MobileSearchBar,
+  MobileSearchInput,
   MobileNav,
   MobileNavLink,
   Row1Left,
@@ -22,16 +27,6 @@ import {
   MobileIconGroup,
   MobileActionsRow,
 } from './Header.styles'
-
-const NAV_LINKS = [
-  { label: 'Home', href: '/' },
-  { label: 'Shop', href: '/shop' },
-  { label: 'Who we are', href: '/about' },
-  { label: 'Our Olive Oil', href: '/olive-oil' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'In The News', href: '/news' },
-  { label: 'Where To Buy', href: '/where-to-buy' },
-]
 
 function SearchIcon() {
   return (
@@ -99,6 +94,17 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const searchInputRef = useRef<HTMLInputElement>(null)
+  const t = useTranslations('header')
+
+  const NAV_LINKS = [
+    { label: t('home'), href: '/' },
+    { label: t('shop'), href: '/shop' },
+    { label: t('whoWeAre'), href: '/about' },
+    { label: t('ourOliveOil'), href: '/olive-oil' },
+    { label: t('blog'), href: '/blog' },
+    { label: t('inTheNews'), href: '/news' },
+    { label: t('whereToBuy'), href: '/where-to-buy' },
+  ]
 
   // Focus input when search opens
   useEffect(() => {
@@ -119,37 +125,35 @@ export default function Header() {
   return (
     <StyledHeader>
 
-      {/* ── SEARCH OVERLAY (full nav width) ─────────────────────── */}
-      {searchOpen && (
-        <SearchOverlay>
-          <SearchIcon />
-          <SearchInput
-            ref={searchInputRef}
-            type="search"
-            placeholder="Search products..."
-          />
-          <ActionBtn
-            onClick={() => setSearchOpen(false)}
-            aria-label="Close search"
-          >
-            <CloseSmIcon />
-          </ActionBtn>
-        </SearchOverlay>
-      )}
-
       {/* ── DESKTOP ─────────────────────────────────────────────── */}
       <DesktopWrapper>
         {/* Row 1 — search left | logo center | cart+account right */}
         <Row1>
-          {/* Left: Search button */}
+          {/* Left: Inline expanding search */}
           <Row1Left>
-            <ActionBtn
-              aria-label="Open search"
-              onClick={() => setSearchOpen(true)}
-            >
-              <SearchIcon />
-              <ActionLabel>Search</ActionLabel>
-            </ActionBtn>
+            <InlineSearchWrapper>
+              <ActionBtn
+                aria-label={t('ariaSearch')}
+                onClick={() => setSearchOpen(true)}
+              >
+                <SearchIcon />
+                {!searchOpen && <ActionLabel>{t('ariaSearch')}</ActionLabel>}
+              </ActionBtn>
+              <InlineSearchInput
+                ref={searchInputRef}
+                $open={searchOpen}
+                type="search"
+                placeholder={t('searchPlaceholder')}
+              />
+              <InlineSearchClose
+                $open={searchOpen}
+                onClick={() => setSearchOpen(false)}
+                aria-label="Close search"
+                tabIndex={searchOpen ? 0 : -1}
+              >
+                <CloseSmIcon />
+              </InlineSearchClose>
+            </InlineSearchWrapper>
           </Row1Left>
 
           {/* Center: Logo */}
@@ -158,15 +162,16 @@ export default function Header() {
             <img src="/figma/logo.png" alt="Cobram Estate" width={140} height={42} />
           </LogoLink>
 
-          {/* Right: Cart + Account */}
+          {/* Right: Language Switcher + Cart + Account */}
           <Row1Right>
-            <ActionBtn aria-label="Cart">
+            <LanguageSwitcher />
+            <ActionBtn aria-label={t('ariaCart')}>
               <CartIcon />
-              <ActionLabel>Cart</ActionLabel>
+              <ActionLabel>{t('ariaCart')}</ActionLabel>
             </ActionBtn>
-            <ActionBtn aria-label="Account">
+            <ActionBtn aria-label={t('ariaAccount')}>
               <AccountIcon />
-              <ActionLabel>Account</ActionLabel>
+              <ActionLabel>{t('ariaAccount')}</ActionLabel>
             </ActionBtn>
           </Row1Right>
         </Row1>
@@ -192,17 +197,33 @@ export default function Header() {
             <img src="/figma/logo.png" alt="Cobram Estate" width={110} height={33} />
           </LogoLink>
           <MobileIconGroup>
-            <ActionBtn aria-label="Search" onClick={() => setSearchOpen(true)}>
+            <LanguageSwitcher />
+            <ActionBtn
+              aria-label={t('ariaSearch')}
+              onClick={() => { setSearchOpen((o) => !o); setMobileOpen(false) }}
+            >
               <SearchIcon />
             </ActionBtn>
             <ActionBtn
-              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-              onClick={() => setMobileOpen((o) => !o)}
+              aria-label={mobileOpen ? t('ariaCloseMenu') : t('ariaOpenMenu')}
+              onClick={() => { setMobileOpen((o) => !o); setSearchOpen(false) }}
             >
               {mobileOpen ? <CloseIcon /> : <MenuIcon />}
             </ActionBtn>
           </MobileIconGroup>
         </MobileBar>
+
+        <MobileSearchBar $open={searchOpen}>
+          <SearchIcon />
+          <MobileSearchInput
+            ref={searchOpen ? searchInputRef : undefined}
+            type="search"
+            placeholder={t('searchPlaceholder')}
+          />
+          <ActionBtn onClick={() => setSearchOpen(false)} aria-label="Close search">
+            <CloseSmIcon />
+          </ActionBtn>
+        </MobileSearchBar>
 
         {mobileOpen && (
           <MobileNav aria-label="Mobile navigation">
@@ -214,8 +235,8 @@ export default function Header() {
             ))}
             <HeaderDivider />
             <MobileActionsRow>
-              <ActionBtn aria-label="Cart"><CartIcon /><ActionLabel>Cart</ActionLabel></ActionBtn>
-              <ActionBtn aria-label="Account"><AccountIcon /><ActionLabel>Account</ActionLabel></ActionBtn>
+              <ActionBtn aria-label={t('ariaCart')}><CartIcon /><ActionLabel>{t('ariaCart')}</ActionLabel></ActionBtn>
+              <ActionBtn aria-label={t('ariaAccount')}><AccountIcon /><ActionLabel>{t('ariaAccount')}</ActionLabel></ActionBtn>
             </MobileActionsRow>
           </MobileNav>
         )}

@@ -3,6 +3,7 @@ import { gsap } from '@/lib/gsap'
 import { useGSAP } from '@gsap/react'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import {
   HeroCtaButton,
   HeroEyebrow,
@@ -62,6 +63,7 @@ export default function HeroSection() {
   const containerRef = useRef<HTMLElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [muted, setMuted] = useState(true)
+  const t = useTranslations('hero')
 
   function toggleSound() {
     const video = videoRef.current
@@ -122,33 +124,31 @@ export default function HeroSection() {
           <HeroSoundToggle
             className="hero-sound-toggle"
             onClick={toggleSound}
-            aria-label={muted ? 'Unmute' : 'Mute'}
+            aria-label={muted ? t('ariaUnmute') : t('ariaMute')}
           >
             {muted ? <IconMuted /> : <IconUnmuted />}
           </HeroSoundToggle>
           <HeroSideLabel className="hero-side-label">
-            Premium Reserve
+            {t('sideLabel')}
           </HeroSideLabel>
         </HeroLeft>
 
         {/* Right content panel */}
         <HeroRight>
           <HeroEyebrow className="hero-eyebrow">
-            Extra Virgin Olive Oil
+            {t('tag')}
           </HeroEyebrow>
 
           <HeroTitle className="hero-title">
-            Jezreel Valley Select
-            <br />
-            Extra Virgin Olive Oil
+            {t('title')}
           </HeroTitle>
 
           <HeroSubRow>
             <HeroThinText className="hero-thin-text">
-              Cold Pressed · Hand Picked
+              {t('subtitle')}
             </HeroThinText>
             <HeroCtaButton href="/shop" className="hero-cta">
-              Shop Now
+              {t('cta')}
             </HeroCtaButton>
           </HeroSubRow>
         </HeroRight>

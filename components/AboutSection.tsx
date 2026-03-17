@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
+import { useTranslations } from 'next-intl'
 import {
   AboutSectionEl,
   DesktopLayout,
@@ -22,15 +23,16 @@ import {
   AboutDataLabel,
 } from './AboutSection.styles'
 
-const DATA = [
-  { num: '100%', label: 'Cold Pressed', dark: true },
-  { num: '0.2%', label: 'Acidity',      dark: false },
-  { num: '12',   label: 'Years of Craft', dark: false },
-  { num: '4',    label: 'Olive Varieties', dark: false },
-]
-
 export default function AboutSection() {
   const containerRef = useRef<HTMLElement>(null)
+  const t = useTranslations('about')
+
+  const DATA = [
+    { id: 'cold-pressed', num: '100%', label: t('coldPressed'), dark: true },
+    { id: 'acidity',      num: '0.2%', label: t('acidity'),      dark: false },
+    { id: 'years',        num: '12',   label: t('yearsOfCraft'),  dark: false },
+    { id: 'varieties',    num: '4',    label: t('oliveVarieties'), dark: false },
+  ]
 
   useGSAP(() => {
     const mm = gsap.matchMedia()
@@ -71,13 +73,13 @@ export default function AboutSection() {
 
   const tagEl = (
     <AboutSectionTag className="about-tag">
-      <AboutTagLabel>Who We Are</AboutTagLabel>
+      <AboutTagLabel>{t('tag')}</AboutTagLabel>
     </AboutSectionTag>
   )
 
   const headingEl = (
     <AboutHeading className="about-heading">
-      IT&apos;S ALL ABOUT THOSE OLIVES
+      {t('heading')}
     </AboutHeading>
   )
 
@@ -85,16 +87,14 @@ export default function AboutSection() {
 
   const bodyEl = (
     <AboutBody className="about-body">
-      Extra Virgin Olive Oil is simply the juice of fantastically
-      healthy olives. And that&apos;s all it is—so the quality of
-      the oil depends entirely on the quality of the olives.
+      {t('body')}
     </AboutBody>
   )
 
   const dataGridEl = (
     <AboutDataGrid>
-      {DATA.map(({ num, label, dark }) => (
-        <AboutDataCell key={label} $dark={dark} className="about-data-cell">
+      {DATA.map(({ id, num, label, dark }) => (
+        <AboutDataCell key={id} $dark={dark} className="about-data-cell">
           <AboutDataNum $dark={dark}>{num}</AboutDataNum>
           <AboutDataLabel $dark={dark}>{label}</AboutDataLabel>
         </AboutDataCell>

@@ -20,6 +20,11 @@ export const GlobalStyles = createGlobalStyle`
     overflow-x: hidden;
   }
 
+  [dir="rtl"] body,
+  [dir="rtl"] body * {
+    font-family: var(--font-heebo), system-ui, sans-serif;
+  }
+
   img, video {
     max-width: 100%;
     display: block;

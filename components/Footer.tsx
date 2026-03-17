@@ -1,4 +1,5 @@
 'use client'
+import { useTranslations } from 'next-intl'
 import {
   StyledFooter,
   FooterInner,
@@ -8,15 +9,17 @@ import {
   FooterCopyright,
 } from './Footer.styles'
 
-const FOOTER_LINKS = [
-  { label: 'Shop', href: '/shop' },
-  { label: 'About', href: '/about' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Where To Buy', href: '/where-to-buy' },
-  { label: 'Contact', href: '/contact' },
-]
-
 export default function Footer() {
+  const t = useTranslations('footer')
+
+  const FOOTER_LINKS = [
+    { label: t('shop'), href: '/shop' },
+    { label: t('about'), href: '/about' },
+    { label: t('blog'), href: '/blog' },
+    { label: t('whereToBuy'), href: '/where-to-buy' },
+    { label: t('contact'), href: '/contact' },
+  ]
+
   return (
     <StyledFooter>
       <FooterInner>
@@ -31,7 +34,7 @@ export default function Footer() {
           </FooterNavList>
         </nav>
         <FooterCopyright>
-          &copy; {new Date().getFullYear()} The Valley Olive Oil. All rights reserved.
+          {t('rights', { year: new Date().getFullYear() })}
         </FooterCopyright>
       </FooterInner>
     </StyledFooter>

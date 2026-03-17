@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
 import { PRODUCTS } from '@/lib/products'
+import { useTranslations } from 'next-intl'
 import {
   ProductsSectionEl,
   ProductsOuter,
@@ -22,6 +23,8 @@ import {
 
 export default function ProductsSection() {
   const containerRef = useRef<HTMLElement>(null)
+  const t = useTranslations('products')
+  const tItems = useTranslations('productItems')
 
   useGSAP(() => {
     const mm = gsap.matchMedia()
@@ -59,10 +62,10 @@ export default function ProductsSection() {
       <ProductsOuter>
         <ProductsHeadingRow>
           <ProductsHeadingGroup>
-            <ProductsHeading className="products-heading">Our Olive Oil</ProductsHeading>
+            <ProductsHeading className="products-heading">{t('heading')}</ProductsHeading>
           </ProductsHeadingGroup>
           <SeeAllLink href="/shop" className="see-all">
-            See All Products
+            {t('seeAll')}
             <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true">
               <path d="M0 4h10M7 1l3 3-3 3" stroke="currentColor" strokeWidth="1.6"
                 strokeLinecap="round" strokeLinejoin="round"/>
@@ -77,7 +80,7 @@ export default function ProductsSection() {
                 <ProductImageWrapper>
                   <Image
                     src={p.image}
-                    alt={p.title}
+                    alt={tItems(`${p.id}.title`)}
                     fill
                     sizes="(max-width: 900px) 50vw, 268px"
                     style={{ objectFit: p.fit }}
@@ -85,8 +88,8 @@ export default function ProductsSection() {
                 </ProductImageWrapper>
               </ProductImageLink>
               <ProductIndex>— {String(i + 1).padStart(2, '0')}</ProductIndex>
-              <ProductTitle>{p.title}</ProductTitle>
-              <ProductPrice>From {p.price}</ProductPrice>
+              <ProductTitle>{tItems(`${p.id}.title`)}</ProductTitle>
+              <ProductPrice>{t('from')} {p.price}</ProductPrice>
             </ProductCard>
           ))}
         </ProductsGrid>
