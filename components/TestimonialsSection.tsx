@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
+import { useTranslations } from 'next-intl'
 import {
   TestimonialsSectionEl,
   TestimonialsInner,
@@ -34,8 +35,9 @@ const TESTIMONIALS = [
 
 export default function TestimonialsSection() {
   const [active, setActive] = useState(0)
-  const t = TESTIMONIALS[active]
+  const testimonial = TESTIMONIALS[active]
   const containerRef = useRef<HTMLElement>(null)
+  const t = useTranslations('testimonials')
 
   useGSAP(() => {
     const mm = gsap.matchMedia()
@@ -78,20 +80,20 @@ export default function TestimonialsSection() {
 
         {/* Large accent number — desktop only */}
         <TestimonialsAccentCol>
-          <TestimonialsLargeNum className="testimonials-num">"</TestimonialsLargeNum>
+          <TestimonialsLargeNum className="testimonials-num">&quot;</TestimonialsLargeNum>
         </TestimonialsAccentCol>
 
         <TestimonialsContentCol>
           <TestimonialsSectionTag className="testimonials-tag">
-            Customer Stories
+            {t('tag')}
           </TestimonialsSectionTag>
 
           <TestimonialsHeading className="testimonials-heading">
-            Customer<br />Feedbacks
+            {t('heading')}
           </TestimonialsHeading>
 
-          <QuoteText key={active} className="quote-text quote-border">{t.quote}</QuoteText>
-          <QuoteAuthor className="quote-author">{t.author}</QuoteAuthor>
+          <QuoteText key={active} className="quote-text quote-border">{testimonial.quote}</QuoteText>
+          <QuoteAuthor className="quote-author">{testimonial.author}</QuoteAuthor>
 
           <DotsRow className="dots-row">
             {TESTIMONIALS.map((_, i) => (

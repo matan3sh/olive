@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { PRODUCTS } from '@/lib/products'
+import { useTranslations } from 'next-intl'
 import {
   ProductMain,
   BreadcrumbBar,
@@ -42,17 +43,25 @@ function ProductDetail() {
   const id = params.get('id') ?? 'robust'
   const product = PRODUCTS.find((p) => p.id === id) ?? PRODUCTS[0]
   const [selectedSize, setSelectedSize] = useState(0)
+  const t = useTranslations('product')
+  const tItems = useTranslations('productItems')
+
+  const title = tItems(`${product.id}.title`)
+  const subtitle = tItems(`${product.id}.subtitle`)
+  const description = tItems(`${product.id}.description`)
+  const origin = tItems(`${product.id}.origin`)
+  const harvest = tItems(`${product.id}.harvest`)
 
   return (
     <ProductMain>
       {/* ── Breadcrumb ─────────────────────────────────────────── */}
       <BreadcrumbBar>
         <BreadcrumbNav>
-          <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          <BreadcrumbLink href="/">{t('breadcrumbHome')}</BreadcrumbLink>
           <span>/</span>
-          <BreadcrumbLink href="/shop">Shop</BreadcrumbLink>
+          <BreadcrumbLink href="/shop">{t('breadcrumbShop')}</BreadcrumbLink>
           <span>/</span>
-          <BreadcrumbCurrent>{product.subtitle}</BreadcrumbCurrent>
+          <BreadcrumbCurrent>{subtitle}</BreadcrumbCurrent>
         </BreadcrumbNav>
       </BreadcrumbBar>
 
@@ -63,7 +72,7 @@ function ProductDetail() {
         <ProductImageBox>
           <Image
             src={product.image}
-            alt={product.title}
+            alt={title}
             fill
             sizes="(max-width: 900px) 100vw, 50vw"
             style={{ objectFit: product.fit, padding: '40px' }}
@@ -74,14 +83,14 @@ function ProductDetail() {
         {/* Right — product info */}
         <ProductInfo>
 
-          <ProductPageTitle>{product.title}</ProductPageTitle>
+          <ProductPageTitle>{title}</ProductPageTitle>
 
-          <ProductPagePrice>FROM {product.price}</ProductPagePrice>
+          <ProductPagePrice>{t('from').toUpperCase()} {product.price}</ProductPagePrice>
 
           <ProductDivider />
 
           <div>
-            <SizeLabel>Size</SizeLabel>
+            <SizeLabel>{t('size')}</SizeLabel>
             <SizeButtonsRow>
               {product.sizes.map((size, i) => (
                 <SizeButton
@@ -95,18 +104,18 @@ function ProductDetail() {
             </SizeButtonsRow>
           </div>
 
-          <ProductDescription>{product.description}</ProductDescription>
+          <ProductDescription>{description}</ProductDescription>
 
-          <AddToCartButton>Add to Cart</AddToCartButton>
+          <AddToCartButton>{t('addToCart')}</AddToCartButton>
 
           <ProductDivider />
 
           <ProductDetailsRow>
             {[
-              { label: 'Origin', value: product.origin },
-              { label: 'Harvest', value: product.harvest },
-              { label: 'Acidity', value: product.acidity },
-              { label: 'Processing', value: 'Cold pressed' },
+              { label: t('origin'), value: origin },
+              { label: t('harvest'), value: harvest },
+              { label: t('acidity'), value: product.acidity },
+              { label: t('processing'), value: t('coldPressed') },
             ].map(({ label, value }) => (
               <DetailItem key={label}>
                 <DetailLabel>{label}</DetailLabel>
@@ -120,21 +129,21 @@ function ProductDetail() {
       {/* ── Other products ──────────────────────────────────────── */}
       <RelatedSection>
         <RelatedInner>
-          <RelatedHeading>You may also like</RelatedHeading>
+          <RelatedHeading>{t('youMayAlsoLike')}</RelatedHeading>
           <RelatedGrid>
             {PRODUCTS.filter((p) => p.id !== product.id).map((p) => (
               <RelatedCard key={p.id} href={`/product?id=${p.id}`}>
                 <RelatedImageBox>
                   <Image
                     src={p.image}
-                    alt={p.title}
+                    alt={tItems(`${p.id}.title`)}
                     fill
                     sizes="25vw"
                     style={{ objectFit: p.fit, padding: '20px' }}
                   />
                 </RelatedImageBox>
-                <RelatedTitle>{p.title}</RelatedTitle>
-                <RelatedPrice>FROM {p.price}</RelatedPrice>
+                <RelatedTitle>{tItems(`${p.id}.title`)}</RelatedTitle>
+                <RelatedPrice>{t('from').toUpperCase()} {p.price}</RelatedPrice>
               </RelatedCard>
             ))}
           </RelatedGrid>
