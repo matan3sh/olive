@@ -159,7 +159,29 @@ export const Row1Right = styled.div`
 
 export const LogoLink = styled(Link)`
   display: block;
-  line-height: 0;
+  text-decoration: none;
+`
+
+export const LogoText = styled.span`
+  font-size: clamp(13px, 1.6vw, 17px);
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.colors.textDark};
+  font-family: ${({ theme }) => theme.fonts.inter};
+  white-space: nowrap;
+  line-height: 1;
+  display: block;
+
+  @media (max-width: 900px) {
+    font-size: 13px;
+    letter-spacing: 0.16em;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+  }
 `
 
 export const MobileIconGroup = styled.div`

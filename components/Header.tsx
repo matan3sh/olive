@@ -1,38 +1,49 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
-import { useTranslations } from 'next-intl'
-import LanguageSwitcher from './LanguageSwitcher'
 import type { Navigation } from '@/lib/cms'
+import { useTranslations } from 'next-intl'
+import { useEffect, useRef, useState } from 'react'
+import { flushSync } from 'react-dom'
 import {
-  StyledHeader,
-  DesktopWrapper,
-  MobileWrapper,
-  Row1,
-  NavRow,
-  HeaderDivider,
-  NavLink,
   ActionBtn,
   ActionLabel,
-  InlineSearchWrapper,
-  InlineSearchInput,
+  DesktopWrapper,
+  HeaderDivider,
   InlineSearchClose,
+  InlineSearchInput,
+  InlineSearchWrapper,
+  LogoLink,
+  LogoText,
+  MobileActionsRow,
   MobileBar,
-  MobileSearchBar,
-  MobileSearchInput,
+  MobileIconGroup,
   MobileNav,
   MobileNavLink,
+  MobileSearchBar,
+  MobileSearchInput,
+  MobileWrapper,
+  NavLink,
+  NavRow,
+  Row1,
   Row1Left,
   Row1Right,
-  LogoLink,
-  MobileIconGroup,
-  MobileActionsRow,
+  StyledHeader,
 } from './Header.styles'
+import LanguageSwitcher from './LanguageSwitcher'
 
 function SearchIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       <circle cx="11" cy="11" r="8" />
       <line x1="21" y1="21" x2="16.65" y2="16.65" />
     </svg>
@@ -41,8 +52,16 @@ function SearchIcon() {
 
 function CloseSmIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
       <line x1="18" y1="6" x2="6" y2="18" />
       <line x1="6" y1="6" x2="18" y2="18" />
     </svg>
@@ -51,8 +70,17 @@ function CloseSmIcon() {
 
 function CartIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
       <line x1="3" y1="6" x2="21" y2="6" />
       <path d="M16 10a4 4 0 0 1-8 0" />
@@ -62,8 +90,17 @@ function CartIcon() {
 
 function AccountIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
       <circle cx="12" cy="8" r="4" />
       <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
     </svg>
@@ -72,8 +109,16 @@ function AccountIcon() {
 
 function MenuIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
       <line x1="3" y1="6" x2="21" y2="6" />
       <line x1="3" y1="12" x2="21" y2="12" />
       <line x1="3" y1="18" x2="21" y2="18" />
@@ -83,8 +128,16 @@ function MenuIcon() {
 
 function CloseIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-      stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
       <line x1="18" y1="6" x2="6" y2="18" />
       <line x1="6" y1="6" x2="18" y2="18" />
     </svg>
@@ -98,17 +151,17 @@ interface Props {
 export default function Header({ navigation }: Props) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
-  const searchInputRef = useRef<HTMLInputElement>(null)
+  const desktopSearchRef = useRef<HTMLInputElement>(null)
+  const mobileSearchRef = useRef<HTMLInputElement>(null)
   const t = useTranslations('header')
 
   const NAV_LINKS = navigation.header
 
-  // Focus input when search opens
-  useEffect(() => {
-    if (searchOpen && searchInputRef.current) {
-      searchInputRef.current.focus()
-    }
-  }, [searchOpen])
+  function openSearch(target: 'desktop' | 'mobile') {
+    flushSync(() => setSearchOpen(true))
+    const ref = target === 'desktop' ? desktopSearchRef : mobileSearchRef
+    ref.current?.focus()
+  }
 
   // Close search on Escape
   useEffect(() => {
@@ -121,7 +174,6 @@ export default function Header({ navigation }: Props) {
 
   return (
     <StyledHeader>
-
       {/* ── DESKTOP ─────────────────────────────────────────────── */}
       <DesktopWrapper>
         {/* Row 1 — search left | logo center | cart+account right */}
@@ -131,13 +183,13 @@ export default function Header({ navigation }: Props) {
             <InlineSearchWrapper>
               <ActionBtn
                 aria-label={t('ariaSearch')}
-                onClick={() => setSearchOpen(true)}
+                onClick={() => openSearch('desktop')}
               >
                 <SearchIcon />
                 {!searchOpen && <ActionLabel>{t('ariaSearch')}</ActionLabel>}
               </ActionBtn>
               <InlineSearchInput
-                ref={searchInputRef}
+                ref={desktopSearchRef}
                 $open={searchOpen}
                 type="search"
                 placeholder={t('searchPlaceholder')}
@@ -155,8 +207,7 @@ export default function Header({ navigation }: Props) {
 
           {/* Center: Logo */}
           <LogoLink href="/">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/figma/logo.png" alt="Cobram Estate" width={140} height={42} />
+            <LogoText>{t('siteName')}</LogoText>
           </LogoLink>
 
           {/* Right: Language Switcher + Cart + Account */}
@@ -190,20 +241,26 @@ export default function Header({ navigation }: Props) {
       <MobileWrapper>
         <MobileBar>
           <LogoLink href="/">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/figma/logo.png" alt="Cobram Estate" width={110} height={33} />
+            <LogoText>{t('siteName')}</LogoText>
           </LogoLink>
           <MobileIconGroup>
             <LanguageSwitcher />
             <ActionBtn
               aria-label={t('ariaSearch')}
-              onClick={() => { setSearchOpen((o) => !o); setMobileOpen(false) }}
+              onClick={() => {
+                if (!searchOpen) openSearch('mobile')
+                else setSearchOpen(false)
+                setMobileOpen(false)
+              }}
             >
               <SearchIcon />
             </ActionBtn>
             <ActionBtn
               aria-label={mobileOpen ? t('ariaCloseMenu') : t('ariaOpenMenu')}
-              onClick={() => { setMobileOpen((o) => !o); setSearchOpen(false) }}
+              onClick={() => {
+                setMobileOpen((o) => !o)
+                setSearchOpen(false)
+              }}
             >
               {mobileOpen ? <CloseIcon /> : <MenuIcon />}
             </ActionBtn>
@@ -213,11 +270,14 @@ export default function Header({ navigation }: Props) {
         <MobileSearchBar $open={searchOpen}>
           <SearchIcon />
           <MobileSearchInput
-            ref={searchOpen ? searchInputRef : undefined}
+            ref={mobileSearchRef}
             type="search"
             placeholder={t('searchPlaceholder')}
           />
-          <ActionBtn onClick={() => setSearchOpen(false)} aria-label="Close search">
+          <ActionBtn
+            onClick={() => setSearchOpen(false)}
+            aria-label="Close search"
+          >
             <CloseSmIcon />
           </ActionBtn>
         </MobileSearchBar>
@@ -225,15 +285,24 @@ export default function Header({ navigation }: Props) {
         {mobileOpen && (
           <MobileNav aria-label="Mobile navigation">
             {NAV_LINKS.map((link) => (
-              <MobileNavLink key={link.href} href={link.href}
-                onClick={() => setMobileOpen(false)}>
+              <MobileNavLink
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+              >
                 {link.label}
               </MobileNavLink>
             ))}
             <HeaderDivider />
             <MobileActionsRow>
-              <ActionBtn aria-label={t('ariaCart')}><CartIcon /><ActionLabel>{t('ariaCart')}</ActionLabel></ActionBtn>
-              <ActionBtn aria-label={t('ariaAccount')}><AccountIcon /><ActionLabel>{t('ariaAccount')}</ActionLabel></ActionBtn>
+              <ActionBtn aria-label={t('ariaCart')}>
+                <CartIcon />
+                <ActionLabel>{t('ariaCart')}</ActionLabel>
+              </ActionBtn>
+              <ActionBtn aria-label={t('ariaAccount')}>
+                <AccountIcon />
+                <ActionLabel>{t('ariaAccount')}</ActionLabel>
+              </ActionBtn>
             </MobileActionsRow>
           </MobileNav>
         )}
