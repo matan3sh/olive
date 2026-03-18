@@ -1,10 +1,16 @@
-import createMiddleware from 'next-intl/middleware';
+import createMiddleware from 'next-intl/middleware'
+import type { NextRequest } from 'next/server'
 
-export default createMiddleware({
+const intlMiddleware = createMiddleware({
   locales: ['en', 'he'],
   defaultLocale: 'en',
-});
+})
+
+export default function proxy(request: NextRequest) {
+  if (request.nextUrl.pathname.startsWith('/studio')) return
+  return intlMiddleware(request)
+}
 
 export const config = {
   matcher: ['/((?!_next|_vercel|.*\\..*).*)'],
-};
+}

@@ -1,8 +1,16 @@
-import rawAbout from '@/data/about.json'
+import { defineQuery } from 'groq'
+import { sanityClient } from '@/lib/sanity.client'
 import type { Locale, AboutContent, RawAboutContent } from './types'
 
+const ABOUT_QUERY = defineQuery(`
+  *[_type == "about"][0] {
+    tag, heading, body, "image1": image1.asset->url, "image2": image2.asset->url,
+    "stats": stats[] { id, num, label, dark }
+  }
+`)
+
 export async function getAboutContent(locale: Locale): Promise<AboutContent> {
-  const raw = rawAbout as RawAboutContent
+  const raw = await sanityClient.fetch(ABOUT_QUERY) as RawAboutContent
   return {
     tag: raw.tag[locale],
     heading: raw.heading[locale],

@@ -1,25 +1,10 @@
 import type { Metadata } from 'next'
-import { Inter, Assistant } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, getTranslations } from 'next-intl/server'
 import StyledComponentsRegistry from '@/lib/styled-registry'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import Providers from '../providers'
-import '../globals.css'
-
-const inter = Inter({
-  variable: '--font-inter',
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  display: 'swap',
-})
-
-const assistant = Assistant({
-  variable: '--font-heebo',
-  subsets: ['latin', 'hebrew'],
-  weight: ['300', '400', '500', '600'],
-  display: 'swap',
-})
+import LocaleAttributes from './locale-attributes'
 
 export async function generateMetadata({
   params,
@@ -50,18 +35,17 @@ export default async function LocaleLayout({
   const messages = await getMessages()
 
   return (
-    <html lang={locale} dir={locale === 'he' ? 'rtl' : 'ltr'}>
-      <body className={`${inter.variable} ${assistant.variable}`}>
-        <NextIntlClientProvider messages={messages}>
-          <StyledComponentsRegistry>
-            <AntdRegistry>
-              <Providers>
-                {children}
-              </Providers>
-            </AntdRegistry>
-          </StyledComponentsRegistry>
-        </NextIntlClientProvider>
-      </body>
-    </html>
+    <>
+      <LocaleAttributes locale={locale} />
+      <NextIntlClientProvider messages={messages}>
+        <StyledComponentsRegistry>
+          <AntdRegistry>
+            <Providers>
+              {children}
+            </Providers>
+          </AntdRegistry>
+        </StyledComponentsRegistry>
+      </NextIntlClientProvider>
+    </>
   )
 }

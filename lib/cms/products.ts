@@ -1,4 +1,5 @@
-import rawProducts from '@/data/products.json'
+import { defineQuery } from 'groq'
+import { sanityClient } from '@/lib/sanity.client'
 import type { Locale, Product, RawProduct } from './types'
 
 function resolve(p: RawProduct, locale: Locale): Product {
@@ -12,17 +13,38 @@ function resolve(p: RawProduct, locale: Locale): Product {
   }
 }
 
+const RAW_PRODUCTS_QUERY = defineQuery(`
+  *[_type == "product" && active == true] {
+    "id": id, active, featured, price, sizes,
+    "image": image.asset->url, fit, acidity, title, subtitle, description, origin, harvest
+  }
+`)
+
+const ALL_PRODUCTS_QUERY = defineQuery(`
+  *[_type == "product"] {
+    "id": id, active, featured, price, sizes,
+    "image": image.asset->url, fit, acidity, title, subtitle, description, origin, harvest
+  }
+`)
+
+const PRODUCT_BY_ID_QUERY = defineQuery(`
+  *[_type == "product" && id == $id][0] {
+    "id": id, active, featured, price, sizes,
+    "image": image.asset->url, fit, acidity, title, subtitle, description, origin, harvest
+  }
+`)
+
 export async function getProducts(locale: Locale): Promise<Product[]> {
-  return (rawProducts as RawProduct[])
-    .filter((p) => p.active)
-    .map((p) => resolve(p, locale))
+  const raw = await sanityClient.fetch(RAW_PRODUCTS_QUERY)
+  return (raw as RawProduct[]).map((p) => resolve(p, locale))
 }
 
 export async function getProductById(id: string, locale: Locale): Promise<Product | null> {
-  const raw = (rawProducts as RawProduct[]).find((p) => p.id === id) ?? null
-  return raw ? resolve(raw, locale) : null
+  const raw = await sanityClient.fetch(PRODUCT_BY_ID_QUERY, { id })
+  return raw ? resolve(raw as RawProduct, locale) : null
 }
 
 export async function getAllProducts(locale: Locale): Promise<Product[]> {
-  return (rawProducts as RawProduct[]).map((p) => resolve(p, locale))
+  const raw = await sanityClient.fetch(ALL_PRODUCTS_QUERY)
+  return (raw as RawProduct[]).map((p) => resolve(p, locale))
 }

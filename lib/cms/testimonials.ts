@@ -1,4 +1,5 @@
-import rawTestimonials from '@/data/testimonials.json'
+import { defineQuery } from 'groq'
+import { sanityClient } from '@/lib/sanity.client'
 import type { Locale, Testimonial, RawTestimonial } from './types'
 
 function resolve(t: RawTestimonial, locale: Locale): Testimonial {
@@ -9,6 +10,11 @@ function resolve(t: RawTestimonial, locale: Locale): Testimonial {
   }
 }
 
+const TESTIMONIALS_QUERY = defineQuery(`
+  *[_type == "testimonial"] { "id": id, quote, author }
+`)
+
 export async function getTestimonials(locale: Locale): Promise<Testimonial[]> {
-  return (rawTestimonials as RawTestimonial[]).map((t) => resolve(t, locale))
+  const raw = await sanityClient.fetch(TESTIMONIALS_QUERY)
+  return (raw as RawTestimonial[]).map((t) => resolve(t, locale))
 }

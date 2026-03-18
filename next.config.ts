@@ -5,6 +5,11 @@ const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 const nextConfig: NextConfig = {
   compiler: { styledComponents: true },
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'cdn.sanity.io' },
+    ],
+  },
 };
 
 export default withNextIntl(nextConfig);
