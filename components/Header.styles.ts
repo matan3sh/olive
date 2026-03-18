@@ -154,6 +154,7 @@ export const Row1Right = styled.div`
   display: flex;
   align-items: center;
   gap: 24px;
+  direction: ltr;
 `
 
 export const LogoLink = styled(Link)`
