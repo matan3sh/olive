@@ -16,6 +16,11 @@ export const TestimonialsInner = styled.div`
   gap: 40px;
   align-items: start;
 
+  [dir="rtl"] & {
+    grid-template-columns: 1fr 100px;
+    direction: rtl;
+  }
+
   ${media.belowLg`
     grid-template-columns: 1fr;
     padding: 48px 24px;
@@ -33,6 +38,11 @@ export const TestimonialsAccentCol = styled.div`
   align-items: flex-start;
   padding-top: 4px;
 
+  [dir="rtl"] & {
+    align-items: flex-end;
+    order: 1;
+  }
+
   ${media.belowLg`
     display: none;
   `}
@@ -49,6 +59,10 @@ export const TestimonialsLargeNum = styled.span`
 
 export const TestimonialsContentCol = styled.div`
   text-align: left;
+
+  [dir="rtl"] & {
+    text-align: right;
+  }
 `
 
 export const TestimonialsSectionTag = styled.div`
@@ -95,6 +109,13 @@ export const QuoteText = styled.blockquote`
   font-style: normal;
   padding-left: 20px;
   border-left: 3px solid ${({ theme }) => theme.colors.textDark};
+
+  [dir="rtl"] & {
+    padding-left: 0;
+    padding-right: 20px;
+    border-left: none;
+    border-right: 3px solid ${({ theme }) => theme.colors.textDark};
+  }
 `
 
 export const QuoteAuthor = styled.p`
@@ -106,6 +127,11 @@ export const QuoteAuthor = styled.p`
   color: ${({ theme }) => theme.colors.textDark};
   margin-bottom: 32px;
   padding-left: 20px;
+
+  [dir="rtl"] & {
+    padding-left: 0;
+    padding-right: 20px;
+  }
 `
 
 export const DotsRow = styled.div`
@@ -113,6 +139,12 @@ export const DotsRow = styled.div`
   justify-content: flex-start;
   gap: 8px;
   padding-left: 20px;
+
+  [dir="rtl"] & {
+    padding-left: 0;
+    padding-right: 20px;
+    justify-content: flex-end;
+  }
 `
 
 interface DotProps {
