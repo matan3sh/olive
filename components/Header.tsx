@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import LanguageSwitcher from './LanguageSwitcher'
+import type { Navigation } from '@/lib/cms'
 import {
   StyledHeader,
   DesktopWrapper,
@@ -90,21 +91,17 @@ function CloseIcon() {
   )
 }
 
-export default function Header() {
+interface Props {
+  navigation: Navigation
+}
+
+export default function Header({ navigation }: Props) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const searchInputRef = useRef<HTMLInputElement>(null)
   const t = useTranslations('header')
 
-  const NAV_LINKS = [
-    { label: t('home'), href: '/' },
-    { label: t('shop'), href: '/shop' },
-    { label: t('whoWeAre'), href: '/about' },
-    { label: t('ourOliveOil'), href: '/olive-oil' },
-    { label: t('blog'), href: '/blog' },
-    { label: t('inTheNews'), href: '/news' },
-    { label: t('whereToBuy'), href: '/where-to-buy' },
-  ]
+  const NAV_LINKS = navigation.header
 
   // Focus input when search opens
   useEffect(() => {

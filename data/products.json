@@ -1,0 +1,122 @@
+[
+  {
+    "id": "robust",
+    "active": true,
+    "featured": true,
+    "price": "$9.99",
+    "sizes": ["250ml", "500ml", "750ml"],
+    "image": "/figma/product-bottle.jpg",
+    "fit": "cover",
+    "acidity": "< 0.3%",
+    "title": {
+      "en": "ROBUST 100% CALIFORNIA EXTRA VIRGIN OLIVE OIL",
+      "he": "שמן זית כתית עז 100% מקליפורניה"
+    },
+    "subtitle": {
+      "en": "Robust",
+      "he": "עז"
+    },
+    "description": {
+      "en": "Our Robust blend is cold-pressed from hand-picked California olives at peak ripeness. Intensely flavored with a peppery finish — perfect for drizzling over grilled meats, hearty salads, and crusty bread.",
+      "he": "המזיגה העזה שלנו נכבשת בקרה מזיתי קליפורניה שנקטפו ביד בשיא הבשלות. טעם אינטנסיבי עם סיום פיקנטי — מושלם לזילוף על בשרים צלויים, סלטים עשירים ולחם פריך."
+    },
+    "origin": {
+      "en": "California, USA",
+      "he": "קליפורניה, ארה\"ב"
+    },
+    "harvest": {
+      "en": "November – December",
+      "he": "נובמבר – דצמבר"
+    }
+  },
+  {
+    "id": "classic",
+    "active": true,
+    "featured": false,
+    "price": "$9.99",
+    "sizes": ["250ml", "500ml", "750ml"],
+    "image": "/figma/product-bottle-2.jpg",
+    "fit": "contain",
+    "acidity": "< 0.3%",
+    "title": {
+      "en": "CLASSIC 100% CALIFORNIA EXTRA VIRGIN OLIVE OIL",
+      "he": "שמן זית כתית קלאסי 100% מקליפורניה"
+    },
+    "subtitle": {
+      "en": "Classic",
+      "he": "קלאסי"
+    },
+    "description": {
+      "en": "A beautifully balanced extra virgin olive oil with a smooth, buttery character and mild fruitiness. Versatile enough for everyday cooking, baking, and dipping.",
+      "he": "שמן זית כתית מעולה עם אופי חלק וחמאתי ופירותיות עדינה. מגוון מספיק לבישול יומיומי, אפייה וטבילה."
+    },
+    "origin": {
+      "en": "California, USA",
+      "he": "קליפורניה, ארה\"ב"
+    },
+    "harvest": {
+      "en": "October – November",
+      "he": "אוקטובר – נובמבר"
+    }
+  },
+  {
+    "id": "mild",
+    "active": true,
+    "featured": false,
+    "price": "$9.99",
+    "sizes": ["250ml", "500ml", "750ml"],
+    "image": "/figma/product-bottle.jpg",
+    "fit": "cover",
+    "acidity": "< 0.2%",
+    "title": {
+      "en": "MILD 100% CALIFORNIA EXTRA VIRGIN OLIVE OIL",
+      "he": "שמן זית כתית עדין 100% מקליפורניה"
+    },
+    "subtitle": {
+      "en": "Mild",
+      "he": "עדין"
+    },
+    "description": {
+      "en": "Delicate and light with a gentle fruity aroma. Our Mild blend is ideal for dressings, marinades, and any dish where you want the olive oil to complement rather than dominate.",
+      "he": "עדין וקל עם ניחוח פירותי עדין. המזיגה העדינה שלנו אידיאלית לרטבים, מרינדות וכל מנה שבה תרצו שהשמן ישלים ולא ישלוט."
+    },
+    "origin": {
+      "en": "California, USA",
+      "he": "קליפורניה, ארה\"ב"
+    },
+    "harvest": {
+      "en": "October – November",
+      "he": "אוקטובר – נובמבר"
+    }
+  },
+  {
+    "id": "tin",
+    "active": true,
+    "featured": false,
+    "price": "$9.99",
+    "sizes": ["1L", "3L", "5L"],
+    "image": "/figma/product-tin.jpg",
+    "fit": "contain",
+    "acidity": "< 0.3%",
+    "title": {
+      "en": "100% CALIFORNIA EXTRA VIRGIN OLIVE OIL TIN",
+      "he": "שמן זית כתית 100% מקליפורניה — פחית"
+    },
+    "subtitle": {
+      "en": "Classic Tin",
+      "he": "פחית קלאסית"
+    },
+    "description": {
+      "en": "The same award-winning California extra virgin olive oil, packaged in a traditional tin that protects against light and preserves freshness longer. A beautiful addition to any kitchen.",
+      "he": "אותו שמן זית כתית זוכה הפרסים מקליפורניה, ארוז בפחית מסורתית המגינה מפני אור ושומרת על הטריות לאורך זמן. תוספת יפה לכל מטבח."
+    },
+    "origin": {
+      "en": "California, USA",
+      "he": "קליפורניה, ארה\"ב"
+    },
+    "harvest": {
+      "en": "October – December",
+      "he": "אוקטובר – דצמבר"
+    }
+  }
+]

@@ -1,5 +1,6 @@
 'use client'
 import { useTranslations } from 'next-intl'
+import type { Navigation } from '@/lib/cms'
 import {
   StyledFooter,
   FooterInner,
@@ -9,16 +10,12 @@ import {
   FooterCopyright,
 } from './Footer.styles'
 
-export default function Footer() {
-  const t = useTranslations('footer')
+interface Props {
+  navigation: Navigation
+}
 
-  const FOOTER_LINKS = [
-    { label: t('shop'), href: '/shop' },
-    { label: t('about'), href: '/about' },
-    { label: t('blog'), href: '/blog' },
-    { label: t('whereToBuy'), href: '/where-to-buy' },
-    { label: t('contact'), href: '/contact' },
-  ]
+export default function Footer({ navigation }: Props) {
+  const t = useTranslations('footer')
 
   return (
     <StyledFooter>
@@ -26,8 +23,8 @@ export default function Footer() {
         <FooterBrand href="/">The Valley</FooterBrand>
         <nav aria-label="Footer navigation">
           <FooterNavList>
-            {FOOTER_LINKS.map((link) => (
-              <li key={link.href}>
+            {navigation.footer.map((link) => (
+              <li key={link.id}>
                 <FooterNavLink href={link.href}>{link.label}</FooterNavLink>
               </li>
             ))}

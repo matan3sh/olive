@@ -1,0 +1,16 @@
+{
+  "tag": { "en": "Who We Are", "he": "מי אנחנו" },
+  "heading": { "en": "IT'S ALL ABOUT THOSE OLIVES", "he": "הכל על הזיתים האלו" },
+  "body": {
+    "en": "Extra Virgin Olive Oil is simply the juice of fantastically healthy olives. And that's all it is—so the quality of the oil depends entirely on the quality of the olives.",
+    "he": "שמן זית כתית מעולה הוא פשוט מיץ זיתים בריאים להפליא. וזה הכל שהוא — כך שאיכות השמן תלויה לחלוטין באיכות הזיתים."
+  },
+  "image1": "/figma/about-1.jpg",
+  "image2": "/figma/about-2.jpg",
+  "stats": [
+    { "id": "cold-pressed", "num": "100%", "label": { "en": "Cold Pressed", "he": "כבישה קרה" }, "dark": true },
+    { "id": "acidity",      "num": "0.2%", "label": { "en": "Acidity", "he": "חומציות" },      "dark": false },
+    { "id": "years",        "num": "12",   "label": { "en": "Years of Craft", "he": "שנות מיומנות" }, "dark": false },
+    { "id": "varieties",    "num": "4",    "label": { "en": "Olive Varieties", "he": "זני זיתים" }, "dark": false }
+  ]
+}

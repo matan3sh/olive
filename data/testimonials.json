@@ -1,0 +1,35 @@
+[
+  {
+    "id": "emma-anderson",
+    "quote": {
+      "en": "\"I was looking for pure extra virgin olive oil and I found it. I must say that it is by far the best quality extra virgin olive oil I have found at this price point.\"",
+      "he": "\"חיפשתי שמן זית כתית מעולה טהור ומצאתי. אני חייבת לומר שזהו ללא ספק שמן הזית כתית מעולה באיכות הגבוהה ביותר שמצאתי בנקודת מחיר זו.\""
+    },
+    "author": {
+      "en": "— Emma Anderson, Housewife",
+      "he": "— אמה אנדרסון, עקרת בית"
+    }
+  },
+  {
+    "id": "james-carter",
+    "quote": {
+      "en": "\"The richness and depth of flavor in every bottle is unmatched. You can truly taste the difference of fresh-pressed, single-origin oil.\"",
+      "he": "\"העושר ועומק הטעם בכל בקבוק הוא ללא תחרות. אפשר ממש להרגיש את ההבדל של שמן כבוש טרי ממקור יחיד.\""
+    },
+    "author": {
+      "en": "— James Carter, Chef",
+      "he": "— ג׳יימס קרטר, שף"
+    }
+  },
+  {
+    "id": "sofia-mendez",
+    "quote": {
+      "en": "\"Finally an olive oil that lives up to its promises. Cold pressed, single origin, and absolutely delicious on everything.\"",
+      "he": "\"סוף סוף שמן זית שעומד בהבטחותיו. כבישה קרה, מקור יחיד, ופשוט טעים על הכל.\""
+    },
+    "author": {
+      "en": "— Sofia Mendez, Food Blogger",
+      "he": "— סופיה מנדז, בלוגרית אוכל"
+    }
+  }
+]

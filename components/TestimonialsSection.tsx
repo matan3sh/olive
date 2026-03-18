@@ -4,6 +4,7 @@ import { useState, useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
 import { useTranslations } from 'next-intl'
+import type { Testimonial } from '@/lib/cms'
 import {
   TestimonialsSectionEl,
   TestimonialsInner,
@@ -18,24 +19,13 @@ import {
   Dot,
 } from './TestimonialsSection.styles'
 
-const TESTIMONIALS = [
-  {
-    quote: '"I was looking for pure extra virgin olive oil and I found it. I must say that it is by far the best quality extra virgin olive oil I have found at this price point."',
-    author: '— Emma Anderson, Housewife',
-  },
-  {
-    quote: '"The richness and depth of flavor in every bottle is unmatched. You can truly taste the difference of fresh-pressed, single-origin oil."',
-    author: '— James Carter, Chef',
-  },
-  {
-    quote: '"Finally an olive oil that lives up to its promises. Cold pressed, single origin, and absolutely delicious on everything."',
-    author: '— Sofia Mendez, Food Blogger',
-  },
-]
+interface Props {
+  testimonials: Testimonial[]
+}
 
-export default function TestimonialsSection() {
+export default function TestimonialsSection({ testimonials }: Props) {
   const [active, setActive] = useState(0)
-  const testimonial = TESTIMONIALS[active]
+  const testimonial = testimonials[active]
   const containerRef = useRef<HTMLElement>(null)
   const t = useTranslations('testimonials')
 
@@ -96,7 +86,7 @@ export default function TestimonialsSection() {
           <QuoteAuthor className="quote-author">{testimonial.author}</QuoteAuthor>
 
           <DotsRow className="dots-row">
-            {TESTIMONIALS.map((_, i) => (
+            {testimonials.map((_, i) => (
               <Dot
                 key={i}
                 $active={i === active}

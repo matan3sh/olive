@@ -1,0 +1,9 @@
+{
+  "tag":         { "en": "Extra Virgin Olive Oil", "he": "שמן זית כתית מעולה" },
+  "title":       { "en": "Jezreel Valley Select Extra Virgin Olive Oil", "he": "שמן זית כתית מעולה נבחר מעמק יזרעאל" },
+  "subtitle":    { "en": "Cold Pressed · Hand Picked", "he": "כבישה קרה · קטיף ידני" },
+  "cta":         { "en": "Shop Now", "he": "לקנייה" },
+  "sideLabel":   { "en": "Premium Reserve", "he": "מאגר פרמיום" },
+  "backgroundImage": "/figma/hero-bg.jpg",
+  "video": "/vid.mp4"
+}

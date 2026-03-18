@@ -4,6 +4,7 @@ import { useGSAP } from '@gsap/react'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import type { HeroContent } from '@/lib/cms'
 import {
   HeroCtaButton,
   HeroEyebrow,
@@ -59,7 +60,11 @@ function IconUnmuted() {
   )
 }
 
-export default function HeroSection() {
+interface Props {
+  hero: HeroContent
+}
+
+export default function HeroSection({ hero }: Props) {
   const containerRef = useRef<HTMLElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [muted, setMuted] = useState(true)
@@ -100,7 +105,7 @@ export default function HeroSection() {
   return (
     <HeroSectionEl ref={containerRef} aria-label="Hero">
       <Image
-        src="/figma/hero-bg.jpg"
+        src={hero.backgroundImage}
         alt=""
         fill
         priority
@@ -114,7 +119,7 @@ export default function HeroSection() {
         <HeroLeft className="hero-left-col">
           <HeroVideoEl
             ref={videoRef}
-            src="/vid.mp4"
+            src={hero.video}
             autoPlay
             loop
             muted
@@ -129,26 +134,26 @@ export default function HeroSection() {
             {muted ? <IconMuted /> : <IconUnmuted />}
           </HeroSoundToggle>
           <HeroSideLabel className="hero-side-label">
-            {t('sideLabel')}
+            {hero.sideLabel}
           </HeroSideLabel>
         </HeroLeft>
 
         {/* Right content panel */}
         <HeroRight>
           <HeroEyebrow className="hero-eyebrow">
-            {t('tag')}
+            {hero.tag}
           </HeroEyebrow>
 
           <HeroTitle className="hero-title">
-            {t('title')}
+            {hero.title}
           </HeroTitle>
 
           <HeroSubRow>
             <HeroThinText className="hero-thin-text">
-              {t('subtitle')}
+              {hero.subtitle}
             </HeroThinText>
             <HeroCtaButton href="/shop" className="hero-cta">
-              {t('cta')}
+              {hero.cta}
             </HeroCtaButton>
           </HeroSubRow>
         </HeroRight>

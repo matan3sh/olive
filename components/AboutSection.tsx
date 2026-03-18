@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
-import { useTranslations } from 'next-intl'
+import type { AboutContent } from '@/lib/cms'
 import {
   AboutSectionEl,
   DesktopLayout,
@@ -23,16 +23,12 @@ import {
   AboutDataLabel,
 } from './AboutSection.styles'
 
-export default function AboutSection() {
-  const containerRef = useRef<HTMLElement>(null)
-  const t = useTranslations('about')
+interface Props {
+  about: AboutContent
+}
 
-  const DATA = [
-    { id: 'cold-pressed', num: '100%', label: t('coldPressed'), dark: true },
-    { id: 'acidity',      num: '0.2%', label: t('acidity'),      dark: false },
-    { id: 'years',        num: '12',   label: t('yearsOfCraft'),  dark: false },
-    { id: 'varieties',    num: '4',    label: t('oliveVarieties'), dark: false },
-  ]
+export default function AboutSection({ about }: Props) {
+  const containerRef = useRef<HTMLElement>(null)
 
   useGSAP(() => {
     const mm = gsap.matchMedia()
@@ -73,13 +69,13 @@ export default function AboutSection() {
 
   const tagEl = (
     <AboutSectionTag className="about-tag">
-      <AboutTagLabel>{t('tag')}</AboutTagLabel>
+      <AboutTagLabel>{about.tag}</AboutTagLabel>
     </AboutSectionTag>
   )
 
   const headingEl = (
     <AboutHeading className="about-heading">
-      {t('heading')}
+      {about.heading}
     </AboutHeading>
   )
 
@@ -87,13 +83,13 @@ export default function AboutSection() {
 
   const bodyEl = (
     <AboutBody className="about-body">
-      {t('body')}
+      {about.body}
     </AboutBody>
   )
 
   const dataGridEl = (
     <AboutDataGrid>
-      {DATA.map(({ id, num, label, dark }) => (
+      {about.stats.map(({ id, num, label, dark }) => (
         <AboutDataCell key={id} $dark={dark} className="about-data-cell">
           <AboutDataNum $dark={dark}>{num}</AboutDataNum>
           <AboutDataLabel $dark={dark}>{label}</AboutDataLabel>
@@ -110,7 +106,7 @@ export default function AboutSection() {
         {/* Image 1 — top left, floats freely */}
         <AboutImageWrapper className="about-img-1" $left="3.26%" $top={0} $width="32.15%" $height="400px">
           <Image
-            src="/figma/about-1.jpg"
+            src={about.image1}
             alt="Fresh olives in a bowl"
             fill
             sizes="32vw"
@@ -121,7 +117,7 @@ export default function AboutSection() {
         {/* Image 2 — bottom right, floats freely */}
         <AboutImageWrapper className="about-img-2" $left="63%" $top="430px" $width="34%" $height="340px">
           <Image
-            src="/figma/about-2.jpg"
+            src={about.image2}
             alt="Olive oil being poured"
             fill
             sizes="34vw"
@@ -143,7 +139,7 @@ export default function AboutSection() {
       <MobileLayout>
         <MobileImageWrapper $ratio="463/334">
           <Image
-            src="/figma/about-1.jpg"
+            src={about.image1}
             alt="Fresh olives in a bowl"
             fill
             sizes="100vw"
@@ -161,7 +157,7 @@ export default function AboutSection() {
 
         <MobileImageWrapper $ratio="428/295">
           <Image
-            src="/figma/about-2.jpg"
+            src={about.image2}
             alt="Olive oil being poured"
             fill
             sizes="100vw"

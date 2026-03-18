@@ -1,0 +1,18 @@
+{
+  "header": [
+    { "id": "home",         "href": "/",             "label": { "en": "Home",         "he": "בית" } },
+    { "id": "shop",         "href": "/shop",          "label": { "en": "Shop",         "he": "חנות" } },
+    { "id": "who-we-are",   "href": "/about",         "label": { "en": "Who we are",   "he": "מי אנחנו" } },
+    { "id": "olive-oil",    "href": "/olive-oil",     "label": { "en": "Our Olive Oil", "he": "שמן הזית שלנו" } },
+    { "id": "blog",         "href": "/blog",          "label": { "en": "Blog",         "he": "בלוג" } },
+    { "id": "news",         "href": "/news",          "label": { "en": "In The News",  "he": "בתקשורת" } },
+    { "id": "where-to-buy", "href": "/where-to-buy",  "label": { "en": "Where To Buy", "he": "איפה לקנות" } }
+  ],
+  "footer": [
+    { "id": "shop",         "href": "/shop",          "label": { "en": "Shop",         "he": "חנות" } },
+    { "id": "about",        "href": "/about",         "label": { "en": "About",        "he": "אודות" } },
+    { "id": "blog",         "href": "/blog",          "label": { "en": "Blog",         "he": "בלוג" } },
+    { "id": "where-to-buy", "href": "/where-to-buy",  "label": { "en": "Where To Buy", "he": "איפה לקנות" } },
+    { "id": "contact",      "href": "/contact",       "label": { "en": "Contact",      "he": "צור קשר" } }
+  ]
+}

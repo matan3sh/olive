@@ -1,12 +1,5 @@
 {
   "header": {
-    "home": "Home",
-    "shop": "Shop",
-    "whoWeAre": "Who we are",
-    "ourOliveOil": "Our Olive Oil",
-    "blog": "Blog",
-    "inTheNews": "In The News",
-    "whereToBuy": "Where To Buy",
     "searchPlaceholder": "Search products...",
     "ariaSearch": "Search",
     "ariaCart": "Cart",
@@ -17,22 +10,8 @@
     "ariaMute": "Mute"
   },
   "hero": {
-    "tag": "Extra Virgin Olive Oil",
-    "title": "Jezreel Valley Select Extra Virgin Olive Oil",
-    "subtitle": "Cold Pressed · Hand Picked",
-    "cta": "Shop Now",
-    "sideLabel": "Premium Reserve",
     "ariaUnmute": "Unmute",
     "ariaMute": "Mute"
-  },
-  "about": {
-    "tag": "Who We Are",
-    "heading": "IT'S ALL ABOUT THOSE OLIVES",
-    "body": "Extra Virgin Olive Oil is simply the juice of fantastically healthy olives. And that's all it is—so the quality of the oil depends entirely on the quality of the olives.",
-    "coldPressed": "Cold Pressed",
-    "acidity": "Acidity",
-    "yearsOfCraft": "Years of Craft",
-    "oliveVarieties": "Olive Varieties"
   },
   "products": {
     "heading": "Our Olive Oil",
@@ -56,42 +35,7 @@
     "youMayAlsoLike": "You may also like",
     "from": "From"
   },
-  "productItems": {
-    "robust": {
-      "title": "ROBUST 100% CALIFORNIA EXTRA VIRGIN OLIVE OIL",
-      "subtitle": "Robust",
-      "description": "Our Robust blend is cold-pressed from hand-picked California olives at peak ripeness. Intensely flavored with a peppery finish — perfect for drizzling over grilled meats, hearty salads, and crusty bread.",
-      "origin": "California, USA",
-      "harvest": "November – December"
-    },
-    "classic": {
-      "title": "CLASSIC 100% CALIFORNIA EXTRA VIRGIN OLIVE OIL",
-      "subtitle": "Classic",
-      "description": "A beautifully balanced extra virgin olive oil with a smooth, buttery character and mild fruitiness. Versatile enough for everyday cooking, baking, and dipping.",
-      "origin": "California, USA",
-      "harvest": "October – November"
-    },
-    "mild": {
-      "title": "MILD 100% CALIFORNIA EXTRA VIRGIN OLIVE OIL",
-      "subtitle": "Mild",
-      "description": "Delicate and light with a gentle fruity aroma. Our Mild blend is ideal for dressings, marinades, and any dish where you want the olive oil to complement rather than dominate.",
-      "origin": "California, USA",
-      "harvest": "October – November"
-    },
-    "tin": {
-      "title": "100% CALIFORNIA EXTRA VIRGIN OLIVE OIL TIN",
-      "subtitle": "Classic Tin",
-      "description": "The same award-winning California extra virgin olive oil, packaged in a traditional tin that protects against light and preserves freshness longer. A beautiful addition to any kitchen.",
-      "origin": "California, USA",
-      "harvest": "October – December"
-    }
-  },
   "footer": {
-    "shop": "Shop",
-    "about": "About",
-    "blog": "Blog",
-    "whereToBuy": "Where To Buy",
-    "contact": "Contact",
     "rights": "© {year} The Valley Olive Oil. All rights reserved."
   },
   "metadata": {

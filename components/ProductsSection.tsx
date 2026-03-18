@@ -3,8 +3,8 @@ import Image from 'next/image'
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
-import { PRODUCTS } from '@/lib/products'
 import { useTranslations } from 'next-intl'
+import type { Product } from '@/lib/cms'
 import {
   ProductsSectionEl,
   ProductsOuter,
@@ -21,10 +21,13 @@ import {
   ProductPrice,
 } from './ProductsSection.styles'
 
-export default function ProductsSection() {
+interface Props {
+  products: Product[]
+}
+
+export default function ProductsSection({ products }: Props) {
   const containerRef = useRef<HTMLElement>(null)
   const t = useTranslations('products')
-  const tItems = useTranslations('productItems')
 
   useGSAP(() => {
     const mm = gsap.matchMedia()
@@ -74,13 +77,13 @@ export default function ProductsSection() {
         </ProductsHeadingRow>
 
         <ProductsGrid>
-          {PRODUCTS.map((p, i) => (
+          {products.map((p, i) => (
             <ProductCard key={p.id} className="product-card">
               <ProductImageLink href={`/product?id=${p.id}`}>
                 <ProductImageWrapper>
                   <Image
                     src={p.image}
-                    alt={tItems(`${p.id}.title`)}
+                    alt={p.title}
                     fill
                     sizes="(max-width: 900px) 50vw, 268px"
                     style={{ objectFit: p.fit }}
@@ -88,7 +91,7 @@ export default function ProductsSection() {
                 </ProductImageWrapper>
               </ProductImageLink>
               <ProductIndex>— {String(i + 1).padStart(2, '0')}</ProductIndex>
-              <ProductTitle>{tItems(`${p.id}.title`)}</ProductTitle>
+              <ProductTitle>{p.title}</ProductTitle>
               <ProductPrice>{t('from')} {p.price}</ProductPrice>
             </ProductCard>
           ))}
