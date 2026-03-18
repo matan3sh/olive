@@ -6,12 +6,12 @@ import {
   getNavigation,
   type Locale,
 } from '@/lib/cms'
-import Header from '@/components/Header'
-import HeroSection from '@/components/HeroSection'
-import AboutSection from '@/components/AboutSection'
-import ProductsSection from '@/components/ProductsSection'
-import TestimonialsSection from '@/components/TestimonialsSection'
-import Footer from '@/components/Footer'
+import Header from '@/components/header'
+import HeroSection from '@/components/hero'
+import AboutSection from '@/components/about'
+import ProductsSection from '@/components/products'
+import TestimonialsSection from '@/components/testimonials'
+import Footer from '@/components/footer'
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params

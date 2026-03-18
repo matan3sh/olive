@@ -1,5 +1,5 @@
 'use client'
-import Image from 'next/image'
+
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
@@ -13,13 +13,8 @@ import {
   ProductsHeading,
   SeeAllLink,
   ProductsGrid,
-  ProductCard,
-  ProductIndex,
-  ProductImageLink,
-  ProductImageWrapper,
-  ProductTitle,
-  ProductPrice,
 } from './ProductsSection.styles'
+import ProductCard from './ProductCard'
 
 interface Props {
   products: Product[]
@@ -78,22 +73,7 @@ export default function ProductsSection({ products }: Props) {
 
         <ProductsGrid>
           {products.map((p, i) => (
-            <ProductCard key={p.id} className="product-card">
-              <ProductImageLink href={`/product?id=${p.id}`}>
-                <ProductImageWrapper>
-                  <Image
-                    src={p.image}
-                    alt={p.title}
-                    fill
-                    sizes="(max-width: 900px) 50vw, 268px"
-                    style={{ objectFit: p.fit }}
-                  />
-                </ProductImageWrapper>
-              </ProductImageLink>
-              <ProductIndex>— {String(i + 1).padStart(2, '0')}</ProductIndex>
-              <ProductTitle>{p.title}</ProductTitle>
-              <ProductPrice>{t('from')} {p.price}</ProductPrice>
-            </ProductCard>
+            <ProductCard key={p.id} product={p} index={i} fromLabel={t('from')} />
           ))}
         </ProductsGrid>
       </ProductsOuter>

@@ -5,6 +5,7 @@ import { useGSAP } from '@gsap/react'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
 import { useTranslations } from 'next-intl'
 import type { Testimonial } from '@/lib/cms'
+import PaginationDots from '@/components/ui/PaginationDots'
 import {
   TestimonialsSectionEl,
   TestimonialsInner,
@@ -15,8 +16,6 @@ import {
   TestimonialsHeading,
   QuoteText,
   QuoteAuthor,
-  DotsRow,
-  Dot,
 } from './TestimonialsSection.styles'
 
 interface Props {
@@ -68,7 +67,6 @@ export default function TestimonialsSection({ testimonials }: Props) {
     <TestimonialsSectionEl ref={containerRef} aria-label="Customer testimonials">
       <TestimonialsInner>
 
-        {/* Large accent number — desktop only */}
         <TestimonialsAccentCol>
           <TestimonialsLargeNum className="testimonials-num">&quot;</TestimonialsLargeNum>
         </TestimonialsAccentCol>
@@ -85,17 +83,7 @@ export default function TestimonialsSection({ testimonials }: Props) {
           <QuoteText key={active} className="quote-text quote-border">{testimonial.quote}</QuoteText>
           <QuoteAuthor className="quote-author">{testimonial.author}</QuoteAuthor>
 
-          <DotsRow className="dots-row">
-            {testimonials.map((_, i) => (
-              <Dot
-                key={i}
-                $active={i === active}
-                aria-label={`View testimonial ${i + 1}`}
-                aria-pressed={i === active}
-                onClick={() => setActive(i)}
-              />
-            ))}
-          </DotsRow>
+          <PaginationDots count={testimonials.length} active={active} onSelect={setActive} />
         </TestimonialsContentCol>
 
       </TestimonialsInner>

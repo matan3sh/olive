@@ -1,4 +1,5 @@
 'use client'
+
 import Image from 'next/image'
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
@@ -6,22 +7,14 @@ import { gsap, ScrollTrigger } from '@/lib/gsap'
 import type { AboutContent } from '@/lib/cms'
 import {
   AboutSectionEl,
-  DesktopLayout,
-  MobileLayout,
   AboutImageWrapper,
   AboutTextBlock,
-  MobileTextBlock,
+  DesktopLayout,
   MobileImageWrapper,
-  AboutSectionTag,
-  AboutTagLabel,
-  AboutHeading,
-  AboutRule,
-  AboutBody,
-  AboutDataGrid,
-  AboutDataCell,
-  AboutDataNum,
-  AboutDataLabel,
+  MobileLayout,
+  MobileTextBlock,
 } from './AboutSection.styles'
+import AboutContentPanel from './AboutContent'
 
 interface Props {
   about: AboutContent
@@ -67,43 +60,10 @@ export default function AboutSection({ about }: Props) {
     })
   }, { scope: containerRef })
 
-  const tagEl = (
-    <AboutSectionTag className="about-tag">
-      <AboutTagLabel>{about.tag}</AboutTagLabel>
-    </AboutSectionTag>
-  )
-
-  const headingEl = (
-    <AboutHeading className="about-heading">
-      {about.heading}
-    </AboutHeading>
-  )
-
-  const ruleEl = <AboutRule className="about-rule" />
-
-  const bodyEl = (
-    <AboutBody className="about-body">
-      {about.body}
-    </AboutBody>
-  )
-
-  const dataGridEl = (
-    <AboutDataGrid>
-      {about.stats.map(({ id, num, label, dark }) => (
-        <AboutDataCell key={id} $dark={dark} className="about-data-cell">
-          <AboutDataNum $dark={dark}>{num}</AboutDataNum>
-          <AboutDataLabel $dark={dark}>{label}</AboutDataLabel>
-        </AboutDataCell>
-      ))}
-    </AboutDataGrid>
-  )
-
   return (
     <AboutSectionEl ref={containerRef} aria-label="About our olives">
 
-      {/* ── DESKTOP: diagonal floating layout ──────────────── */}
       <DesktopLayout>
-        {/* Image 1 — top left, floats freely */}
         <AboutImageWrapper className="about-img-1" $left="3.26%" $top={0} $width="32.15%" $height="400px">
           <Image
             src={about.image1}
@@ -114,7 +74,6 @@ export default function AboutSection({ about }: Props) {
           />
         </AboutImageWrapper>
 
-        {/* Image 2 — bottom right, floats freely */}
         <AboutImageWrapper className="about-img-2" $left="63%" $top="430px" $width="34%" $height="340px">
           <Image
             src={about.image2}
@@ -125,17 +84,11 @@ export default function AboutSection({ about }: Props) {
           />
         </AboutImageWrapper>
 
-        {/* Centered text block */}
         <AboutTextBlock>
-          {tagEl}
-          {headingEl}
-          {ruleEl}
-          {bodyEl}
-          {dataGridEl}
+          <AboutContentPanel about={about} />
         </AboutTextBlock>
       </DesktopLayout>
 
-      {/* ── MOBILE: stacked ────────────────────────────────── */}
       <MobileLayout>
         <MobileImageWrapper $ratio="463/334">
           <Image
@@ -148,11 +101,7 @@ export default function AboutSection({ about }: Props) {
         </MobileImageWrapper>
 
         <MobileTextBlock>
-          {tagEl}
-          {headingEl}
-          {ruleEl}
-          {bodyEl}
-          {dataGridEl}
+          <AboutContentPanel about={about} />
         </MobileTextBlock>
 
         <MobileImageWrapper $ratio="428/295">

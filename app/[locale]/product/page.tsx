@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation'
 import { getProducts, getProductById, getNavigation, type Locale } from '@/lib/cms'
-import Header from '@/components/Header'
-import Footer from '@/components/Footer'
-import ProductDetail from '@/components/ProductDetail'
+import Header from '@/components/header'
+import Footer from '@/components/footer'
+import ProductDetail from '@/components/product-detail'
 
 export default async function ProductPage({
   params,

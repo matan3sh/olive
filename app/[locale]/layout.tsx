@@ -5,6 +5,7 @@ import StyledComponentsRegistry from '@/lib/styled-registry'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import Providers from '../providers'
 import LocaleAttributes from './locale-attributes'
+import ScrollToTop from '@/components/ScrollToTop'
 
 export async function generateMetadata({
   params,
@@ -41,6 +42,7 @@ export default async function LocaleLayout({
         <StyledComponentsRegistry>
           <AntdRegistry>
             <Providers>
+              <ScrollToTop />
               {children}
             </Providers>
           </AntdRegistry>

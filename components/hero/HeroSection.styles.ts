@@ -28,7 +28,6 @@ export const HeroOverlay = styled.div`
   z-index: 1;
 `
 
-/* Swiss grid: dark left column + right content */
 export const HeroGrid = styled.div`
   position: absolute;
   inset: 0;
@@ -184,7 +183,6 @@ export const HeroTitle = styled.h1`
     font-size: clamp(2.2rem, 7vw, 54px);
   `}
 `
-
 
 export const HeroSubRow = styled.div`
   display: flex;
