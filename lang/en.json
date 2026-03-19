@@ -42,5 +42,28 @@
   "metadata": {
     "title": "The Valley Olive Oil",
     "description": "Premium extra virgin olive oil"
+  },
+  "shop": {
+    "eyebrow": "The Valley Olive Oil",
+    "title": "Shop",
+    "productCount": "{count} products",
+    "breadcrumbHome": "Home",
+    "breadcrumbShop": "Shop",
+    "filters": {
+      "size": "Size",
+      "acidity": "Acidity",
+      "price": "Price",
+      "featured": "Featured",
+      "sort": "Sort",
+      "sortFeatured": "Featured first",
+      "sortPriceAsc": "Price: Low to High",
+      "sortPriceDesc": "Price: High to Low",
+      "clearAll": "Clear all filters",
+      "results": "{count} results"
+    },
+    "emptyState": {
+      "title": "No products match your filters",
+      "subtitle": "Try removing some filters to see more products"
+    }
   }
 }

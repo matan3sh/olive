@@ -42,5 +42,28 @@
   "metadata": {
     "title": "שמן זית העמק",
     "description": "שמן זית כתית מעולה בכבישה קרה"
+  },
+  "shop": {
+    "eyebrow": "שמן זית עמק",
+    "title": "חנות",
+    "productCount": "{count} מוצרים",
+    "breadcrumbHome": "בית",
+    "breadcrumbShop": "חנות",
+    "filters": {
+      "size": "נפח",
+      "acidity": "חומציות",
+      "price": "מחיר",
+      "featured": "מומלצים",
+      "sort": "מיין",
+      "sortFeatured": "מומלצים קודם",
+      "sortPriceAsc": "מחיר: מהנמוך לגבוה",
+      "sortPriceDesc": "מחיר: מהגבוה לנמוך",
+      "clearAll": "נקה את כל הסננים",
+      "results": "{count} תוצאות"
+    },
+    "emptyState": {
+      "title": "לא נמצאו מוצרים התואמים את הסינון",
+      "subtitle": "נסה להסיר כמה סננים כדי לראות יותר מוצרים"
+    }
   }
 }
