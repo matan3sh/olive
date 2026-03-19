@@ -20,7 +20,7 @@ export default async function ShopRoute({
   return (
     <>
       <Header navigation={navigation} />
-      <Suspense fallback={null}>
+      <Suspense fallback={<div style={{ minHeight: '100vh', background: '#f0ece4' }} />}>
         <ShopPage products={products} />
       </Suspense>
       <Footer navigation={navigation} />

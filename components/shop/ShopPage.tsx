@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useCallback } from 'react'
-import { useSearchParams, useRouter } from 'next/navigation'
+import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import type { Product } from '@/lib/cms'
 import ProductCard from '@/components/products/ProductCard'
@@ -29,6 +29,7 @@ function parsePrice(price: string): number {
 export default function ShopPage({ products }: Props) {
   const searchParams = useSearchParams()
   const router = useRouter()
+  const pathname = usePathname()
   const t = useTranslations('shop')
   const tProducts = useTranslations('products')
 
@@ -80,7 +81,7 @@ export default function ShopPage({ products }: Props) {
     })
 
     // Sort
-    if (filterState.sort === 'featured') {
+    if (filterState.sort === 'best') {
       result = [...result].sort((a, b) => {
         if (a.featured && !b.featured) return -1
         if (!a.featured && b.featured) return 1
@@ -123,14 +124,14 @@ export default function ShopPage({ products }: Props) {
       }
 
       const qs = params.toString()
-      router.push(qs ? `?${qs}` : window.location.pathname, { scroll: false })
+      router.push(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
     },
-    [router]
+    [router, pathname]
   )
 
   const clearAllFilters = useCallback(() => {
-    router.push(window.location.pathname, { scroll: false })
-  }, [router])
+    router.push(pathname, { scroll: false })
+  }, [router, pathname])
 
   return (
     <ShopWrapper>

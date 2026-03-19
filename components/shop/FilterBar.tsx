@@ -27,7 +27,7 @@ export interface FilterState {
   minPrice: string
   maxPrice: string
   featured: boolean
-  sort: 'featured' | 'price_asc' | 'price_desc' | ''
+  sort: 'best' | 'price_asc' | 'price_desc' | ''
 }
 
 interface FilterBarProps {
@@ -201,7 +201,7 @@ export default function FilterBar({
                 aria-expanded={openDropdown === 'acidity'}
                 aria-haspopup="listbox"
               >
-                {t('filters.acidity')}
+                {t('filters.acidity')}{filters.acidity ? ` (${filters.acidity})` : ''}
               </Pill>
               {openDropdown === 'acidity' && (
                 <DropdownPanel>
@@ -269,7 +269,7 @@ export default function FilterBar({
             </ResultsCount>
             <SortSelect value={filters.sort} onChange={handleSortChange}>
               <option value="">{t('filters.sort')}</option>
-              <option value="featured">{t('filters.sortFeatured')}</option>
+              <option value="best">{t('filters.sortFeatured')}</option>
               <option value="price_asc">{t('filters.sortPriceAsc')}</option>
               <option value="price_desc">{t('filters.sortPriceDesc')}</option>
             </SortSelect>
@@ -290,12 +290,12 @@ export default function FilterBar({
             )}
             {filters.minPrice && (
               <FilterChip onClick={() => removePrice('minPrice')}>
-                Min: ${filters.minPrice} <span>&times;</span>
+                Min: {filters.minPrice} <span>&times;</span>
               </FilterChip>
             )}
             {filters.maxPrice && (
               <FilterChip onClick={() => removePrice('maxPrice')}>
-                Max: ${filters.maxPrice} <span>&times;</span>
+                Max: {filters.maxPrice} <span>&times;</span>
               </FilterChip>
             )}
             {filters.featured && (
