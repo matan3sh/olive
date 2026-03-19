@@ -14,10 +14,10 @@ import {
 } from './ShopHero.styles'
 
 interface Props {
-  count: number
+  filteredCount: number
 }
 
-export default function ShopHero({ count }: Props) {
+export default function ShopHero({ filteredCount }: Props) {
   const t = useTranslations('shop')
 
   return (
@@ -30,7 +30,7 @@ export default function ShopHero({ count }: Props) {
         </Breadcrumb>
         <Eyebrow>{t('eyebrow')}</Eyebrow>
         <HeroHeading>{t('title')}</HeroHeading>
-        <ProductCount>{t('productCount', { count })}</ProductCount>
+        <ProductCount>{t('productCount', { count: filteredCount })}</ProductCount>
       </HeroInner>
     </HeroSection>
   )

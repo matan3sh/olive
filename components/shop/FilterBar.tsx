@@ -72,8 +72,17 @@ export default function FilterBar({
         setOpenDropdown(null)
       }
     }
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setOpenDropdown(null)
+      }
+    }
     document.addEventListener('mousedown', handleMouseDown)
-    return () => document.removeEventListener('mousedown', handleMouseDown)
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('mousedown', handleMouseDown)
+      document.removeEventListener('keydown', handleKeyDown)
+    }
   }, [])
 
   const toggleDropdown = useCallback((type: DropdownType) => {
@@ -158,8 +167,11 @@ export default function FilterBar({
             {/* Size pill */}
             <DropdownWrapper>
               <Pill
+                type="button"
                 $active={filters.sizes.length > 0}
                 onClick={() => toggleDropdown('size')}
+                aria-expanded={openDropdown === 'size'}
+                aria-haspopup="listbox"
               >
                 {t('filters.size')}
                 {filters.sizes.length > 0 && ` (${filters.sizes.length})`}
@@ -183,8 +195,11 @@ export default function FilterBar({
             {/* Acidity pill */}
             <DropdownWrapper>
               <Pill
+                type="button"
                 $active={filters.acidity !== ''}
                 onClick={() => toggleDropdown('acidity')}
+                aria-expanded={openDropdown === 'acidity'}
+                aria-haspopup="listbox"
               >
                 {t('filters.acidity')}
               </Pill>
@@ -208,8 +223,10 @@ export default function FilterBar({
             {/* Price pill */}
             <DropdownWrapper>
               <Pill
+                type="button"
                 $active={filters.minPrice !== '' || filters.maxPrice !== ''}
                 onClick={() => toggleDropdown('price')}
+                aria-expanded={openDropdown === 'price'}
               >
                 {t('filters.price')}
               </Pill>
@@ -218,7 +235,8 @@ export default function FilterBar({
                   <PriceInputRow>
                     <PriceInput
                       type="text"
-                      placeholder="Min"
+                      inputMode="decimal"
+                      placeholder={t('filters.minPlaceholder')}
                       value={filters.minPrice}
                       onChange={(e) =>
                         handlePriceChange('minPrice', e.target.value)
@@ -227,7 +245,8 @@ export default function FilterBar({
                     <span>&ndash;</span>
                     <PriceInput
                       type="text"
-                      placeholder="Max"
+                      inputMode="decimal"
+                      placeholder={t('filters.maxPlaceholder')}
                       value={filters.maxPrice}
                       onChange={(e) =>
                         handlePriceChange('maxPrice', e.target.value)
@@ -239,7 +258,7 @@ export default function FilterBar({
             </DropdownWrapper>
 
             {/* Featured pill (toggle, no dropdown) */}
-            <Pill $active={filters.featured} onClick={handleFeaturedToggle}>
+            <Pill type="button" $active={filters.featured} onClick={handleFeaturedToggle}>
               {t('filters.featured')}
             </Pill>
           </PillGroup>

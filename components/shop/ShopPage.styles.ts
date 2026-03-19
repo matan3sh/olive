@@ -5,27 +5,33 @@ export const ShopWrapper = styled.main`
   min-height: 100vh;
 `
 
-export const ProductsGrid = styled.div`
+export const ProductsGridOuter = styled.div`
   max-width: 1440px;
   margin: 0 auto;
   padding: 48px 149px 100px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: rgba(17, 38, 12, 0.15);
-  border: 1px solid rgba(17, 38, 12, 0.15);
 
   ${media.belowXl`
     padding: 40px 60px 80px;
   `}
 
   ${media.belowLg`
-    grid-template-columns: repeat(2, 1fr);
     padding: 32px 32px 60px;
   `}
 
   ${media.belowSm`
     padding: 24px 20px 48px;
+  `}
+`
+
+export const ProductsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(17, 38, 12, 0.15);
+  border: 1px solid rgba(17, 38, 12, 0.15);
+
+  ${media.belowLg`
+    grid-template-columns: repeat(2, 1fr);
   `}
 `
 

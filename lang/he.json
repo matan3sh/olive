@@ -59,7 +59,9 @@
       "sortPriceAsc": "מחיר: מהנמוך לגבוה",
       "sortPriceDesc": "מחיר: מהגבוה לנמוך",
       "clearAll": "נקה את כל הסננים",
-      "results": "{count} תוצאות"
+      "results": "{count} תוצאות",
+      "minPlaceholder": "מינימום",
+      "maxPlaceholder": "מקסימום"
     },
     "emptyState": {
       "title": "לא נמצאו מוצרים התואמים את הסינון",

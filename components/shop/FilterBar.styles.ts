@@ -73,7 +73,7 @@ export const DropdownWrapper = styled.div`
 export const DropdownPanel = styled.div`
   position: absolute;
   top: calc(100% + 8px);
-  left: 0;
+  inset-inline-start: 0;
   background: ${({ theme }) => theme.colors.white};
   border: 1px solid ${({ theme }) => theme.colors.sectionBorder};
   border-radius: 8px;

@@ -59,7 +59,9 @@
       "sortPriceAsc": "Price: Low to High",
       "sortPriceDesc": "Price: High to Low",
       "clearAll": "Clear all filters",
-      "results": "{count} results"
+      "results": "{count} results",
+      "minPlaceholder": "Min",
+      "maxPlaceholder": "Max"
     },
     "emptyState": {
       "title": "No products match your filters",

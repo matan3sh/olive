@@ -9,6 +9,7 @@ import ShopHero from './ShopHero'
 import FilterBar, { type FilterState } from './FilterBar'
 import {
   ShopWrapper,
+  ProductsGridOuter,
   ProductsGrid,
   EmptyState,
   EmptyTitle,
@@ -21,8 +22,8 @@ interface Props {
 }
 
 function parsePrice(price: string): number {
-  const match = price.replace(/[^0-9.]/g, '')
-  return parseFloat(match) || 0
+  const cleaned = price.replace(/[^0-9.]/g, '')
+  return parseFloat(cleaned) || 0
 }
 
 export default function ShopPage({ products }: Props) {
@@ -56,7 +57,7 @@ export default function ShopPage({ products }: Props) {
       // Acidity filter
       if (
         filterState.acidity &&
-        !product.acidity.includes(filterState.acidity)
+        product.acidity !== filterState.acidity
       ) {
         return false
       }
@@ -122,18 +123,18 @@ export default function ShopPage({ products }: Props) {
       }
 
       const qs = params.toString()
-      router.push(qs ? `?${qs}` : '?', { scroll: false })
+      router.push(qs ? `?${qs}` : window.location.pathname, { scroll: false })
     },
     [router]
   )
 
   const clearAllFilters = useCallback(() => {
-    router.push('?', { scroll: false })
+    router.push(window.location.pathname, { scroll: false })
   }, [router])
 
   return (
     <ShopWrapper>
-      <ShopHero count={filteredProducts.length} />
+      <ShopHero filteredCount={filteredProducts.length} />
       <FilterBar
         products={products}
         filters={filterState}
@@ -142,16 +143,18 @@ export default function ShopPage({ products }: Props) {
       />
 
       {filteredProducts.length > 0 ? (
-        <ProductsGrid>
-          {filteredProducts.map((p, i) => (
-            <ProductCard
-              key={p.id}
-              product={p}
-              index={i}
-              fromLabel={tProducts('from')}
-            />
-          ))}
-        </ProductsGrid>
+        <ProductsGridOuter>
+          <ProductsGrid>
+            {filteredProducts.map((p, i) => (
+              <ProductCard
+                key={p.id}
+                product={p}
+                index={i}
+                fromLabel={tProducts('from')}
+              />
+            ))}
+          </ProductsGrid>
+        </ProductsGridOuter>
       ) : (
         <EmptyState>
           <EmptyTitle>{t('emptyState.title')}</EmptyTitle>
