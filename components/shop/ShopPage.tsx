@@ -85,16 +85,18 @@ export default function ShopPage({ products }: Props) {
       result = [...result].sort((a, b) => {
         if (a.featured && !b.featured) return -1
         if (!a.featured && b.featured) return 1
-        return 0
+        return a.title.localeCompare(b.title)
       })
     } else if (filterState.sort === 'price_asc') {
-      result = [...result].sort(
-        (a, b) => parsePrice(a.price) - parsePrice(b.price)
-      )
+      result = [...result].sort((a, b) => {
+        const diff = parsePrice(a.price) - parsePrice(b.price)
+        return diff !== 0 ? diff : a.title.localeCompare(b.title)
+      })
     } else if (filterState.sort === 'price_desc') {
-      result = [...result].sort(
-        (a, b) => parsePrice(b.price) - parsePrice(a.price)
-      )
+      result = [...result].sort((a, b) => {
+        const diff = parsePrice(b.price) - parsePrice(a.price)
+        return diff !== 0 ? diff : b.title.localeCompare(a.title)
+      })
     }
 
     return result

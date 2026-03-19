@@ -12,8 +12,10 @@ import {
   DropdownWrapper,
   DropdownPanel,
   DropdownLabel,
-  PriceInputRow,
-  PriceInput,
+  PriceSliderContainer,
+  PriceSliderTrack,
+  RangeInput,
+  PriceSliderLabels,
   RightGroup,
   ResultsCount,
   SortSelect,
@@ -54,6 +56,20 @@ export default function FilterBar({
     products.forEach((p) => p.sizes.forEach((s) => set.add(s)))
     return Array.from(set).sort()
   }, [products])
+
+  const priceRange = useMemo(() => {
+    const prices = products.map((p) => {
+      const cleaned = p.price.replace(/[^0-9.]/g, '')
+      return parseFloat(cleaned) || 0
+    })
+    return {
+      min: Math.floor(Math.min(...prices)),
+      max: Math.ceil(Math.max(...prices)),
+    }
+  }, [products])
+
+  const effectiveMin = priceRange.min
+  const effectiveMax = priceRange.min === priceRange.max ? priceRange.max + 50 : priceRange.max
 
   const availableAcidities = useMemo(() => {
     const set = new Set<string>()
@@ -152,11 +168,14 @@ export default function FilterBar({
     onFilterChange({ ...filters, featured: false })
   }, [filters, onFilterChange])
 
+  const hasActiveMinPrice = filters.minPrice !== '' && parseFloat(filters.minPrice) !== effectiveMin
+  const hasActiveMaxPrice = filters.maxPrice !== '' && parseFloat(filters.maxPrice) !== effectiveMax
+
   const hasActiveFilters =
     filters.sizes.length > 0 ||
     filters.acidity !== '' ||
-    filters.minPrice !== '' ||
-    filters.maxPrice !== '' ||
+    hasActiveMinPrice ||
+    hasActiveMaxPrice ||
     filters.featured
 
   return (
@@ -231,28 +250,48 @@ export default function FilterBar({
                 {t('filters.price')}
               </Pill>
               {openDropdown === 'price' && (
-                <DropdownPanel>
-                  <PriceInputRow>
-                    <PriceInput
-                      type="text"
-                      inputMode="decimal"
-                      placeholder={t('filters.minPlaceholder')}
-                      value={filters.minPrice}
-                      onChange={(e) =>
-                        handlePriceChange('minPrice', e.target.value)
-                      }
-                    />
-                    <span>&ndash;</span>
-                    <PriceInput
-                      type="text"
-                      inputMode="decimal"
-                      placeholder={t('filters.maxPlaceholder')}
-                      value={filters.maxPrice}
-                      onChange={(e) =>
-                        handlePriceChange('maxPrice', e.target.value)
-                      }
-                    />
-                  </PriceInputRow>
+                <DropdownPanel style={{ minWidth: 240 }}>
+                  <PriceSliderContainer>
+                    <PriceSliderTrack
+                      style={{
+                        background: `linear-gradient(to right,
+                          #d7d7d7 0%,
+                          #d7d7d7 ${((parseFloat(filters.minPrice || String(effectiveMin)) - effectiveMin) / (effectiveMax - effectiveMin)) * 100}%,
+                          #11260c ${((parseFloat(filters.minPrice || String(effectiveMin)) - effectiveMin) / (effectiveMax - effectiveMin)) * 100}%,
+                          #11260c ${((parseFloat(filters.maxPrice || String(effectiveMax)) - effectiveMin) / (effectiveMax - effectiveMin)) * 100}%,
+                          #d7d7d7 ${((parseFloat(filters.maxPrice || String(effectiveMax)) - effectiveMin) / (effectiveMax - effectiveMin)) * 100}%,
+                          #d7d7d7 100%
+                        )`
+                      }}
+                    >
+                      <RangeInput
+                        type="range"
+                        min={effectiveMin}
+                        max={effectiveMax}
+                        step={1}
+                        value={parseFloat(filters.minPrice || String(effectiveMin))}
+                        onChange={(e) => {
+                          const val = Math.min(Number(e.target.value), parseFloat(filters.maxPrice || String(effectiveMax)) - 1)
+                          handlePriceChange('minPrice', String(val))
+                        }}
+                      />
+                      <RangeInput
+                        type="range"
+                        min={effectiveMin}
+                        max={effectiveMax}
+                        step={1}
+                        value={parseFloat(filters.maxPrice || String(effectiveMax))}
+                        onChange={(e) => {
+                          const val = Math.max(Number(e.target.value), parseFloat(filters.minPrice || String(effectiveMin)) + 1)
+                          handlePriceChange('maxPrice', String(val))
+                        }}
+                      />
+                    </PriceSliderTrack>
+                    <PriceSliderLabels>
+                      <span>${Math.round(parseFloat(filters.minPrice || String(effectiveMin)))}</span>
+                      <span>${Math.round(parseFloat(filters.maxPrice || String(effectiveMax)))}</span>
+                    </PriceSliderLabels>
+                  </PriceSliderContainer>
                 </DropdownPanel>
               )}
             </DropdownWrapper>
@@ -288,14 +327,14 @@ export default function FilterBar({
                 {t('filters.acidity')}: {filters.acidity} <span>&times;</span>
               </FilterChip>
             )}
-            {filters.minPrice && (
+            {hasActiveMinPrice && (
               <FilterChip onClick={() => removePrice('minPrice')}>
-                Min: {filters.minPrice} <span>&times;</span>
+                Min: ${filters.minPrice} <span>&times;</span>
               </FilterChip>
             )}
-            {filters.maxPrice && (
+            {hasActiveMaxPrice && (
               <FilterChip onClick={() => removePrice('maxPrice')}>
-                Max: {filters.maxPrice} <span>&times;</span>
+                Max: ${filters.maxPrice} <span>&times;</span>
               </FilterChip>
             )}
             {filters.featured && (

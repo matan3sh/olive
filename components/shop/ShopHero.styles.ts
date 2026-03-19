@@ -3,25 +3,41 @@ import Link from 'next/link'
 import { media } from '@/styles/media'
 
 export const HeroSection = styled.section`
-  background-color: ${({ theme }) => theme.colors.imageBg};
+  background-color: ${({ theme }) => theme.colors.textDark};
   width: 100%;
+  position: relative;
+  overflow: hidden;
+`
+
+export const HeroBg = styled.div`
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
 `
 
 export const HeroInner = styled.div`
+  position: relative;
   max-width: 1440px;
   margin: 0 auto;
-  padding: 80px 149px 60px;
+  padding: 72px 149px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 
   ${media.belowXl`
-    padding: 70px 60px 50px;
+    padding: 64px 60px 48px;
   `}
 
   ${media.belowLg`
-    padding: 60px 32px 40px;
+    padding: 48px 32px 36px;
   `}
 
   ${media.belowSm`
-    padding: 48px 20px 32px;
+    padding: 40px 20px 28px;
   `}
 `
 
@@ -31,48 +47,58 @@ export const Eyebrow = styled.span`
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.colors.textDark};
-  opacity: 0.55;
-  margin-bottom: 12px;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 16px;
 `
 
 export const HeroHeading = styled.h1`
-  font-size: clamp(2.5rem, 5vw, 64px);
+  font-size: clamp(3rem, 7vw, 88px);
   font-weight: 900;
-  color: ${({ theme }) => theme.colors.textDark};
-  letter-spacing: -0.03em;
-  line-height: 1.1;
-  margin: 0 0 12px;
+  color: ${({ theme }) => theme.colors.white};
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin: 0 0 20px;
+`
+
+export const HeroDivider = styled.div`
+  width: 40px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.25);
+  margin-bottom: 20px;
 `
 
 export const ProductCount = styled.p`
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 400;
-  color: ${({ theme }) => theme.colors.muted};
-  margin: 0 0 24px;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0 0 28px;
+  letter-spacing: 0.02em;
 `
 
 export const Breadcrumb = styled.nav`
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 13px;
-  color: ${({ theme }) => theme.colors.muted};
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  order: -1;
+  margin-bottom: 16px;
 `
 
 export const BreadcrumbLink = styled(Link)`
-  color: ${({ theme }) => theme.colors.textDark};
+  color: rgba(255, 255, 255, 0.45);
   text-decoration: none;
+  transition: color 0.15s;
 
   &:hover {
-    text-decoration: underline;
+    color: rgba(255, 255, 255, 0.8);
   }
 `
 
 export const BreadcrumbSeparator = styled.span`
-  color: ${({ theme }) => theme.colors.muted};
+  color: rgba(255, 255, 255, 0.25);
 `
 
 export const BreadcrumbCurrent = styled.span`
-  color: ${({ theme }) => theme.colors.muted};
+  color: rgba(255, 255, 255, 0.35);
 `

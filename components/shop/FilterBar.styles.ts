@@ -117,6 +117,66 @@ export const PriceInput = styled.input`
   }
 `
 
+export const PriceSliderContainer = styled.div`
+  padding: 8px 4px 4px;
+`
+
+export const PriceSliderTrack = styled.div`
+  position: relative;
+  height: 4px;
+  border-radius: 2px;
+  margin: 16px 0;
+
+  input[type='range'] {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    height: 4px;
+    outline: none;
+
+    &::-webkit-slider-thumb {
+      pointer-events: auto;
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #11260c;
+      border: 2px solid #ffffff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+      cursor: pointer;
+    }
+
+    &::-moz-range-thumb {
+      pointer-events: auto;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #11260c;
+      border: 2px solid #ffffff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+      cursor: pointer;
+    }
+  }
+`
+
+export const RangeInput = styled.input``
+
+export const PriceSliderLabels = styled.div`
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #11260c;
+  font-weight: 500;
+  margin-top: 8px;
+`
+
 export const RightGroup = styled.div`
   display: flex;
   align-items: center;
