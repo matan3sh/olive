@@ -35,13 +35,14 @@ import {
 
 export default function CartPage() {
   const t = useTranslations('cart')
+  const tHeader = useTranslations('header')
   const { items, totalItems, removeItem, updateQuantity } = useCart()
 
   return (
     <PageWrapper>
       <PageInner>
         <PageHeading>
-          <PageEyebrow>The Valley Olive Oil</PageEyebrow>
+          <PageEyebrow>{tHeader('siteName')}</PageEyebrow>
           <PageTitle>{t('title')}</PageTitle>
           {totalItems > 0 && (
             <PageItemCount>
@@ -76,7 +77,7 @@ export default function CartPage() {
                           alt={item.title}
                           fill
                           sizes="80px"
-                          style={{ objectFit: 'contain', padding: '8px' }}
+                          style={{ objectFit: 'contain' }}
                         />
                       )}
                     </PageItemImageBox>

@@ -16,6 +16,7 @@ export const ItemImage = styled.div`
   flex-shrink: 0;
   position: relative;
   overflow: hidden;
+  padding: 8px;
 
   ${media.belowSm`
     width: 56px;

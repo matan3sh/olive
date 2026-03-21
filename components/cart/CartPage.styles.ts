@@ -110,6 +110,7 @@ export const PageItemImageBox = styled.div`
   background-color: ${({ theme }) => theme.colors.imageBg};
   flex-shrink: 0;
   position: relative;
+  padding: 8px;
 
   ${media.belowSm`
     width: 60px;

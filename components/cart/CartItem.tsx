@@ -37,7 +37,7 @@ export default function CartItem({ item }: Props) {
             alt={item.title}
             fill
             sizes="72px"
-            style={{ objectFit: 'contain', padding: '8px' }}
+            style={{ objectFit: 'contain' }}
           />
         )}
       </ItemImage>
