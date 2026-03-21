@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import type { Product } from '@/lib/cms'
+import { useCart } from '@/lib/cart'
 import {
   ProductMain,
   ProductSplit,
@@ -32,6 +33,20 @@ export default function ProductDetail({ product, allProducts }: Props) {
   const [selectedSize, setSelectedSize] = useState(0)
   const t = useTranslations('product')
   const fromLabel = t('from').toUpperCase()
+
+  const { addItem, openCart } = useCart()
+
+  function handleAddToCart() {
+    const numericPrice = parseFloat(product.price.replace(/[^0-9.]/g, '')) || 0
+    addItem({
+      productId: product.id,
+      title: product.title,
+      image: product.image ?? null,
+      size: product.sizes[selectedSize] ?? product.sizes[0] ?? '',
+      price: numericPrice,
+    })
+    openCart()
+  }
 
   const relatedProducts = useMemo(
     () => allProducts.filter((p) => p.id !== product.id),
@@ -74,7 +89,7 @@ export default function ProductDetail({ product, allProducts }: Props) {
 
           <ProductDescription>{product.description}</ProductDescription>
 
-          <AddToCartButton>{t('addToCart')}</AddToCartButton>
+          <AddToCartButton onClick={handleAddToCart}>{t('addToCart')}</AddToCartButton>
 
           <ProductDivider />
 
