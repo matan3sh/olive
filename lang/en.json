@@ -67,5 +67,38 @@
       "title": "No products match your filters",
       "subtitle": "Try removing some filters to see more products"
     }
+  },
+  "cart": {
+    "title": "Your Cart",
+    "empty": {
+      "title": "Your cart is empty",
+      "subtitle": "Discover our premium olive oils",
+      "cta": "Shop Now"
+    },
+    "added": "Added to cart",
+    "item": {
+      "remove": "Remove"
+    },
+    "qty": {
+      "decrease": "Decrease quantity",
+      "increase": "Increase quantity"
+    },
+    "summary": {
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "shippingNote": "Calculated at checkout",
+      "total": "Total",
+      "checkout": "Proceed to Checkout",
+      "viewCart": "View Full Cart",
+      "secure": "Secure checkout · Free returns"
+    },
+    "continueShopping": "← Continue Shopping",
+    "itemCount": "{count, plural, one {# item} other {# items}}",
+    "columns": {
+      "product": "Product",
+      "quantity": "Quantity",
+      "price": "Price",
+      "total": "Total"
+    }
   }
 }

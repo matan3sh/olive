@@ -67,5 +67,38 @@
       "title": "לא נמצאו מוצרים התואמים את הסינון",
       "subtitle": "נסה להסיר כמה סננים כדי לראות יותר מוצרים"
     }
+  },
+  "cart": {
+    "title": "העגלה שלך",
+    "empty": {
+      "title": "העגלה שלך ריקה",
+      "subtitle": "גלה את שמני הזית שלנו",
+      "cta": "לחנות"
+    },
+    "added": "נוסף לעגלה",
+    "item": {
+      "remove": "הסר"
+    },
+    "qty": {
+      "decrease": "הפחת כמות",
+      "increase": "הגדל כמות"
+    },
+    "summary": {
+      "subtotal": "סכום ביניים",
+      "shipping": "משלוח",
+      "shippingNote": "יחושב בקופה",
+      "total": "סה\"כ",
+      "checkout": "לתשלום",
+      "viewCart": "לעגלה המלאה",
+      "secure": "תשלום מאובטח · החזרות חינם"
+    },
+    "continueShopping": "← המשך קניות",
+    "itemCount": "{count} פריטים",
+    "columns": {
+      "product": "מוצר",
+      "quantity": "כמות",
+      "price": "מחיר",
+      "total": "סה\"כ"
+    }
   }
 }
