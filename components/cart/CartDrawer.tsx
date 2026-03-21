@@ -36,6 +36,9 @@ export default function CartDrawer() {
       bannerTimerRef.current = setTimeout(() => setShowBanner(false), 3000)
     }
     prevTotalRef.current = totalItems
+    return () => {
+      if (bannerTimerRef.current) clearTimeout(bannerTimerRef.current)
+    }
   }, [totalItems])
 
   // Clear banner when drawer closes
@@ -60,17 +63,17 @@ export default function CartDrawer() {
       width={420}
     >
       <DrawerInner>
-        <AddedBanner $visible={showBanner}>
+        <AddedBanner $visible={showBanner} aria-hidden={!showBanner}>
           <BannerDot />
           {t('added')}
         </AddedBanner>
 
         {items.length === 0 ? (
           <EmptyState>
-            <EmptyIcon>◻</EmptyIcon>
+            <EmptyIcon aria-hidden="true">◻</EmptyIcon>
             <EmptyTitle>{t('empty.title')}</EmptyTitle>
             <EmptySubtitle>{t('empty.subtitle')}</EmptySubtitle>
-            <ShopNowBtn href={`/${locale}/shop`} onClick={closeCart}>
+            <ShopNowBtn href="/shop" onClick={closeCart}>
               {t('empty.cta')}
             </ShopNowBtn>
           </EmptyState>
