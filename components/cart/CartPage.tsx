@@ -92,7 +92,7 @@ export default function CartPage() {
                     </div>
                   </PageItemInfo>
 
-                  <PageQtyControl>
+                  <PageQtyControl role="group" aria-label={`${t('columns.quantity')} - ${item.title}`}>
                     <PageQtyBtn
                       onClick={() => updateQuantity(item.productId, item.size, item.quantity - 1)}
                       aria-label={t('qty.decrease')}
@@ -100,7 +100,7 @@ export default function CartPage() {
                     >
                       −
                     </PageQtyBtn>
-                    <PageQtyValue>{item.quantity}</PageQtyValue>
+                    <PageQtyValue aria-live="polite" aria-atomic="true">{item.quantity}</PageQtyValue>
                     <PageQtyBtn
                       onClick={() => updateQuantity(item.productId, item.size, item.quantity + 1)}
                       aria-label={t('qty.increase')}
