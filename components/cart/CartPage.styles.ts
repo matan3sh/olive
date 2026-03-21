@@ -158,6 +158,7 @@ export const PageQtyControl = styled.div`
   ${media.belowMd`
     width: 80px;
     justify-content: flex-start;
+    justify-self: left;
   `}
 `
 
@@ -196,6 +197,10 @@ export const PageLineTotal = styled.span`
   font-weight: 500;
   color: ${({ theme }) => theme.colors.textDark};
   text-align: right;
+
+  ${media.belowMd`
+    text-align: left;
+  `}
 `
 
 export const ContinueLink = styled(Link)`
