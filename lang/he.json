@@ -93,7 +93,7 @@
       "secure": "תשלום מאובטח · החזרות חינם"
     },
     "continueShopping": "← המשך קניות",
-    "itemCount": "{count} פריטים",
+    "itemCount": "{count, plural, one {# פריט} other {# פריטים}}",
     "columns": {
       "product": "מוצר",
       "quantity": "כמות",
