@@ -81,8 +81,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const value: CartContextValue = useMemo(
     () => ({
       items: state.items,
-      totalItems: state.items.reduce((sum, i) => sum + i.quantity, 0),
-      subtotal: state.items.reduce((sum, i) => sum + i.price * i.quantity, 0),
+      totalItems: state.items.reduce((sum: number, i) => sum + i.quantity, 0),
+      subtotal: state.items.reduce((sum: number, i) => sum + i.price * i.quantity, 0),
       isDrawerOpen: state.isDrawerOpen,
       addItem: (item) => dispatch({ type: 'ADD_ITEM', payload: item }),
       removeItem: (productId, size) => dispatch({ type: 'REMOVE_ITEM', payload: { productId, size } }),
