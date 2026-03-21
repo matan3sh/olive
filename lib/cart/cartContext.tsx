@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useReducer, useEffect } from 'react'
+import { createContext, useReducer, useEffect, useMemo } from 'react'
 import type { CartState, CartAction, CartItem, CartContextValue } from './types'
 
 const STORAGE_KEY = 'olivum_cart'
@@ -78,19 +78,22 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items))
   }, [state.items])
 
-  const value: CartContextValue = {
-    items: state.items,
-    totalItems: state.items.reduce((sum, i) => sum + i.quantity, 0),
-    subtotal: state.items.reduce((sum, i) => sum + i.price * i.quantity, 0),
-    isDrawerOpen: state.isDrawerOpen,
-    addItem: (item) => dispatch({ type: 'ADD_ITEM', payload: item }),
-    removeItem: (productId, size) => dispatch({ type: 'REMOVE_ITEM', payload: { productId, size } }),
-    updateQuantity: (productId, size, quantity) =>
-      dispatch({ type: 'UPDATE_QUANTITY', payload: { productId, size, quantity } }),
-    clearCart: () => dispatch({ type: 'CLEAR_CART' }),
-    openCart: () => dispatch({ type: 'OPEN_DRAWER' }),
-    closeCart: () => dispatch({ type: 'CLOSE_DRAWER' }),
-  }
+  const value: CartContextValue = useMemo(
+    () => ({
+      items: state.items,
+      totalItems: state.items.reduce((sum, i) => sum + i.quantity, 0),
+      subtotal: state.items.reduce((sum, i) => sum + i.price * i.quantity, 0),
+      isDrawerOpen: state.isDrawerOpen,
+      addItem: (item) => dispatch({ type: 'ADD_ITEM', payload: item }),
+      removeItem: (productId, size) => dispatch({ type: 'REMOVE_ITEM', payload: { productId, size } }),
+      updateQuantity: (productId, size, quantity) =>
+        dispatch({ type: 'UPDATE_QUANTITY', payload: { productId, size, quantity } }),
+      clearCart: () => dispatch({ type: 'CLEAR_CART' }),
+      openCart: () => dispatch({ type: 'OPEN_DRAWER' }),
+      closeCart: () => dispatch({ type: 'CLOSE_DRAWER' }),
+    }),
+    [state.items, state.isDrawerOpen]
+  )
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }

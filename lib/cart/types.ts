@@ -1,7 +1,7 @@
 export interface CartItem {
   productId: string
   title: string
-  image: string
+  image: string | null
   size: string      // selected size label, e.g. "250ml"
   price: number     // numeric unit price (stripped from product.price string)
   quantity: number
