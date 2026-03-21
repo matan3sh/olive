@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useTranslations, useLocale } from 'next-intl'
+import { usePathname } from 'next/navigation'
 import { useCart } from '@/lib/cart'
 import { Drawer } from '@/components/ui/drawer'
 import CartItem from './CartItem'
@@ -22,6 +23,8 @@ export default function CartDrawer() {
   const t = useTranslations('cart')
   const locale = useLocale()
   const { items, isDrawerOpen, closeCart, totalItems } = useCart()
+  const pathname = usePathname()
+  const isCartPage = pathname?.endsWith('/cart')
   const [showBanner, setShowBanner] = useState(false)
   const prevTotalRef = useRef(totalItems)
   const bannerTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -56,7 +59,7 @@ export default function CartDrawer() {
 
   return (
     <Drawer
-      open={isDrawerOpen}
+      open={isDrawerOpen && !isCartPage}
       onClose={closeCart}
       title={title}
       placement={placement}
