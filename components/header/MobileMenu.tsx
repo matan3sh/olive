@@ -3,6 +3,7 @@
 import type { RefObject } from 'react'
 import type { Navigation } from '@/lib/cms'
 import { useTranslations } from 'next-intl'
+import { useCart } from '@/lib/cart'
 import LanguageSwitcher from '@/components/language-switcher'
 import { SearchIcon, CloseSmIcon, CartIcon, AccountIcon, MenuIcon, CloseIcon } from '@/components/ui/icons'
 import {
@@ -43,6 +44,7 @@ export default function MobileMenu({
   mobileSearchRef,
 }: Props) {
   const t = useTranslations('header')
+  const { openCart, totalItems } = useCart()
 
   return (
     <MobileWrapper>
@@ -96,9 +98,11 @@ export default function MobileMenu({
           ))}
           <HeaderDivider />
           <MobileActionsRow>
-            <ActionBtn aria-label={t('ariaCart')}>
+            <ActionBtn aria-label={t('ariaCart')} onClick={openCart}>
               <CartIcon />
-              <ActionLabel>{t('ariaCart')}</ActionLabel>
+              <ActionLabel>
+                {totalItems > 0 ? `${t('ariaCart')} (${totalItems})` : t('ariaCart')}
+              </ActionLabel>
             </ActionBtn>
             <ActionBtn aria-label={t('ariaAccount')}>
               <AccountIcon />

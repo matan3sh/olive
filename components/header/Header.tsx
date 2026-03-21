@@ -6,6 +6,7 @@ import { flushSync } from 'react-dom'
 import { StyledHeader } from './Header.styles'
 import DesktopNav from './DesktopNav'
 import MobileMenu from './MobileMenu'
+import { CartDrawer } from '@/components/cart'
 
 interface Props {
   navigation: Navigation
@@ -55,6 +56,7 @@ export default function Header({ navigation }: Props) {
         }}
         mobileSearchRef={mobileSearchRef}
       />
+      <CartDrawer />
     </StyledHeader>
   )
 }
