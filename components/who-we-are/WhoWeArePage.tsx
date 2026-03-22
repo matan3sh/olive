@@ -88,7 +88,7 @@ export default function WhoWeArePage({ content, locale }: Props) {
       </HeroSection>
 
       {content.chapters.map((chapter, i) => (
-        <ChapterSection key={chapter._key} chapter={chapter} index={i} locale={locale} />
+        <ChapterSection key={chapter._key} chapter={chapter} index={i} ariaLabel={t('chapterAriaLabel', { num: i + 1 })} />
       ))}
 
       <StatsBar className="wwa-stats">

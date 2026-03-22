@@ -53,6 +53,10 @@ export const ChapterImageCol = styled.div`
   overflow: hidden;
   flex-shrink: 0;
 
+  img {
+    object-fit: cover;
+  }
+
   ${media.belowMd`
     width: 100%;
     aspect-ratio: 4/3;

@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { getTranslations } from 'next-intl/server'
 import type { WhoWeAreChapter } from '@/lib/cms'
 import {
   ChapterWrapper,
@@ -17,18 +16,17 @@ import {
 interface Props {
   chapter: WhoWeAreChapter
   index: number
-  locale: string
+  ariaLabel: string
 }
 
-export default async function ChapterSection({ chapter, index, locale }: Props) {
+export default function ChapterSection({ chapter, index, ariaLabel }: Props) {
   const num = String(index + 1).padStart(2, '0')
-  const t = await getTranslations({ locale, namespace: 'whoWeAre' })
 
   return (
     <ChapterWrapper
       $index={index}
       className={`wwa-chapter-${index}`}
-      aria-label={t('chapterAriaLabel', { num: index + 1 })}
+      aria-label={ariaLabel}
     >
       <ChapterHeader>
         <ChapterBadge className="wwa-chapter-badge">{num}</ChapterBadge>
@@ -41,7 +39,6 @@ export default async function ChapterSection({ chapter, index, locale }: Props) 
             alt={chapter.heading}
             fill
             sizes="(max-width: 767px) 100vw, 42vw"
-            style={{ objectFit: 'cover' }}
           />
         </ChapterImageCol>
         <ChapterTextCol>
