@@ -110,3 +110,41 @@ export interface Navigation {
   header: NavItem[]
   footer: NavItem[]
 }
+
+// ─── Who We Are ───────────────────────────────────────────────────────────────
+
+export interface WhoWeAreChapter {
+  label: string
+  heading: string
+  body: string
+  image: string
+  side: 'left' | 'right'
+}
+
+export interface WhoWeAreContent {
+  heroQuote: string
+  heroSubtitle: string
+  chapters: WhoWeAreChapter[]
+  stats: AboutStat[]       // reuses existing AboutStat
+  ctaEyebrow: string
+  ctaHeading: string
+  ctaLabel: string
+}
+
+export interface RawWhoWeAreChapter {
+  label: LocalizedString
+  heading: LocalizedString
+  body: LocalizedString
+  image: string            // resolved via GROQ asset->url
+  side: 'left' | 'right'
+}
+
+export interface RawWhoWeAreContent {
+  heroQuote: LocalizedString
+  heroSubtitle: LocalizedString
+  chapters: RawWhoWeAreChapter[]
+  stats: RawAboutStat[]    // reuses existing RawAboutStat
+  ctaEyebrow: LocalizedString
+  ctaHeading: LocalizedString
+  ctaLabel: LocalizedString
+}
