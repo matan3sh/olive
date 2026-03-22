@@ -19,6 +19,7 @@ export type CartAction =
   | { type: 'CLEAR_CART' }
   | { type: 'OPEN_DRAWER' }
   | { type: 'CLOSE_DRAWER' }
+  | { type: 'HYDRATE'; payload: CartItem[] }
 
 export interface CartContextValue {
   items: CartItem[]

@@ -50,6 +50,8 @@ function cartReducer(state: CartState, action: CartAction): CartState {
         ),
       }
     }
+    case 'HYDRATE':
+      return { ...state, items: action.payload }
     case 'CLEAR_CART':
       return { ...state, items: [] }
     case 'OPEN_DRAWER':
@@ -64,15 +66,16 @@ function cartReducer(state: CartState, action: CartAction): CartState {
 export const CartContext = createContext<CartContextValue | null>(null)
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [state, dispatch] = useReducer(cartReducer, initialState, (init) => {
-    if (typeof window === 'undefined') return init
+  const [state, dispatch] = useReducer(cartReducer, initialState)
+
+  useEffect(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY)
-      return stored ? { ...init, items: JSON.parse(stored) } : init
+      if (stored) dispatch({ type: 'HYDRATE', payload: JSON.parse(stored) })
     } catch {
-      return init
+      // ignore corrupt data
     }
-  })
+  }, [])
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state.items))
