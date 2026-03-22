@@ -114,6 +114,7 @@ export interface Navigation {
 // ─── Who We Are ───────────────────────────────────────────────────────────────
 
 export interface WhoWeAreChapter {
+  _key: string
   label: string
   heading: string
   body: string
@@ -132,6 +133,7 @@ export interface WhoWeAreContent {
 }
 
 export interface RawWhoWeAreChapter {
+  _key: string
   label: LocalizedString
   heading: LocalizedString
   body: LocalizedString

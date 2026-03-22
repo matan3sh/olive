@@ -6,7 +6,7 @@ const WHO_WE_ARE_QUERY = defineQuery(`
   *[_type == "whoweare"][0] {
     heroQuote, heroSubtitle,
     "chapters": chapters[] {
-      label, heading, body,
+      _key, label, heading, body,
       "image": image.asset->url,
       side
     },
@@ -20,6 +20,7 @@ function resolve(raw: RawWhoWeAreContent, locale: Locale): WhoWeAreContent {
     heroQuote:    raw.heroQuote[locale],
     heroSubtitle: raw.heroSubtitle[locale],
     chapters: raw.chapters.map((c) => ({
+      _key:    c._key,
       label:   c.label[locale],
       heading: c.heading[locale],
       body:    c.body[locale],
@@ -39,6 +40,7 @@ function resolve(raw: RawWhoWeAreContent, locale: Locale): WhoWeAreContent {
 }
 
 export async function getWhoWeAreContent(locale: Locale): Promise<WhoWeAreContent> {
-  const raw = await sanityClient.fetch(WHO_WE_ARE_QUERY) as RawWhoWeAreContent
+  const raw = await sanityClient.fetch(WHO_WE_ARE_QUERY) as RawWhoWeAreContent | null
+  if (!raw) throw new Error('whoWeAre document not found in Sanity — publish it in the Studio first')
   return resolve(raw, locale)
 }
