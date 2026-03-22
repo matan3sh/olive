@@ -100,5 +100,11 @@
       "price": "Price",
       "total": "Total"
     }
+  },
+  "whoWeAre": {
+    "pageTitle": "Who We Are — The Valley Olive Oil",
+    "pageDescription": "The story behind The Valley Olive Oil — our land, craft, and promise.",
+    "heroEyebrow": "WHO WE ARE",
+    "chapterAriaLabel": "Chapter {num}"
   }
 }

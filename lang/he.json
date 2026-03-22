@@ -100,5 +100,11 @@
       "price": "מחיר",
       "total": "סה\"כ"
     }
+  },
+  "whoWeAre": {
+    "pageTitle": "מי אנחנו — The Valley Olive Oil",
+    "pageDescription": "הסיפור מאחורי שמן הזית של העמק — האדמה, המלאכה, וההבטחה שלנו.",
+    "heroEyebrow": "מי אנחנו",
+    "chapterAriaLabel": "פרק {num}"
   }
 }
