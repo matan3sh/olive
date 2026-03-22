@@ -32,7 +32,7 @@ export default async function ChapterSection({ chapter, index, locale }: Props) 
     >
       <ChapterHeader>
         <ChapterBadge className="wwa-chapter-badge">{num}</ChapterBadge>
-        <ChapterLabel className="wwa-chapter-badge">{chapter.label}</ChapterLabel>
+        <ChapterLabel className="wwa-chapter-label">{chapter.label}</ChapterLabel>
       </ChapterHeader>
       <ChapterColumns $side={chapter.side}>
         <ChapterImageCol className="wwa-chapter-img">
