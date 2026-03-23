@@ -87,20 +87,22 @@ export async function POST(request: Request) {
   })
 
   // 6. Send verification email via Resend
-  const baseUrl = new URL(request.url).origin
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL ?? new URL(request.url).origin
+  const baseUrl = siteUrl
   const verifyUrl = `${baseUrl}/api/reviews/verify?token=${token}&id=${doc._id}`
 
-  await resend.emails.send({
-    from: 'Olivum <onboarding@resend.dev>',
-    to: normalizedEmail,
-    subject: 'Confirm your Olivum review',
-    html: `
+  try {
+    await resend.emails.send({
+      from: 'Olivum <onboarding@resend.dev>',
+      to: normalizedEmail,
+      subject: 'Confirm your Olivum review',
+      html: `
       <div style="font-family:sans-serif;max-width:500px;margin:0 auto;padding:32px;">
         <h2 style="font-size:18px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:#11260c;margin-bottom:16px;">
           THE VALLEY OLIVE OIL
         </h2>
         <p style="color:#11260c;line-height:1.7;font-size:14px;font-weight:300;">
-          Thanks for your review, ${(author as string).trim()}! Click the button below to verify your email and submit your review for approval.
+          Thanks for your review, ${(author as string).trim().replace(/[<>&"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c] ?? c))}! Click the button below to verify your email and submit your review for approval.
         </p>
         <a href="${verifyUrl}"
            style="display:inline-block;margin-top:20px;padding:14px 28px;background:#1f231a;color:#fff;text-decoration:none;font-size:12px;letter-spacing:2px;text-transform:uppercase;">
@@ -111,7 +113,12 @@ export async function POST(request: Request) {
         </p>
       </div>
     `,
-  })
+    })
+  } catch {
+    // Clean up the orphaned document so the user can retry
+    await sanityWriteClient.delete(doc._id)
+    return NextResponse.json({ error: 'Failed to send verification email' }, { status: 500 })
+  }
 
   return NextResponse.json({ success: true }, { status: 201 })
 }

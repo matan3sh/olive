@@ -35,7 +35,7 @@ export async function GET(request: Request) {
     return NextResponse.redirect(`${origin}/en`)
   }
 
-  const locale = review.locale ?? 'en'
+  const locale = ['en', 'he'].includes(review.locale) ? review.locale : 'en'
   const productUrl = `${origin}/${locale}/product?id=${review.product}`
 
   // Already verified — idempotent redirect
