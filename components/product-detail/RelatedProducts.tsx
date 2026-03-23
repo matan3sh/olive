@@ -37,7 +37,7 @@ export default function RelatedProducts({ products, heading, fromLabel }: Props)
                 />
               </RelatedImageBox>
               <RelatedTitle>{p.title}</RelatedTitle>
-              <RelatedPrice>{fromLabel} {p.price}</RelatedPrice>
+              <RelatedPrice>{fromLabel} {p.variants?.[0]?.price ?? ''}</RelatedPrice>
             </RelatedCard>
           ))}
         </RelatedGrid>

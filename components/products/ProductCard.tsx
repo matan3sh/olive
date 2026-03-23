@@ -33,7 +33,7 @@ export default function ProductCardComponent({ product, index, fromLabel }: Prop
       </ProductImageLink>
       <ProductIndex>— {String(index + 1).padStart(2, '0')}</ProductIndex>
       <ProductTitle>{product.title}</ProductTitle>
-      <ProductPrice>{fromLabel} {product.price}</ProductPrice>
+      <ProductPrice>{fromLabel} {product.variants?.[0]?.price ?? ''}</ProductPrice>
     </ProductCard>
   )
 }

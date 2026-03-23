@@ -53,13 +53,13 @@ export default function FilterBar({
 
   const availableSizes = useMemo(() => {
     const set = new Set<string>()
-    products.forEach((p) => p.sizes.forEach((s) => set.add(s)))
+    products.forEach((p) => (p.variants?.map((v) => v.label) ?? []).forEach((s) => set.add(s)))
     return Array.from(set).sort()
   }, [products])
 
   const priceRange = useMemo(() => {
     const prices = products.map((p) => {
-      const cleaned = p.price.replace(/[^0-9.]/g, '')
+      const cleaned = (p.variants?.[0]?.price ?? '').replace(/[^0-9.]/g, '')
       return parseFloat(cleaned) || 0
     })
     return {

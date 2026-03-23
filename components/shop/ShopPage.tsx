@@ -50,7 +50,7 @@ export default function ShopPage({ products }: Props) {
       // Size filter
       if (
         filterState.sizes.length > 0 &&
-        !product.sizes.some((s) => filterState.sizes.includes(s))
+        !(product.variants?.map((v) => v.label) ?? []).some((s) => filterState.sizes.includes(s))
       ) {
         return false
       }
@@ -64,7 +64,7 @@ export default function ShopPage({ products }: Props) {
       }
 
       // Price filter
-      const price = parsePrice(product.price)
+      const price = parsePrice(product.variants?.[0]?.price ?? '')
       if (filterState.minPrice && price < parseFloat(filterState.minPrice)) {
         return false
       }
@@ -89,12 +89,12 @@ export default function ShopPage({ products }: Props) {
       })
     } else if (filterState.sort === 'price_asc') {
       result = [...result].sort((a, b) => {
-        const diff = parsePrice(a.price) - parsePrice(b.price)
+        const diff = parsePrice(a.variants?.[0]?.price ?? '') - parsePrice(b.variants?.[0]?.price ?? '')
         return diff !== 0 ? diff : a.title.localeCompare(b.title)
       })
     } else if (filterState.sort === 'price_desc') {
       result = [...result].sort((a, b) => {
-        const diff = parsePrice(b.price) - parsePrice(a.price)
+        const diff = parsePrice(b.variants?.[0]?.price ?? '') - parsePrice(a.variants?.[0]?.price ?? '')
         return diff !== 0 ? diff : b.title.localeCompare(a.title)
       })
     }
