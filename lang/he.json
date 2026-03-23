@@ -34,7 +34,20 @@
     "processing": "עיבוד",
     "coldPressed": "כבישה קרה",
     "youMayAlsoLike": "אולי תאהב גם",
-    "from": "החל מ"
+    "from": "החל מ",
+    "outOfStock": "אזל מהמלאי",
+    "fewLeft": "נשארו רק כמה",
+    "reviews": {
+      "heading": "ביקורות לקוחות",
+      "noReviews": "אין ביקורות עדיין."
+    },
+    "shipping": {
+      "heading": "משלוח",
+      "zone": "אזור",
+      "price": "מחיר",
+      "delivery": "זמן אספקה",
+      "freeAbove": "חינם מעל"
+    }
   },
   "footer": {
     "rights": "© {year} The Valley Olive Oil. כל הזכויות שמורות."

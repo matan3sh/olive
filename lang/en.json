@@ -34,7 +34,20 @@
     "processing": "Processing",
     "coldPressed": "Cold pressed",
     "youMayAlsoLike": "You may also like",
-    "from": "From"
+    "from": "From",
+    "outOfStock": "Out of stock",
+    "fewLeft": "Only a few left",
+    "reviews": {
+      "heading": "Customer Reviews",
+      "noReviews": "No reviews yet."
+    },
+    "shipping": {
+      "heading": "Shipping",
+      "zone": "Zone",
+      "price": "Price",
+      "delivery": "Delivery",
+      "freeAbove": "Free above"
+    }
   },
   "footer": {
     "rights": "© {year} The Valley Olive Oil. All rights reserved."
