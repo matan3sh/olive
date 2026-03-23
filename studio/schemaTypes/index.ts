@@ -5,5 +5,17 @@ import { about } from './about'
 import { hero } from './hero'
 import { navigation } from './navigation'
 import { whoweare } from './whoweare'
+import { review } from './review'
+import { shippingSettings } from './shipping'
 
-export const schemaTypes = [localizedString, product, testimonial, about, hero, navigation, whoweare]
+export const schemaTypes = [
+  localizedString,
+  product,
+  testimonial,
+  about,
+  hero,
+  navigation,
+  whoweare,
+  review,
+  shippingSettings,
+]
