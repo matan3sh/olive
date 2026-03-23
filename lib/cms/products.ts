@@ -15,21 +15,21 @@ function resolve(p: RawProduct, locale: Locale): Product {
 
 const RAW_PRODUCTS_QUERY = defineQuery(`
   *[_type == "product" && active == true] {
-    "id": id, active, featured, price, sizes,
+    "id": id, active, featured, variants, category,
     "image": image.asset->url, fit, acidity, title, subtitle, description, origin, harvest
   }
 `)
 
 const ALL_PRODUCTS_QUERY = defineQuery(`
   *[_type == "product"] {
-    "id": id, active, featured, price, sizes,
+    "id": id, active, featured, variants, category,
     "image": image.asset->url, fit, acidity, title, subtitle, description, origin, harvest
   }
 `)
 
 const PRODUCT_BY_ID_QUERY = defineQuery(`
   *[_type == "product" && id == $id][0] {
-    "id": id, active, featured, price, sizes,
+    "id": id, active, featured, variants, category,
     "image": image.asset->url, fit, acidity, title, subtitle, description, origin, harvest
   }
 `)
