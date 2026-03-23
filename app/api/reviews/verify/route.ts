@@ -61,5 +61,5 @@ export async function GET(request: Request) {
     .unset(['verificationToken'])
     .commit()
 
-  return NextResponse.redirect(productUrl)
+  return NextResponse.redirect(`${productUrl}&verified=1`)
 }

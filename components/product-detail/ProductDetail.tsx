@@ -1,8 +1,8 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Image from 'next/image'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import type { Product, Review, ShippingSettings } from '@/lib/cms'
 import { useCart } from '@/lib/cart'
@@ -29,6 +29,7 @@ import {
   AccordionMeta,
   AccordionChevron,
   AccordionBody,
+  VerificationToast,
 } from './ProductDetail.styles'
 import Breadcrumb from './Breadcrumb'
 import SizeSelector from './SizeSelector'
@@ -42,12 +43,14 @@ interface Props {
   allProducts: Product[]
   reviews: Review[]
   shippingSettings: ShippingSettings | null
+  showVerifiedBanner?: boolean
 }
 
 
-export default function ProductDetail({ product, allProducts, reviews, shippingSettings }: Props) {
+export default function ProductDetail({ product, allProducts, reviews, shippingSettings, showVerifiedBanner = false }: Props) {
   const params = useParams()
   const locale = (params?.locale as string) ?? 'en'
+  const router = useRouter()
   const [selectedSize, setSelectedSize] = useState(0)
   const t = useTranslations('product')
   const fromLabel = t('from').toUpperCase()
@@ -83,6 +86,16 @@ export default function ProductDetail({ product, allProducts, reviews, shippingS
 
   const [isReviewsOpen, setIsReviewsOpen] = useState(false)
   const [isFormOpen, setIsFormOpen] = useState(false)
+  const [toastVisible, setToastVisible] = useState(showVerifiedBanner)
+
+  useEffect(() => {
+    if (!showVerifiedBanner) return
+    const hide = setTimeout(() => setToastVisible(false), 4000)
+    // Clean ?verified=1 from the URL so refresh doesn't re-show it
+    router.replace(`/${locale}/product?id=${product.id}`, { scroll: false })
+    return () => clearTimeout(hide)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <ProductMain>
@@ -219,6 +232,10 @@ export default function ProductDetail({ product, allProducts, reviews, shippingS
         heading={t('youMayAlsoLike')}
         fromLabel={fromLabel}
       />
+
+      <VerificationToast $visible={toastVisible}>
+        {t('review.verifiedSuccess')}
+      </VerificationToast>
     </ProductMain>
   )
 }

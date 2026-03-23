@@ -16,10 +16,10 @@ export default async function ProductPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>
-  searchParams: Promise<{ id?: string }>
+  searchParams: Promise<{ id?: string; verified?: string }>
 }) {
   const { locale } = await params
-  const { id = 'robust' } = await searchParams
+  const { id = 'robust', verified } = await searchParams
   const loc = locale as Locale
 
   const [product, allProducts, navigation, reviews, shippingSettings] = await Promise.all([
@@ -41,6 +41,7 @@ export default async function ProductPage({
         allProducts={allProducts}
         reviews={reviews}
         shippingSettings={shippingSettings}
+        showVerifiedBanner={verified === '1'}
       />
       <Footer navigation={navigation} />
     </>

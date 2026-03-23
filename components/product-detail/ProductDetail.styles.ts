@@ -178,3 +178,20 @@ export const AccordionBody = styled.div<{ $open: boolean }>`
   max-height: ${({ $open }) => ($open ? '800px' : '0')};
   transition: max-height 0.35s ease;
 `
+
+export const VerificationToast = styled.div<{ $visible: boolean }>`
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(${({ $visible }) => ($visible ? '0' : '-120%')});
+  background-color: ${({ theme }) => theme.colors.btnDark};
+  color: ${({ theme }) => theme.colors.white};
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  padding: 14px 28px;
+  white-space: nowrap;
+  z-index: 9999;
+  transition: transform 0.4s ease;
+  pointer-events: ${({ $visible }) => ($visible ? 'auto' : 'none')};
+`

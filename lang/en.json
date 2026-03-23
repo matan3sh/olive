@@ -59,7 +59,8 @@
       "success": "Thanks! Check your inbox to verify your review.",
       "errorGeneric": "Something went wrong. Please try again.",
       "errorDuplicate": "You've already submitted a review for this product.",
-      "errorRateLimit": "Please wait before submitting another review."
+      "errorRateLimit": "Please wait before submitting another review.",
+      "verifiedSuccess": "Your review has been verified! It will appear once approved."
     }
   },
   "footer": {
