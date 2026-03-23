@@ -33,13 +33,14 @@ interface Props {
   productId: string
   locale: string
   labels: Labels
+  showHeading?: boolean
 }
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-export default function ReviewForm({ productId, locale, labels }: Props) {
+export default function ReviewForm({ productId, locale, labels, showHeading = true }: Props) {
   const [formState, setFormState] = useState<FormState>('idle')
   const [errorMsg, setErrorMsg] = useState('')
   const [rating, setRating] = useState(0)
@@ -105,7 +106,7 @@ export default function ReviewForm({ productId, locale, labels }: Props) {
 
   return (
     <FormWrapper>
-      <FormHeading>{labels.heading}</FormHeading>
+      {showHeading && <FormHeading>{labels.heading}</FormHeading>}
       <form onSubmit={handleSubmit}>
         <StarRow>
           {[1, 2, 3, 4, 5].map((n) => (

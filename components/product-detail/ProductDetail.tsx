@@ -22,6 +22,13 @@ import {
   DetailLabel,
   DetailValue,
   ReviewsSectionWrapper,
+  AccordionSection,
+  AccordionHeader,
+  AccordionTitleGroup,
+  AccordionTitle,
+  AccordionMeta,
+  AccordionChevron,
+  AccordionBody,
 } from './ProductDetail.styles'
 import Breadcrumb from './Breadcrumb'
 import SizeSelector from './SizeSelector'
@@ -66,6 +73,16 @@ export default function ProductDetail({ product, allProducts, reviews, shippingS
   )
 
   const displayPrice = useMemo(() => deriveMinPrice(product.variants), [product.variants])
+
+  const hasReviews = reviews.length > 0
+  const avgRating = useMemo(() => {
+    if (!hasReviews) return 0
+    const sum = reviews.reduce((acc, r) => acc + r.rating, 0)
+    return Math.round((sum / reviews.length) * 10) / 10
+  }, [reviews, hasReviews])
+
+  const [isReviewsOpen, setIsReviewsOpen] = useState(false)
+  const [isFormOpen, setIsFormOpen] = useState(false)
 
   return (
     <ProductMain>
@@ -141,28 +158,58 @@ export default function ProductDetail({ product, allProducts, reviews, shippingS
           <ProductDivider />
 
           <ReviewsSectionWrapper>
-            <ReviewsSection
-              reviews={reviews}
-              heading={t('reviews.heading')}
-              noReviewsLabel={t('reviews.noReviews')}
-            />
-            <ReviewForm
-              productId={product.id}
-              locale={locale}
-              labels={{
-                heading: t('review.formHeading'),
-                namePlaceholder: t('review.namePlaceholder'),
-                emailPlaceholder: t('review.emailPlaceholder'),
-                textPlaceholder: t('review.textPlaceholder'),
-                starLabel: (n: number) => t('review.starLabel', { n }),
-                submit: t('review.submit'),
-                submitting: t('review.submitting'),
-                success: t('review.success'),
-                errorGeneric: t('review.errorGeneric'),
-                errorDuplicate: t('review.errorDuplicate'),
-                errorRateLimit: t('review.errorRateLimit'),
-              }}
-            />
+            {hasReviews ? (
+              <AccordionSection>
+                <AccordionHeader type="button" onClick={() => setIsReviewsOpen((o) => !o)}>
+                  <AccordionTitleGroup>
+                    <AccordionTitle>{t('reviews.heading')}</AccordionTitle>
+                    <AccordionMeta>★ {avgRating} ({reviews.length})</AccordionMeta>
+                  </AccordionTitleGroup>
+                  <AccordionChevron $open={isReviewsOpen}>▼</AccordionChevron>
+                </AccordionHeader>
+                <AccordionBody $open={isReviewsOpen}>
+                  <ReviewsSection
+                    reviews={reviews}
+                    heading={t('reviews.heading')}
+                    noReviewsLabel={t('reviews.noReviews')}
+                    showHeading={false}
+                  />
+                </AccordionBody>
+              </AccordionSection>
+            ) : (
+              <ReviewsSection
+                reviews={reviews}
+                heading={t('reviews.heading')}
+                noReviewsLabel={t('reviews.noReviews')}
+              />
+            )}
+
+            <AccordionSection>
+              <AccordionHeader type="button" onClick={() => setIsFormOpen((o) => !o)}>
+                <AccordionTitle>{t('review.formHeading')}</AccordionTitle>
+                <AccordionChevron $open={isFormOpen}>▼</AccordionChevron>
+              </AccordionHeader>
+              <AccordionBody $open={isFormOpen}>
+                <ReviewForm
+                  productId={product.id}
+                  locale={locale}
+                  showHeading={false}
+                  labels={{
+                    heading: t('review.formHeading'),
+                    namePlaceholder: t('review.namePlaceholder'),
+                    emailPlaceholder: t('review.emailPlaceholder'),
+                    textPlaceholder: t('review.textPlaceholder'),
+                    starLabel: (n: number) => t('review.starLabel', { n }),
+                    submit: t('review.submit'),
+                    submitting: t('review.submitting'),
+                    success: t('review.success'),
+                    errorGeneric: t('review.errorGeneric'),
+                    errorDuplicate: t('review.errorDuplicate'),
+                    errorRateLimit: t('review.errorRateLimit'),
+                  }}
+                />
+              </AccordionBody>
+            </AccordionSection>
           </ReviewsSectionWrapper>
         </ProductInfo>
       </ProductSplit>

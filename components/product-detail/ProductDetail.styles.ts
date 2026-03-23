@@ -122,6 +122,59 @@ export const DetailValue = styled.span`
 `
 
 export const ReviewsSectionWrapper = styled.div`
-  max-height: 600px;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+`
+
+export const AccordionSection = styled.div`
+  padding-top: 24px;
+`
+
+export const AccordionHeader = styled.button`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: start;
+`
+
+export const AccordionTitleGroup = styled.span`
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+`
+
+export const AccordionTitle = styled.span`
+  font-size: 13px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors.textDark};
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.5;
+`
+
+export const AccordionMeta = styled.span`
+  font-size: 13px;
+  font-weight: 300;
+  color: ${({ theme }) => theme.colors.textDark};
+  opacity: 0.6;
+`
+
+export const AccordionChevron = styled.span<{ $open: boolean }>`
+  font-size: 10px;
+  color: ${({ theme }) => theme.colors.textDark};
+  opacity: 0.4;
+  transition: transform 0.25s ease;
+  transform: ${({ $open }) => ($open ? 'rotate(180deg)' : 'rotate(0deg)')};
+  display: inline-block;
+`
+
+export const AccordionBody = styled.div<{ $open: boolean }>`
+  overflow: hidden;
+  max-height: ${({ $open }) => ($open ? '800px' : '0')};
+  transition: max-height 0.35s ease;
 `

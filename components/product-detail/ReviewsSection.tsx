@@ -14,16 +14,17 @@ interface Props {
   reviews: Review[]
   heading: string
   noReviewsLabel: string
+  showHeading?: boolean
 }
 
 function renderStars(rating: number): string {
   return '★'.repeat(rating) + '☆'.repeat(5 - rating)
 }
 
-export default function ReviewsSection({ reviews, heading, noReviewsLabel }: Props) {
+export default function ReviewsSection({ reviews, heading, noReviewsLabel, showHeading = true }: Props) {
   return (
     <ReviewsWrapper>
-      <ReviewsHeading>{heading}</ReviewsHeading>
+      {showHeading && <ReviewsHeading>{heading}</ReviewsHeading>}
       {reviews.length === 0 ? (
         <NoReviews>{noReviewsLabel}</NoReviews>
       ) : (
