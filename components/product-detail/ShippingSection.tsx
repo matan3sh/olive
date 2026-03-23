@@ -39,7 +39,7 @@ export default function ShippingSection({ settings, labels }: Props) {
               <ShippingTd>
                 {zone.price}
                 {zone.freeThreshold && (
-                  <FreeThresholdNote>{zone.freeThreshold}</FreeThresholdNote>
+                  <FreeThresholdNote>{labels.freeAbove}: {zone.freeThreshold}</FreeThresholdNote>
                 )}
               </ShippingTd>
               <ShippingTd>{zone.estimatedDays}</ShippingTd>

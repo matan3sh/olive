@@ -51,12 +51,17 @@ export const RelatedCard = styled(Link)`
   text-decoration: none;
 `
 
-export const RelatedImageBox = styled.div`
+export const RelatedImageBox = styled.div<{ $objectFit?: string }>`
   background-color: ${({ theme }) => theme.colors.white};
   aspect-ratio: 268/379;
   position: relative;
   overflow: hidden;
   margin-bottom: 14px;
+
+  img {
+    object-fit: ${({ $objectFit }) => $objectFit ?? 'cover'};
+    padding: 20px;
+  }
 `
 
 export const RelatedTitle = styled.p`

@@ -21,13 +21,12 @@ export default function ProductCardComponent({ product, index, fromLabel }: Prop
   return (
     <ProductCard className="product-card">
       <ProductImageLink href={`/product?id=${product.id}`}>
-        <ProductImageWrapper>
+        <ProductImageWrapper $objectFit={product.fit}>
           <Image
             src={product.image}
             alt={product.title}
             fill
             sizes="(max-width: 900px) 50vw, 268px"
-            style={{ objectFit: product.fit }}
           />
         </ProductImageWrapper>
       </ProductImageLink>

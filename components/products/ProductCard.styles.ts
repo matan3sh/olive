@@ -24,13 +24,17 @@ export const ProductImageLink = styled(Link)`
   margin-bottom: 12px;
 `
 
-export const ProductImageWrapper = styled.div`
+export const ProductImageWrapper = styled.div<{ $objectFit?: string }>`
   width: 100%;
   height: auto;
   aspect-ratio: 268/379;
   background-color: ${({ theme }) => theme.colors.white};
   position: relative;
   overflow: hidden;
+
+  img {
+    object-fit: ${({ $objectFit }) => $objectFit ?? 'cover'};
+  }
 `
 
 export const ProductTitle = styled.p`

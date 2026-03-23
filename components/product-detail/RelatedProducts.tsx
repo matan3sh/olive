@@ -27,13 +27,12 @@ export default function RelatedProducts({ products, heading, fromLabel }: Props)
         <RelatedGrid>
           {products.map((p) => (
             <RelatedCard key={p.id} href={`/product?id=${p.id}`}>
-              <RelatedImageBox>
+              <RelatedImageBox $objectFit={p.fit}>
                 <Image
                   src={p.image}
                   alt={p.title}
                   fill
                   sizes="25vw"
-                  style={{ objectFit: p.fit, padding: '20px' }}
                 />
               </RelatedImageBox>
               <RelatedTitle>{p.title}</RelatedTitle>
