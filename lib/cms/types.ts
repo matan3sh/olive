@@ -5,12 +5,18 @@ export interface LocalizedString {
   he: string
 }
 
+export interface ProductVariant {
+  label: string
+  price: string
+  stock: 'in_stock' | 'few_left' | 'out_of_stock'
+}
+
 export interface Product {
   id: string
   active: boolean
   featured: boolean
-  price: string
-  sizes: string[]
+  variants: ProductVariant[]
+  category?: string
   image: string
   fit: 'cover' | 'contain'
   acidity: string
@@ -145,8 +151,40 @@ export interface RawWhoWeAreContent {
   heroQuote: LocalizedString
   heroSubtitle: LocalizedString
   chapters: RawWhoWeAreChapter[]
-  stats: RawAboutStat[]    // reuses existing RawAboutStat
+  stats: RawAboutStat[]
   ctaEyebrow: LocalizedString
   ctaHeading: LocalizedString
   ctaLabel: LocalizedString
+}
+
+// ─── Reviews ──────────────────────────────────────────────────────────────────
+
+export interface Review {
+  _id: string
+  product: string
+  author: string
+  rating: number
+  quote: string
+  date: string
+}
+
+export type RawReview = Review  // no localization — passthrough
+
+// ─── Shipping ─────────────────────────────────────────────────────────────────
+
+export interface ShippingZone {
+  label: string
+  price: string
+  estimatedDays: string
+  freeThreshold: string
+}
+
+export interface ShippingSettings {
+  zones: ShippingZone[]
+  notes: string
+}
+
+export interface RawShippingSettings {
+  zones: ShippingZone[]
+  notes: LocalizedString
 }
