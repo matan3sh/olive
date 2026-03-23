@@ -154,7 +154,7 @@ export default function ProductDetail({ product, allProducts, reviews, shippingS
                 namePlaceholder: t('review.namePlaceholder'),
                 emailPlaceholder: t('review.emailPlaceholder'),
                 textPlaceholder: t('review.textPlaceholder'),
-                starLabel: t('review.starLabel'),
+                starLabel: (n: number) => t('review.starLabel', { n }),
                 submit: t('review.submit'),
                 submitting: t('review.submitting'),
                 success: t('review.success'),

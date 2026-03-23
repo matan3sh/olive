@@ -20,7 +20,7 @@ interface Labels {
   namePlaceholder: string
   emailPlaceholder: string
   textPlaceholder: string
-  starLabel: string
+  starLabel: (n: number) => string
   submit: string
   submitting: string
   success: string
@@ -113,7 +113,7 @@ export default function ReviewForm({ productId, locale, labels }: Props) {
               key={n}
               type="button"
               $active={n <= displayRating}
-              aria-label={labels.starLabel.replace('{n}', String(n))}
+              aria-label={labels.starLabel(n)}
               onClick={() => setRating(n)}
               onMouseEnter={() => setHoveredRating(n)}
               onMouseLeave={() => setHoveredRating(0)}
