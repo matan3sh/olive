@@ -42,7 +42,7 @@
 **Files:**
 - Modify: `.env.local`
 
-- [ ] **Step 1: Install resend and server-only**
+- [x] **Step 1: Install resend and server-only**
 
 ```bash
 cd /Users/matanshaviro/Documents/nextjs/my-projects/olive
@@ -51,7 +51,7 @@ npm install resend server-only
 
 Expected: packages installed with no errors.
 
-- [ ] **Step 2: Add RESEND_API_KEY to .env.local**
+- [x] **Step 2: Add RESEND_API_KEY to .env.local**
 
 Open `.env.local` and add this line at the end:
 
@@ -59,7 +59,7 @@ Open `.env.local` and add this line at the end:
 RESEND_API_KEY=re_HvvgrueT_P6M7MFMSJur6Wks6EPWsET1b
 ```
 
-- [ ] **Step 3: Verify TypeScript still compiles**
+- [x] **Step 3: Verify TypeScript still compiles**
 
 ```bash
 npx tsc --noEmit
@@ -67,7 +67,7 @@ npx tsc --noEmit
 
 Expected: no errors (or only pre-existing ones).
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add package.json package-lock.json
@@ -86,11 +86,11 @@ Note: do NOT commit `.env.local` — it is gitignored.
 Current file has fields: product, author, rating, quote, date, approved.
 Add: email, emailVerified, verificationToken, locale.
 
-- [ ] **Step 1: Open and read the current schema**
+- [x] **Step 1: Open and read the current schema**
 
 Read `studio/schemaTypes/review.ts` to understand current field order.
 
-- [ ] **Step 2: Add the four new fields**
+- [x] **Step 2: Add the four new fields**
 
 After the `approved` field, add:
 
@@ -124,7 +124,7 @@ defineField({
 }),
 ```
 
-- [ ] **Step 3: Verify TypeScript compiles**
+- [x] **Step 3: Verify TypeScript compiles**
 
 ```bash
 npx tsc --noEmit
@@ -132,7 +132,7 @@ npx tsc --noEmit
 
 Expected: no new errors.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add studio/schemaTypes/review.ts
@@ -148,7 +148,7 @@ git commit -m "feat(schema): add email, emailVerified, verificationToken, locale
 
 This client uses `SANITY_API_TOKEN` for write access. The `import 'server-only'` guard prevents accidental use in client components (Next.js will throw a build error if this file is ever imported from a client boundary).
 
-- [ ] **Step 1: Create the file**
+- [x] **Step 1: Create the file**
 
 ```ts
 import 'server-only'
@@ -163,7 +163,7 @@ export const sanityWriteClient = createClient({
 })
 ```
 
-- [ ] **Step 2: Verify TypeScript compiles**
+- [x] **Step 2: Verify TypeScript compiles**
 
 ```bash
 npx tsc --noEmit
@@ -171,7 +171,7 @@ npx tsc --noEmit
 
 Expected: no errors.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add lib/sanity.write-client.ts
@@ -187,11 +187,11 @@ git commit -m "feat(cms): add server-only Sanity write client"
 
 The public reviews query must only return reviews where the user has clicked the verification link AND the admin has approved.
 
-- [ ] **Step 1: Open and read lib/cms/reviews.ts**
+- [x] **Step 1: Open and read lib/cms/reviews.ts**
 
 Locate `REVIEWS_BY_PRODUCT_QUERY`.
 
-- [ ] **Step 2: Add emailVerified condition**
+- [x] **Step 2: Add emailVerified condition**
 
 Change:
 ```groq
@@ -203,13 +203,13 @@ To:
 *[_type == "review" && product == $productId && approved == true && emailVerified == true]
 ```
 
-- [ ] **Step 3: Verify TypeScript compiles**
+- [x] **Step 3: Verify TypeScript compiles**
 
 ```bash
 npx tsc --noEmit
 ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add lib/cms/reviews.ts
@@ -226,7 +226,7 @@ git commit -m "feat(cms): require emailVerified == true in public reviews query"
 
 Both files must be updated in the same step. The new keys live under `product.review` (singular) — distinct from the existing `product.reviews` (plural) display keys.
 
-- [ ] **Step 1: Add keys to lang/en.json**
+- [x] **Step 1: Add keys to lang/en.json**
 
 Inside the `"product"` object, after the `"shipping"` block, add:
 
@@ -246,7 +246,7 @@ Inside the `"product"` object, after the `"shipping"` block, add:
 }
 ```
 
-- [ ] **Step 2: Add keys to lang/he.json**
+- [x] **Step 2: Add keys to lang/he.json**
 
 Inside the `"product"` object, after the `"shipping"` block, add:
 
@@ -266,13 +266,13 @@ Inside the `"product"` object, after the `"shipping"` block, add:
 }
 ```
 
-- [ ] **Step 3: Verify TypeScript compiles**
+- [x] **Step 3: Verify TypeScript compiles**
 
 ```bash
 npx tsc --noEmit
 ```
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add lang/en.json lang/he.json
@@ -288,7 +288,7 @@ git commit -m "feat(i18n): add product.review.* keys for review form (EN + HE)"
 
 This is the core submission handler. It runs all 7 security checks in order before writing to Sanity and sending the verification email.
 
-- [ ] **Step 1: Create the directory and file**
+- [x] **Step 1: Create the directory and file**
 
 Create `app/api/reviews/route.ts` with the following content:
 
@@ -414,7 +414,7 @@ export async function POST(request: Request) {
 
 **Note on Resend sender:** `onboarding@resend.dev` works for testing on the free tier. For production, verify your domain at resend.com and update the `from` field to `noreply@yourdomain.com`.
 
-- [ ] **Step 2: Verify TypeScript compiles**
+- [x] **Step 2: Verify TypeScript compiles**
 
 ```bash
 npx tsc --noEmit
@@ -422,7 +422,7 @@ npx tsc --noEmit
 
 Expected: no errors.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add app/api/reviews/route.ts
@@ -438,7 +438,7 @@ git commit -m "feat(api): add POST /api/reviews with validation, rate limiting, 
 
 This handler is triggered when the user clicks the link in the verification email. It validates the token, marks `emailVerified: true`, clears the token, and redirects to the product page in the reviewer's locale.
 
-- [ ] **Step 1: Create the directory and file**
+- [x] **Step 1: Create the directory and file**
 
 Create `app/api/reviews/verify/route.ts` with the following content:
 
@@ -509,13 +509,13 @@ export async function GET(request: Request) {
 }
 ```
 
-- [ ] **Step 2: Verify TypeScript compiles**
+- [x] **Step 2: Verify TypeScript compiles**
 
 ```bash
 npx tsc --noEmit
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add app/api/reviews/verify/route.ts
@@ -531,7 +531,7 @@ git commit -m "feat(api): add GET /api/reviews/verify for email token verificati
 
 All styled components for the form live here. `ReviewForm.tsx` only imports from this file — no inline styles.
 
-- [ ] **Step 1: Create the file**
+- [x] **Step 1: Create the file**
 
 ```ts
 import styled from 'styled-components'
@@ -661,13 +661,13 @@ export const HoneypotField = styled.div`
 `
 ```
 
-- [ ] **Step 2: Verify TypeScript compiles**
+- [x] **Step 2: Verify TypeScript compiles**
 
 ```bash
 npx tsc --noEmit
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add components/product-detail/ReviewForm.styles.ts
@@ -681,7 +681,7 @@ git commit -m "feat(ui): add ReviewForm styled components"
 **Files:**
 - Create: `components/product-detail/ReviewForm.tsx`
 
-- [ ] **Step 1: Create the file**
+- [x] **Step 1: Create the file**
 
 ```tsx
 'use client'
@@ -861,13 +861,13 @@ export default function ReviewForm({ productId, locale, labels }: Props) {
 }
 ```
 
-- [ ] **Step 2: Verify TypeScript compiles**
+- [x] **Step 2: Verify TypeScript compiles**
 
 ```bash
 npx tsc --noEmit
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add components/product-detail/ReviewForm.tsx
@@ -883,7 +883,7 @@ git commit -m "feat(ui): add ReviewForm client component with star selector and 
 - Modify: `components/product-detail/ProductDetail.tsx` (import, wrap, add ReviewForm)
 - Modify: `components/product-detail/index.ts` (export ReviewForm)
 
-- [ ] **Step 1: Add ReviewsSectionWrapper to ProductDetail.styles.ts**
+- [x] **Step 1: Add ReviewsSectionWrapper to ProductDetail.styles.ts**
 
 At the bottom of `components/product-detail/ProductDetail.styles.ts`, add:
 
@@ -894,7 +894,7 @@ export const ReviewsSectionWrapper = styled.div`
 `
 ```
 
-- [ ] **Step 2: Update ProductDetail.tsx imports**
+- [x] **Step 2: Update ProductDetail.tsx imports**
 
 In `components/product-detail/ProductDetail.tsx`, add these imports:
 
@@ -906,7 +906,7 @@ import { ReviewsSectionWrapper } from './ProductDetail.styles'
 
 Also add `ReviewsSectionWrapper` to the existing destructured import from `'./ProductDetail.styles'`.
 
-- [ ] **Step 3: Read locale from URL params in ProductDetail**
+- [x] **Step 3: Read locale from URL params in ProductDetail**
 
 Inside the `ProductDetail` function body, add after the existing hooks:
 
@@ -915,7 +915,7 @@ const params = useParams()
 const locale = (params?.locale as string) ?? 'en'
 ```
 
-- [ ] **Step 4: Wrap ReviewsSection + ReviewForm in ProductDetail.tsx**
+- [x] **Step 4: Wrap ReviewsSection + ReviewForm in ProductDetail.tsx**
 
 Replace:
 ```tsx
@@ -954,7 +954,7 @@ With:
 </ReviewsSectionWrapper>
 ```
 
-- [ ] **Step 5: Export ReviewForm from barrel**
+- [x] **Step 5: Export ReviewForm from barrel**
 
 In `components/product-detail/index.ts`, add:
 
@@ -962,7 +962,7 @@ In `components/product-detail/index.ts`, add:
 export { default as ReviewForm } from './ReviewForm'
 ```
 
-- [ ] **Step 6: Verify TypeScript compiles**
+- [x] **Step 6: Verify TypeScript compiles**
 
 ```bash
 npx tsc --noEmit
@@ -970,7 +970,7 @@ npx tsc --noEmit
 
 Expected: no errors.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add components/product-detail/ProductDetail.styles.ts \
@@ -983,13 +983,13 @@ git commit -m "feat(ui): integrate ReviewForm into ProductDetail with ReviewsSec
 
 ### Task 11: Manual smoke test
 
-- [ ] **Step 1: Start dev server (clearing cache first)**
+- [x] **Step 1: Start dev server (clearing cache first)**
 
 ```bash
 rm -rf .next && npm run dev
 ```
 
-- [ ] **Step 2: Test the review form UI**
+- [x] **Step 2: Test the review form UI**
 
 1. Navigate to `http://localhost:3000/en/product`
 2. Scroll down to the reviews section — the "Write a Review" form should appear below the reviews list
@@ -999,11 +999,11 @@ rm -rf .next && npm run dev
 6. Fill in name, email, review text (min 20 chars)
 7. Submit — button should show "Submitting..." then either success or error
 
-- [ ] **Step 3: Test honeypot (manual)**
+- [x] **Step 3: Test honeypot (manual)**
 
 Open browser DevTools, find the hidden `website` input, set its value to anything, and submit the form. The API should silently return 200 without creating a Sanity document. Verify in Sanity Studio that no document was created.
 
-- [ ] **Step 4: Test email verification flow**
+- [x] **Step 4: Test email verification flow**
 
 1. Submit a valid review
 2. Check the email inbox (Resend sandbox — first test will go to your Resend account email)
@@ -1012,19 +1012,40 @@ Open browser DevTools, find the hidden `website` input, set its value to anythin
 5. Check Sanity Studio → the review should have `emailVerified: true`, `approved: false`
 6. Approve the review in Studio → it should appear in the reviews list on the product page
 
-- [ ] **Step 5: Test Hebrew locale**
+- [x] **Step 5: Test Hebrew locale**
 
 1. Navigate to `http://localhost:3000/he/product`
 2. Form labels should be in Hebrew
 3. Submit a review → verification email sent → click link → redirect to `/he/product`
 
-- [ ] **Step 6: Test duplicate protection**
+- [x] **Step 6: Test duplicate protection**
 
 Submit the same email + product twice. Second attempt should show the "already submitted" error.
 
-- [ ] **Step 7: Final commit**
+- [x] **Step 7: Final commit**
 
 ```bash
 git add .
 git commit -m "chore: review submission feature complete — ready for manual testing"
 ```
+
+---
+
+## Post-Plan Additions
+
+The following improvements were made after the original plan was executed:
+
+### Accordion UI (replaces scrollable wrapper)
+`ReviewsSectionWrapper` was changed from `max-height: 600px; overflow-y: auto` to `display: flex; flex-direction: column`. The reviews list and form are now each wrapped in a collapsible `AccordionSection` (CSS `max-height` transition). New styled components added to `ProductDetail.styles.ts`: `AccordionSection`, `AccordionHeader`, `AccordionTitleGroup`, `AccordionTitle`, `AccordionMeta`, `AccordionChevron<{$open}>`, `AccordionBody<{$open}>`. State: `isReviewsOpen`, `isFormOpen` in `ProductDetail.tsx`.
+
+### Verification success toast
+`VerificationToast` styled component added to `ProductDetail.styles.ts` (fixed position, dark background, slide-in via `translateY`). Controlled by `toastVisible` state. Auto-dismisses after 4s via `useEffect`. URL cleaned with `router.replace` to remove `?verified=1`. New i18n key: `product.review.verifiedSuccess`.
+
+### Review section visual redesign
+- `ReviewStars` → amber (`warningAmber`) with `letter-spacing: 3px`
+- `ReviewCard` → padding-based spacing, border-top separator, first card has no border
+- `AccordionMeta` (rating display) → uses `warningAmber`
+- `AccordionHeader` → hover opacity transition
+
+### Per-field inline validation (replaces browser native bubbles)
+`<form noValidate>` disables browser validation tooltips. `fieldErrors` state object tracks per-field error messages, cleared on each field change. New styled components: `FieldItem` (flex column wrapper), `FieldError` (amber inline error). `SuccessMessage` restructured into `SuccessMessage` + `SuccessIcon` + `SuccessText`. Four new i18n keys added to both lang files: `starRequired`, `nameRequired`, `emailRequired`, `quoteRequired`. `starLabel` type changed from `string` to `(n: number) => string` to fix next-intl ICU interpolation error.

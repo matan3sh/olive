@@ -140,6 +140,11 @@ export const AccordionHeader = styled.button`
   padding: 0;
   cursor: pointer;
   text-align: start;
+  transition: opacity 0.15s ease;
+
+  &:hover {
+    opacity: 0.75;
+  }
 `
 
 export const AccordionTitleGroup = styled.span`
@@ -158,10 +163,10 @@ export const AccordionTitle = styled.span`
 `
 
 export const AccordionMeta = styled.span`
-  font-size: 13px;
-  font-weight: 300;
-  color: ${({ theme }) => theme.colors.textDark};
-  opacity: 0.6;
+  font-size: 12px;
+  font-weight: 400;
+  color: ${({ theme }) => theme.colors.warningAmber};
+  letter-spacing: 0.5px;
 `
 
 export const AccordionChevron = styled.span<{ $open: boolean }>`

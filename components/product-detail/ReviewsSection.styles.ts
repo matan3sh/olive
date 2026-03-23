@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const ReviewsWrapper = styled.section`
-  padding: 40px 0 0;
+  padding: 20px 0 0;
 `
 
 export const ReviewsHeading = styled.h3`
@@ -20,40 +20,47 @@ export const ReviewList = styled.ul`
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
 `
 
 export const ReviewCard = styled.li`
+  padding: 20px 0;
   border-top: 1px solid ${({ theme }) => theme.colors.sectionGreen};
-  padding-top: 16px;
+
+  &:first-child {
+    border-top: none;
+    padding-top: 4px;
+  }
 `
 
 export const ReviewStars = styled.p`
-  font-size: 14px;
-  color: ${({ theme }) => theme.colors.textDark};
-  margin-bottom: 4px;
+  font-size: 13px;
+  color: ${({ theme }) => theme.colors.warningAmber};
+  letter-spacing: 3px;
+  margin-bottom: 10px;
 `
 
 export const ReviewMeta = styled.p`
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.textDark};
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   text-transform: uppercase;
-  opacity: 0.5;
-  margin-bottom: 8px;
+  opacity: 0.45;
+  margin-bottom: 10px;
 `
 
 export const ReviewQuote = styled.p`
   font-size: 14px;
   font-weight: 300;
   color: ${({ theme }) => theme.colors.textDark};
-  line-height: 22px;
+  line-height: 1.8;
+  opacity: 0.85;
 `
 
 export const NoReviews = styled.p`
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 300;
   color: ${({ theme }) => theme.colors.textDark};
-  opacity: 0.5;
+  letter-spacing: 0.3px;
+  opacity: 0.45;
 `

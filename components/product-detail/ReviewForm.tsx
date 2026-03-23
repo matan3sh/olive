@@ -7,10 +7,14 @@ import {
   StarRow,
   StarButton,
   FieldGroup,
+  FieldItem,
+  FieldError,
   FormInput,
   FormTextarea,
   SubmitBtn,
   SuccessMessage,
+  SuccessIcon,
+  SuccessText,
   ErrorMessage,
   HoneypotField,
 } from './ReviewForm.styles'
@@ -21,6 +25,10 @@ interface Labels {
   emailPlaceholder: string
   textPlaceholder: string
   starLabel: (n: number) => string
+  starRequired: string
+  nameRequired: string
+  emailRequired: string
+  quoteRequired: string
   submit: string
   submitting: string
   success: string
@@ -49,15 +57,27 @@ export default function ReviewForm({ productId, locale, labels, showHeading = tr
   const [email, setEmail] = useState('')
   const [quote, setQuote] = useState('')
   const [honeypot, setHoneypot] = useState('')
+  const [fieldErrors, setFieldErrors] = useState({ rating: '', name: '', email: '', quote: '' })
+
+  function validate() {
+    const errors = { rating: '', name: '', email: '', quote: '' }
+    if (rating < 1) errors.rating = labels.starRequired
+    if (!name.trim()) errors.name = labels.nameRequired
+    if (!EMAIL_REGEX.test(email)) errors.email = labels.emailRequired
+    if (quote.trim().length < 20) errors.quote = labels.quoteRequired
+    return errors
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setErrorMsg('')
 
-    if (rating < 1 || !name.trim() || !EMAIL_REGEX.test(email) || quote.trim().length < 20) {
-      setErrorMsg(labels.errorGeneric)
+    const errors = validate()
+    if (errors.rating || errors.name || errors.email || errors.quote) {
+      setFieldErrors(errors)
       return
     }
+    setFieldErrors({ rating: '', name: '', email: '', quote: '' })
 
     setFormState('submitting')
 
@@ -97,7 +117,10 @@ export default function ReviewForm({ productId, locale, labels, showHeading = tr
   if (formState === 'success') {
     return (
       <FormWrapper>
-        <SuccessMessage>{labels.success}</SuccessMessage>
+        <SuccessMessage>
+          <SuccessIcon>★</SuccessIcon>
+          <SuccessText>{labels.success}</SuccessText>
+        </SuccessMessage>
       </FormWrapper>
     )
   }
@@ -107,22 +130,25 @@ export default function ReviewForm({ productId, locale, labels, showHeading = tr
   return (
     <FormWrapper>
       {showHeading && <FormHeading>{labels.heading}</FormHeading>}
-      <form onSubmit={handleSubmit}>
-        <StarRow>
-          {[1, 2, 3, 4, 5].map((n) => (
-            <StarButton
-              key={n}
-              type="button"
-              $active={n <= displayRating}
-              aria-label={labels.starLabel(n)}
-              onClick={() => setRating(n)}
-              onMouseEnter={() => setHoveredRating(n)}
-              onMouseLeave={() => setHoveredRating(0)}
-            >
-              ★
-            </StarButton>
-          ))}
-        </StarRow>
+      <form onSubmit={handleSubmit} noValidate>
+        <FieldItem>
+          <StarRow>
+            {[1, 2, 3, 4, 5].map((n) => (
+              <StarButton
+                key={n}
+                type="button"
+                $active={n <= displayRating}
+                aria-label={labels.starLabel(n)}
+                onClick={() => { setRating(n); setFieldErrors((p) => ({ ...p, rating: '' })) }}
+                onMouseEnter={() => setHoveredRating(n)}
+                onMouseLeave={() => setHoveredRating(0)}
+              >
+                ★
+              </StarButton>
+            ))}
+          </StarRow>
+          {fieldErrors.rating && <FieldError>{fieldErrors.rating}</FieldError>}
+        </FieldItem>
 
         <HoneypotField aria-hidden="true">
           <input
@@ -136,29 +162,34 @@ export default function ReviewForm({ productId, locale, labels, showHeading = tr
         </HoneypotField>
 
         <FieldGroup>
-          <FormInput
-            type="text"
-            placeholder={labels.namePlaceholder}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            maxLength={100}
-            required
-          />
-          <FormInput
-            type="email"
-            placeholder={labels.emailPlaceholder}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <FormTextarea
-            placeholder={labels.textPlaceholder}
-            value={quote}
-            onChange={(e) => setQuote(e.target.value)}
-            minLength={20}
-            maxLength={1000}
-            required
-          />
+          <FieldItem>
+            <FormInput
+              type="text"
+              placeholder={labels.namePlaceholder}
+              value={name}
+              onChange={(e) => { setName(e.target.value); setFieldErrors((p) => ({ ...p, name: '' })) }}
+              maxLength={100}
+            />
+            {fieldErrors.name && <FieldError>{fieldErrors.name}</FieldError>}
+          </FieldItem>
+          <FieldItem>
+            <FormInput
+              type="email"
+              placeholder={labels.emailPlaceholder}
+              value={email}
+              onChange={(e) => { setEmail(e.target.value); setFieldErrors((p) => ({ ...p, email: '' })) }}
+            />
+            {fieldErrors.email && <FieldError>{fieldErrors.email}</FieldError>}
+          </FieldItem>
+          <FieldItem>
+            <FormTextarea
+              placeholder={labels.textPlaceholder}
+              value={quote}
+              onChange={(e) => { setQuote(e.target.value); setFieldErrors((p) => ({ ...p, quote: '' })) }}
+              maxLength={1000}
+            />
+            {fieldErrors.quote && <FieldError>{fieldErrors.quote}</FieldError>}
+          </FieldItem>
         </FieldGroup>
 
         {errorMsg && <ErrorMessage>{errorMsg}</ErrorMessage>}

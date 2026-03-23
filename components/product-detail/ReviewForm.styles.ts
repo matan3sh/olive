@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const FormWrapper = styled.div`
-  padding-top: 32px;
+  padding-top: 28px;
 `
 
 export const FormHeading = styled.h3`
@@ -11,31 +11,39 @@ export const FormHeading = styled.h3`
   letter-spacing: 1px;
   text-transform: uppercase;
   opacity: 0.5;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 `
 
 export const StarRow = styled.div`
   display: flex;
-  gap: 4px;
-  margin-bottom: 20px;
+  gap: 2px;
+  margin-bottom: 24px;
 `
 
 export const StarButton = styled.button<{ $active: boolean }>`
   background: none;
   border: none;
-  padding: 0;
+  padding: 2px;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 28px;
   line-height: 1;
-  color: ${({ $active, theme }) => ($active ? theme.colors.textDark : theme.colors.borderMuted)};
-  transition: color 0.1s ease;
+  color: ${({ $active, theme }) =>
+    $active ? theme.colors.warningAmber : theme.colors.borderMuted};
+  transition: color 0.12s ease, transform 0.1s ease;
+  display: inline-flex;
+  align-items: center;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.warningAmber};
+    transform: scale(1.15);
+  }
 `
 
 export const FieldGroup = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 16px;
+  gap: 20px;
+  margin-bottom: 20px;
 `
 
 export const FormInput = styled.input`
@@ -47,13 +55,14 @@ export const FormInput = styled.input`
   font-weight: 300;
   color: ${({ theme }) => theme.colors.textDark};
   background: transparent;
-  padding: 8px 0;
+  padding: 10px 0;
   width: 100%;
   letter-spacing: 0.3px;
+  transition: border-bottom-color 0.2s ease;
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.textDark};
-    opacity: 0.4;
+    opacity: 0.35;
   }
 
   &:focus {
@@ -70,15 +79,17 @@ export const FormTextarea = styled.textarea`
   font-weight: 300;
   color: ${({ theme }) => theme.colors.textDark};
   background: transparent;
-  padding: 8px 0;
+  padding: 10px 0;
   width: 100%;
   resize: vertical;
-  min-height: 80px;
+  min-height: 90px;
   letter-spacing: 0.3px;
+  line-height: 1.7;
+  transition: border-bottom-color 0.2s ease;
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.textDark};
-    opacity: 0.4;
+    opacity: 0.35;
   }
 
   &:focus {
@@ -88,32 +99,64 @@ export const FormTextarea = styled.textarea`
 
 export const SubmitBtn = styled.button<{ $loading: boolean }>`
   width: 100%;
-  height: 48px;
+  height: 52px;
   background-color: ${({ theme }) => theme.colors.btnDark};
   color: ${({ theme }) => theme.colors.white};
   border: none;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 400;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   cursor: ${({ $loading }) => ($loading ? 'not-allowed' : 'pointer')};
-  opacity: ${({ $loading }) => ($loading ? 0.7 : 1)};
-  transition: opacity 0.2s ease;
-  margin-top: 8px;
+  opacity: ${({ $loading }) => ($loading ? 0.6 : 1)};
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+  margin-top: 4px;
+
+  &:hover:not(:disabled) {
+    background-color: ${({ theme }) => theme.colors.textDark};
+  }
 `
 
-export const SuccessMessage = styled.p`
+export const SuccessMessage = styled.div`
+  padding: 28px 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`
+
+export const SuccessIcon = styled.span`
+  font-size: 22px;
+  color: ${({ theme }) => theme.colors.warningAmber};
+  letter-spacing: 0;
+`
+
+export const SuccessText = styled.p`
   font-size: 14px;
   font-weight: 300;
   color: ${({ theme }) => theme.colors.textDark};
-  line-height: 1.7;
-  padding: 24px 0;
+  line-height: 1.75;
+  opacity: 0.8;
+`
+
+export const FieldItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+`
+
+export const FieldError = styled.span`
+  font-size: 12px;
+  font-weight: 400;
+  color: ${({ theme }) => theme.colors.warningAmber};
+  letter-spacing: 0.3px;
 `
 
 export const ErrorMessage = styled.p`
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 400;
   color: ${({ theme }) => theme.colors.warningAmber};
-  margin-top: 8px;
+  letter-spacing: 0.3px;
+  margin-top: 10px;
 `
 
 export const HoneypotField = styled.div`
