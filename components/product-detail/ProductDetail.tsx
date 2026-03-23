@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import type { Product } from '@/lib/cms'
+import type { Product, Review, ShippingSettings } from '@/lib/cms'
 import { useCart } from '@/lib/cart'
 import {
   ProductMain,
@@ -23,13 +23,28 @@ import {
 import Breadcrumb from './Breadcrumb'
 import SizeSelector from './SizeSelector'
 import RelatedProducts from './RelatedProducts'
+import ReviewsSection from './ReviewsSection'
+import ShippingSection from './ShippingSection'
 
 interface Props {
   product: Product
   allProducts: Product[]
+  reviews: Review[]
+  shippingSettings: ShippingSettings | null
 }
 
-export default function ProductDetail({ product, allProducts }: Props) {
+function deriveMinPrice(variants: Product['variants']): string {
+  if (!variants || variants.length === 0) return ''
+  const prices = variants
+    .map((v) => parseFloat(v.price.replace(/[^0-9.]/g, '')))
+    .filter((n) => !isNaN(n))
+  if (prices.length === 0) return variants[0].price
+  const min = Math.min(...prices)
+  const match = variants.find((v) => parseFloat(v.price.replace(/[^0-9.]/g, '')) === min)
+  return match?.price ?? variants[0].price
+}
+
+export default function ProductDetail({ product, allProducts, reviews, shippingSettings }: Props) {
   const [selectedSize, setSelectedSize] = useState(0)
   const t = useTranslations('product')
   const fromLabel = t('from').toUpperCase()
@@ -37,12 +52,13 @@ export default function ProductDetail({ product, allProducts }: Props) {
   const { addItem, openCart } = useCart()
 
   function handleAddToCart() {
-    const numericPrice = parseFloat(product.price.replace(/[^0-9.]/g, '')) || 0
+    const selectedVariant = product.variants[selectedSize] ?? product.variants[0]
+    const numericPrice = parseFloat(selectedVariant.price.replace(/[^0-9.]/g, '')) || 0
     addItem({
       productId: product.id,
       title: product.title,
       image: product.image ?? null,
-      size: product.sizes[selectedSize] ?? product.sizes[0] ?? '',
+      size: selectedVariant.label,
       price: numericPrice,
     })
     openCart()
@@ -52,6 +68,8 @@ export default function ProductDetail({ product, allProducts }: Props) {
     () => allProducts.filter((p) => p.id !== product.id),
     [allProducts, product.id],
   )
+
+  const displayPrice = useMemo(() => deriveMinPrice(product.variants), [product.variants])
 
   return (
     <ProductMain>
@@ -76,15 +94,17 @@ export default function ProductDetail({ product, allProducts }: Props) {
         <ProductInfo>
           <ProductPageTitle>{product.title}</ProductPageTitle>
 
-          <ProductPagePrice>{fromLabel} {product.price}</ProductPagePrice>
+          <ProductPagePrice>{fromLabel} {displayPrice}</ProductPagePrice>
 
           <ProductDivider />
 
           <SizeSelector
-            sizes={product.sizes}
+            variants={product.variants}
             selectedSize={selectedSize}
             onSelect={setSelectedSize}
             label={t('size')}
+            outOfStockLabel={t('outOfStock')}
+            fewLeftLabel={t('fewLeft')}
           />
 
           <ProductDescription>{product.description}</ProductDescription>
@@ -106,6 +126,30 @@ export default function ProductDetail({ product, allProducts }: Props) {
               </DetailItem>
             ))}
           </ProductDetailsRow>
+
+          {shippingSettings && (
+            <>
+              <ProductDivider />
+              <ShippingSection
+                settings={shippingSettings}
+                labels={{
+                  heading: t('shipping.heading'),
+                  zone: t('shipping.zone'),
+                  price: t('shipping.price'),
+                  delivery: t('shipping.delivery'),
+                  freeAbove: t('shipping.freeAbove'),
+                }}
+              />
+            </>
+          )}
+
+          <ProductDivider />
+
+          <ReviewsSection
+            reviews={reviews}
+            heading={t('reviews.heading')}
+            noReviewsLabel={t('reviews.noReviews')}
+          />
         </ProductInfo>
       </ProductSplit>
 
