@@ -31,7 +31,11 @@ export const ProductSplit = styled.div`
   `}
 `
 
-export const ProductImageBox = styled.div`
+interface ProductImageBoxProps {
+  $objectFit?: 'cover' | 'contain'
+}
+
+export const ProductImageBox = styled.div<ProductImageBoxProps>`
   background-color: ${({ theme }) => theme.colors.imageBg};
   display: flex;
   align-items: center;
@@ -39,6 +43,11 @@ export const ProductImageBox = styled.div`
   aspect-ratio: 1 / 1.2;
   position: relative;
   overflow: hidden;
+
+  img {
+    object-fit: ${({ $objectFit }) => $objectFit ?? 'cover'};
+    padding: 40px;
+  }
 `
 
 export const ProductInfo = styled.div`

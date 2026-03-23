@@ -80,13 +80,12 @@ export default function ProductDetail({ product, allProducts, reviews, shippingS
       />
 
       <ProductSplit>
-        <ProductImageBox>
+        <ProductImageBox $objectFit={product.fit}>
           <Image
             src={product.image}
             alt={product.title}
             fill
             sizes="(max-width: 900px) 100vw, 50vw"
-            style={{ objectFit: product.fit, padding: '40px' }}
             priority
           />
         </ProductImageBox>
