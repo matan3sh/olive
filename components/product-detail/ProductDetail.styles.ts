@@ -120,3 +120,8 @@ export const DetailValue = styled.span`
   font-weight: 300;
   color: ${({ theme }) => theme.colors.textDark};
 `
+
+export const ReviewsSectionWrapper = styled.div`
+  max-height: 600px;
+  overflow-y: auto;
+`

@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import Image from 'next/image'
+import { useParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import type { Product, Review, ShippingSettings } from '@/lib/cms'
 import { useCart } from '@/lib/cart'
@@ -20,12 +21,14 @@ import {
   DetailItem,
   DetailLabel,
   DetailValue,
+  ReviewsSectionWrapper,
 } from './ProductDetail.styles'
 import Breadcrumb from './Breadcrumb'
 import SizeSelector from './SizeSelector'
 import RelatedProducts from './RelatedProducts'
 import ReviewsSection from './ReviewsSection'
 import ShippingSection from './ShippingSection'
+import ReviewForm from './ReviewForm'
 
 interface Props {
   product: Product
@@ -36,6 +39,8 @@ interface Props {
 
 
 export default function ProductDetail({ product, allProducts, reviews, shippingSettings }: Props) {
+  const params = useParams()
+  const locale = (params?.locale as string) ?? 'en'
   const [selectedSize, setSelectedSize] = useState(0)
   const t = useTranslations('product')
   const fromLabel = t('from').toUpperCase()
@@ -135,11 +140,30 @@ export default function ProductDetail({ product, allProducts, reviews, shippingS
 
           <ProductDivider />
 
-          <ReviewsSection
-            reviews={reviews}
-            heading={t('reviews.heading')}
-            noReviewsLabel={t('reviews.noReviews')}
-          />
+          <ReviewsSectionWrapper>
+            <ReviewsSection
+              reviews={reviews}
+              heading={t('reviews.heading')}
+              noReviewsLabel={t('reviews.noReviews')}
+            />
+            <ReviewForm
+              productId={product.id}
+              locale={locale}
+              labels={{
+                heading: t('review.formHeading'),
+                namePlaceholder: t('review.namePlaceholder'),
+                emailPlaceholder: t('review.emailPlaceholder'),
+                textPlaceholder: t('review.textPlaceholder'),
+                starLabel: t('review.starLabel'),
+                submit: t('review.submit'),
+                submitting: t('review.submitting'),
+                success: t('review.success'),
+                errorGeneric: t('review.errorGeneric'),
+                errorDuplicate: t('review.errorDuplicate'),
+                errorRateLimit: t('review.errorRateLimit'),
+              }}
+            />
+          </ReviewsSectionWrapper>
         </ProductInfo>
       </ProductSplit>
 
