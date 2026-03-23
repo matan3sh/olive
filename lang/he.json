@@ -47,6 +47,19 @@
       "price": "מחיר",
       "delivery": "זמן אספקה",
       "freeAbove": "חינם מעל"
+    },
+    "review": {
+      "formHeading": "כתוב ביקורת",
+      "namePlaceholder": "השם שלך",
+      "emailPlaceholder": "האימייל שלך",
+      "textPlaceholder": "שתף את החוויה שלך (20–1000 תווים)",
+      "starLabel": "דרג {n} מתוך 5",
+      "submit": "שלח ביקורת",
+      "submitting": "שולח...",
+      "success": "תודה! בדוק את תיבת הדואר שלך לאישור הביקורת.",
+      "errorGeneric": "משהו השתבש. נסה שוב.",
+      "errorDuplicate": "כבר שלחת ביקורת על מוצר זה.",
+      "errorRateLimit": "המתן לפני שליחת ביקורת נוספת."
     }
   },
   "footer": {

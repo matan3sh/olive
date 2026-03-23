@@ -47,6 +47,19 @@
       "price": "Price",
       "delivery": "Delivery",
       "freeAbove": "Free above"
+    },
+    "review": {
+      "formHeading": "Write a Review",
+      "namePlaceholder": "Your name",
+      "emailPlaceholder": "Your email",
+      "textPlaceholder": "Share your experience (20–1000 characters)",
+      "starLabel": "Rate {n} out of 5",
+      "submit": "Submit Review",
+      "submitting": "Submitting...",
+      "success": "Thanks! Check your inbox to verify your review.",
+      "errorGeneric": "Something went wrong. Please try again.",
+      "errorDuplicate": "You've already submitted a review for this product.",
+      "errorRateLimit": "Please wait before submitting another review."
     }
   },
   "footer": {
