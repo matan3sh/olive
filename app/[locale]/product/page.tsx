@@ -1,5 +1,12 @@
 import { notFound } from 'next/navigation'
-import { getProducts, getProductById, getNavigation, type Locale } from '@/lib/cms'
+import {
+  getProducts,
+  getProductById,
+  getNavigation,
+  getReviewsByProduct,
+  getShippingSettings,
+  type Locale,
+} from '@/lib/cms'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import ProductDetail from '@/components/product-detail'
@@ -15,10 +22,12 @@ export default async function ProductPage({
   const { id = 'robust' } = await searchParams
   const loc = locale as Locale
 
-  const [product, allProducts, navigation] = await Promise.all([
+  const [product, allProducts, navigation, reviews, shippingSettings] = await Promise.all([
     getProductById(id, loc),
     getProducts(loc),
     getNavigation(loc),
+    getReviewsByProduct(id),
+    getShippingSettings(loc),
   ])
 
   const currentProduct = product ?? allProducts[0]
@@ -27,7 +36,12 @@ export default async function ProductPage({
   return (
     <>
       <Header navigation={navigation} />
-      <ProductDetail product={currentProduct} allProducts={allProducts} />
+      <ProductDetail
+        product={currentProduct}
+        allProducts={allProducts}
+        reviews={reviews}
+        shippingSettings={shippingSettings}
+      />
       <Footer navigation={navigation} />
     </>
   )
