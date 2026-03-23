@@ -4,6 +4,7 @@ import { useMemo, useCallback } from 'react'
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import type { Product } from '@/lib/cms'
+import { deriveMinPriceNumeric } from '@/lib/utils/price'
 import ProductCard from '@/components/products/ProductCard'
 import ShopHero from './ShopHero'
 import FilterBar, { type FilterState } from './FilterBar'
@@ -64,7 +65,7 @@ export default function ShopPage({ products }: Props) {
       }
 
       // Price filter
-      const price = parsePrice(product.variants?.[0]?.price ?? '')
+      const price = deriveMinPriceNumeric(product.variants)
       if (filterState.minPrice && price < parseFloat(filterState.minPrice)) {
         return false
       }
@@ -89,12 +90,12 @@ export default function ShopPage({ products }: Props) {
       })
     } else if (filterState.sort === 'price_asc') {
       result = [...result].sort((a, b) => {
-        const diff = parsePrice(a.variants?.[0]?.price ?? '') - parsePrice(b.variants?.[0]?.price ?? '')
+        const diff = deriveMinPriceNumeric(a.variants) - deriveMinPriceNumeric(b.variants)
         return diff !== 0 ? diff : a.title.localeCompare(b.title)
       })
     } else if (filterState.sort === 'price_desc') {
       result = [...result].sort((a, b) => {
-        const diff = parsePrice(b.variants?.[0]?.price ?? '') - parsePrice(a.variants?.[0]?.price ?? '')
+        const diff = deriveMinPriceNumeric(b.variants) - deriveMinPriceNumeric(a.variants)
         return diff !== 0 ? diff : b.title.localeCompare(a.title)
       })
     }

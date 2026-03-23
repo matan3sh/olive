@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useMemo, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import type { Product } from '@/lib/cms'
+import { deriveMinPriceNumeric } from '@/lib/utils/price'
 import {
   FilterBarSection,
   FilterBarInner,
@@ -58,10 +59,7 @@ export default function FilterBar({
   }, [products])
 
   const priceRange = useMemo(() => {
-    const prices = products.map((p) => {
-      const cleaned = (p.variants?.[0]?.price ?? '').replace(/[^0-9.]/g, '')
-      return parseFloat(cleaned) || 0
-    })
+    const prices = products.map((p) => deriveMinPriceNumeric(p.variants))
     return {
       min: Math.floor(Math.min(...prices)),
       max: Math.ceil(Math.max(...prices)),

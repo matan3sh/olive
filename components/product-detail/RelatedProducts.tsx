@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import type { Product } from '@/lib/cms'
+import { deriveMinPrice } from '@/lib/utils/price'
 import {
   RelatedCard,
   RelatedGrid,
@@ -36,7 +37,7 @@ export default function RelatedProducts({ products, heading, fromLabel }: Props)
                 />
               </RelatedImageBox>
               <RelatedTitle>{p.title}</RelatedTitle>
-              <RelatedPrice>{fromLabel} {p.variants?.[0]?.price ?? ''}</RelatedPrice>
+              <RelatedPrice>{fromLabel} {deriveMinPrice(p.variants)}</RelatedPrice>
             </RelatedCard>
           ))}
         </RelatedGrid>

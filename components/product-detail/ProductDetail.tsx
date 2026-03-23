@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import type { Product, Review, ShippingSettings } from '@/lib/cms'
 import { useCart } from '@/lib/cart'
+import { deriveMinPrice } from '@/lib/utils/price'
 import {
   ProductMain,
   ProductSplit,
@@ -33,16 +34,6 @@ interface Props {
   shippingSettings: ShippingSettings | null
 }
 
-function deriveMinPrice(variants: Product['variants']): string {
-  if (!variants || variants.length === 0) return ''
-  const prices = variants
-    .map((v) => parseFloat(v.price.replace(/[^0-9.]/g, '')))
-    .filter((n) => !isNaN(n))
-  if (prices.length === 0) return variants[0].price
-  const min = Math.min(...prices)
-  const match = variants.find((v) => parseFloat(v.price.replace(/[^0-9.]/g, '')) === min)
-  return match?.price ?? variants[0].price
-}
 
 export default function ProductDetail({ product, allProducts, reviews, shippingSettings }: Props) {
   const [selectedSize, setSelectedSize] = useState(0)

@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import type { Product } from '@/lib/cms'
+import { deriveMinPrice } from '@/lib/utils/price'
 import {
   ProductCard,
   ProductImageLink,
@@ -32,7 +33,7 @@ export default function ProductCardComponent({ product, index, fromLabel }: Prop
       </ProductImageLink>
       <ProductIndex>— {String(index + 1).padStart(2, '0')}</ProductIndex>
       <ProductTitle>{product.title}</ProductTitle>
-      <ProductPrice>{fromLabel} {product.variants?.[0]?.price ?? ''}</ProductPrice>
+      <ProductPrice>{fromLabel} {deriveMinPrice(product.variants)}</ProductPrice>
     </ProductCard>
   )
 }
