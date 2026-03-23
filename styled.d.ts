@@ -18,6 +18,7 @@ declare module 'styled-components' {
       muted: string
       imageBg: string
       borderMuted: string
+      warningAmber: string
     }
     fonts: { inter: string }
     breakpoints: { xl: string; lg: string; md: string; sm: string }
