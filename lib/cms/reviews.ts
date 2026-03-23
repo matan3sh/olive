@@ -7,7 +7,7 @@ function resolve(r: RawReview): Review {
 }
 
 const REVIEWS_BY_PRODUCT_QUERY = defineQuery(`
-  *[_type == "review" && product == $productId && approved == true] | order(date desc) {
+  *[_type == "review" && product == $productId && approved == true && emailVerified == true] | order(date desc) {
     "_id": _id, product, author, rating, quote, "date": date
   }
 `)
