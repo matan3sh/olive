@@ -34,7 +34,7 @@ export default function ShippingSection({ settings, labels }: Props) {
         </thead>
         <tbody>
           {settings.zones.map((zone) => (
-            <tr key={zone.label}>
+            <tr key={zone._key ?? zone.label}>
               <ShippingTd>{zone.label}</ShippingTd>
               <ShippingTd>
                 {zone.price}

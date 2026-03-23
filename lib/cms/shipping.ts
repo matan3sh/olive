@@ -11,7 +11,8 @@ function resolve(raw: RawShippingSettings, locale: Locale): ShippingSettings {
 
 const SHIPPING_SETTINGS_QUERY = defineQuery(`
   *[_type == "shippingSettings"][0] {
-    zones, notes
+    "zones": zones[] { _key, label, price, estimatedDays, freeThreshold },
+    notes
   }
 `)
 

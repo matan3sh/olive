@@ -22,11 +22,6 @@ interface Props {
   products: Product[]
 }
 
-function parsePrice(price: string): number {
-  const cleaned = price.replace(/[^0-9.]/g, '')
-  return parseFloat(cleaned) || 0
-}
-
 export default function ShopPage({ products }: Props) {
   const searchParams = useSearchParams()
   const router = useRouter()

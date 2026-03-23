@@ -279,8 +279,8 @@ export default function FilterBar({
                       />
                     </RangeTrack>
                     <PriceSliderLabels>
-                      <span>${Math.round(parseFloat(filters.minPrice || String(effectiveMin)))}</span>
-                      <span>${Math.round(parseFloat(filters.maxPrice || String(effectiveMax)))}</span>
+                      <span>{Math.round(parseFloat(filters.minPrice || String(effectiveMin)))}</span>
+                      <span>{Math.round(parseFloat(filters.maxPrice || String(effectiveMax)))}</span>
                     </PriceSliderLabels>
                   </PriceSliderContainer>
                 </PriceDropdownPanel>
@@ -320,12 +320,12 @@ export default function FilterBar({
             )}
             {hasActiveMinPrice && (
               <FilterChip onClick={() => removePrice('minPrice')}>
-                {t('filters.minLabel')}: ${filters.minPrice} <span>&times;</span>
+                {t('filters.minLabel')}: {filters.minPrice} <span>&times;</span>
               </FilterChip>
             )}
             {hasActiveMaxPrice && (
               <FilterChip onClick={() => removePrice('maxPrice')}>
-                {t('filters.maxLabel')}: ${filters.maxPrice} <span>&times;</span>
+                {t('filters.maxLabel')}: {filters.maxPrice} <span>&times;</span>
               </FilterChip>
             )}
             {filters.featured && (

@@ -173,6 +173,7 @@ export type RawReview = Review  // no localization — passthrough
 // ─── Shipping ─────────────────────────────────────────────────────────────────
 
 export interface ShippingZone {
+  _key?: string
   label: string
   price: string
   estimatedDays?: string
