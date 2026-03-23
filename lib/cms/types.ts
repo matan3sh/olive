@@ -175,8 +175,8 @@ export type RawReview = Review  // no localization — passthrough
 export interface ShippingZone {
   label: string
   price: string
-  estimatedDays: string
-  freeThreshold: string
+  estimatedDays?: string
+  freeThreshold?: string
 }
 
 export interface ShippingSettings {
