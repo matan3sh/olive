@@ -8,6 +8,7 @@ const intlMiddleware = createMiddleware({
 
 export default function proxy(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith('/studio')) return
+  if (request.nextUrl.pathname.startsWith('/api')) return
   return intlMiddleware(request)
 }
 
