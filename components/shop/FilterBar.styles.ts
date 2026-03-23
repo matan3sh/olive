@@ -83,6 +83,10 @@ export const DropdownPanel = styled.div`
   z-index: 20;
 `
 
+export const PriceDropdownPanel = styled(DropdownPanel)`
+  min-width: 240px;
+`
+
 export const DropdownLabel = styled.label`
   display: flex;
   align-items: center;
@@ -147,8 +151,8 @@ export const PriceSliderTrack = styled.div`
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      background: #11260c;
-      border: 2px solid #ffffff;
+      background: ${({ theme }) => theme.colors.textDark};
+      border: 2px solid ${({ theme }) => theme.colors.white};
       box-shadow: 0 1px 4px rgba(0,0,0,0.25);
       cursor: pointer;
     }
@@ -158,8 +162,67 @@ export const PriceSliderTrack = styled.div`
       width: 18px;
       height: 18px;
       border-radius: 50%;
-      background: #11260c;
-      border: 2px solid #ffffff;
+      background: ${({ theme }) => theme.colors.textDark};
+      border: 2px solid ${({ theme }) => theme.colors.white};
+      box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+      cursor: pointer;
+    }
+  }
+`
+
+interface RangeTrackProps {
+  $minPct: number
+  $maxPct: number
+}
+
+export const RangeTrack = styled.div<RangeTrackProps>`
+  position: relative;
+  height: 4px;
+  border-radius: 2px;
+  margin: 16px 0;
+  background: linear-gradient(
+    to right,
+    ${({ theme }) => theme.colors.sectionBorder} 0%,
+    ${({ theme }) => theme.colors.sectionBorder} ${({ $minPct }) => $minPct}%,
+    ${({ theme }) => theme.colors.textDark} ${({ $minPct }) => $minPct}%,
+    ${({ theme }) => theme.colors.textDark} ${({ $maxPct }) => $maxPct}%,
+    ${({ theme }) => theme.colors.sectionBorder} ${({ $maxPct }) => $maxPct}%,
+    ${({ theme }) => theme.colors.sectionBorder} 100%
+  );
+
+  input[type='range'] {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    height: 4px;
+    outline: none;
+
+    &::-webkit-slider-thumb {
+      pointer-events: auto;
+      appearance: none;
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: ${({ theme }) => theme.colors.textDark};
+      border: 2px solid ${({ theme }) => theme.colors.white};
+      box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+      cursor: pointer;
+    }
+
+    &::-moz-range-thumb {
+      pointer-events: auto;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: ${({ theme }) => theme.colors.textDark};
+      border: 2px solid ${({ theme }) => theme.colors.white};
       box-shadow: 0 1px 4px rgba(0,0,0,0.25);
       cursor: pointer;
     }
@@ -172,7 +235,7 @@ export const PriceSliderLabels = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 13px;
-  color: #11260c;
+  color: ${({ theme }) => theme.colors.textDark};
   font-weight: 500;
   margin-top: 8px;
 `

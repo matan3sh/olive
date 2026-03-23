@@ -12,9 +12,10 @@ import {
   Pill,
   DropdownWrapper,
   DropdownPanel,
+  PriceDropdownPanel,
   DropdownLabel,
   PriceSliderContainer,
-  PriceSliderTrack,
+  RangeTrack,
   RangeInput,
   PriceSliderLabels,
   RightGroup,
@@ -248,19 +249,11 @@ export default function FilterBar({
                 {t('filters.price')}
               </Pill>
               {openDropdown === 'price' && (
-                <DropdownPanel style={{ minWidth: 240 }}>
+                <PriceDropdownPanel>
                   <PriceSliderContainer>
-                    <PriceSliderTrack
-                      style={{
-                        background: `linear-gradient(to right,
-                          #d7d7d7 0%,
-                          #d7d7d7 ${((parseFloat(filters.minPrice || String(effectiveMin)) - effectiveMin) / (effectiveMax - effectiveMin)) * 100}%,
-                          #11260c ${((parseFloat(filters.minPrice || String(effectiveMin)) - effectiveMin) / (effectiveMax - effectiveMin)) * 100}%,
-                          #11260c ${((parseFloat(filters.maxPrice || String(effectiveMax)) - effectiveMin) / (effectiveMax - effectiveMin)) * 100}%,
-                          #d7d7d7 ${((parseFloat(filters.maxPrice || String(effectiveMax)) - effectiveMin) / (effectiveMax - effectiveMin)) * 100}%,
-                          #d7d7d7 100%
-                        )`
-                      }}
+                    <RangeTrack
+                      $minPct={((parseFloat(filters.minPrice || String(effectiveMin)) - effectiveMin) / (effectiveMax - effectiveMin)) * 100}
+                      $maxPct={((parseFloat(filters.maxPrice || String(effectiveMax)) - effectiveMin) / (effectiveMax - effectiveMin)) * 100}
                     >
                       <RangeInput
                         type="range"
@@ -284,13 +277,13 @@ export default function FilterBar({
                           handlePriceChange('maxPrice', String(val))
                         }}
                       />
-                    </PriceSliderTrack>
+                    </RangeTrack>
                     <PriceSliderLabels>
                       <span>${Math.round(parseFloat(filters.minPrice || String(effectiveMin)))}</span>
                       <span>${Math.round(parseFloat(filters.maxPrice || String(effectiveMax)))}</span>
                     </PriceSliderLabels>
                   </PriceSliderContainer>
-                </DropdownPanel>
+                </PriceDropdownPanel>
               )}
             </DropdownWrapper>
 
@@ -327,12 +320,12 @@ export default function FilterBar({
             )}
             {hasActiveMinPrice && (
               <FilterChip onClick={() => removePrice('minPrice')}>
-                Min: ${filters.minPrice} <span>&times;</span>
+                {t('filters.minLabel')}: ${filters.minPrice} <span>&times;</span>
               </FilterChip>
             )}
             {hasActiveMaxPrice && (
               <FilterChip onClick={() => removePrice('maxPrice')}>
-                Max: ${filters.maxPrice} <span>&times;</span>
+                {t('filters.maxLabel')}: ${filters.maxPrice} <span>&times;</span>
               </FilterChip>
             )}
             {filters.featured && (

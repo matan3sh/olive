@@ -74,7 +74,9 @@
       "clearAll": "Clear all filters",
       "results": "{count} results",
       "minPlaceholder": "Min",
-      "maxPlaceholder": "Max"
+      "maxPlaceholder": "Max",
+      "minLabel": "Min",
+      "maxLabel": "Max"
     },
     "emptyState": {
       "title": "No products match your filters",

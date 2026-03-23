@@ -74,7 +74,9 @@
       "clearAll": "נקה את כל הסננים",
       "results": "{count} תוצאות",
       "minPlaceholder": "מינימום",
-      "maxPlaceholder": "מקסימום"
+      "maxPlaceholder": "מקסימום",
+      "minLabel": "מינימום",
+      "maxLabel": "מקסימום"
     },
     "emptyState": {
       "title": "לא נמצאו מוצרים התואמים את הסינון",
