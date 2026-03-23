@@ -18,7 +18,9 @@
     "next-sanity": "^12.1.2",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "resend": "^6.9.4",
     "sanity": "^5.17.1",
+    "server-only": "^0.0.1",
     "styled-components": "^6.3.11"
   },
   "devDependencies": {
