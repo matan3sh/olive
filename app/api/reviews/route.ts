@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { sanityWriteClient } from '@/lib/sanity.write-client'
+import { theme } from '@/styles/theme'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -98,17 +99,17 @@ export async function POST(request: Request) {
       subject: 'Confirm your Olivum review',
       html: `
       <div style="font-family:sans-serif;max-width:500px;margin:0 auto;padding:32px;">
-        <h2 style="font-size:18px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:#11260c;margin-bottom:16px;">
+        <h2 style="font-size:18px;font-weight:400;letter-spacing:3px;text-transform:uppercase;color:${theme.colors.textDark};margin-bottom:16px;">
           THE VALLEY OLIVE OIL
         </h2>
-        <p style="color:#11260c;line-height:1.7;font-size:14px;font-weight:300;">
+        <p style="color:${theme.colors.textDark};line-height:1.7;font-size:14px;font-weight:300;">
           Thanks for your review, ${(author as string).trim().replace(/[<>&"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c] ?? c))}! Click the button below to verify your email and submit your review for approval.
         </p>
         <a href="${verifyUrl}"
-           style="display:inline-block;margin-top:20px;padding:14px 28px;background:#1f231a;color:#fff;text-decoration:none;font-size:12px;letter-spacing:2px;text-transform:uppercase;">
+           style="display:inline-block;margin-top:20px;padding:14px 28px;background:${theme.colors.btnDark};color:#fff;text-decoration:none;font-size:12px;letter-spacing:2px;text-transform:uppercase;">
           Verify My Review
         </a>
-        <p style="margin-top:28px;font-size:12px;color:#6b7280;line-height:1.6;">
+        <p style="margin-top:28px;font-size:12px;color:${theme.colors.muted};line-height:1.6;">
           This link expires in 48 hours. If you did not submit a review, you can safely ignore this email.
         </p>
       </div>

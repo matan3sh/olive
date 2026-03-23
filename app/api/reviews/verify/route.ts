@@ -57,7 +57,8 @@ export async function GET(request: Request) {
   // Verify and clear token
   await sanityWriteClient
     .patch(review._id)
-    .set({ emailVerified: true, verificationToken: null })
+    .set({ emailVerified: true })
+    .unset(['verificationToken'])
     .commit()
 
   return NextResponse.redirect(productUrl)
